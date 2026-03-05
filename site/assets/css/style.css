@@ -316,6 +316,10 @@ blockquote {
   align-items: flex-end;
   overflow: hidden;
   margin-top: var(--header-h);
+  background-color: #2A2A2A;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .hero-img {
@@ -326,7 +330,9 @@ blockquote {
   object-fit: cover;
 }
 
-.hero-overlay {
+.hero-overlay,
+.hero::after {
+  content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(
@@ -335,6 +341,7 @@ blockquote {
     rgba(0, 0, 0, 0.10) 60%,
     transparent 100%
   );
+  pointer-events: none;
 }
 
 .hero-content {

@@ -71,8 +71,8 @@ function mediaUrl(int $id): string {
 /**
  * Sanitize output for HTML.
  */
-function e(string $str): string {
-    return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
+function e(?string $str): string {
+    return htmlspecialchars($str ?? '', ENT_QUOTES, 'UTF-8');
 }
 
 /**

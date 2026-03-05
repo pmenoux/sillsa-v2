@@ -14,7 +14,7 @@ $events = query(
      FROM sill_timeline t
      LEFT JOIN sill_medias m ON t.image_id = m.id
      WHERE t.is_active = 1
-     ORDER BY t.event_date ASC'
+     ORDER BY t.event_date DESC'
 );
 
 // Build unique category list from timeline data
@@ -49,7 +49,15 @@ $categoryLabels = [
 <!-- ════════════════════════════════════════════════════════════════
      1. HERO
      ════════════════════════════════════════════════════════════════ -->
-<section class="hero" style="background-image: url('<?= SITE_URL ?>/uploads/hero-accueil.jpg');">
+<?php
+    // Hero image: use first immeuble image as fallback if hero-accueil.jpg doesn't exist
+    $heroImg = SITE_URL . '/uploads/hero-accueil.jpg';
+    $firstImmeuble = queryOne('SELECT m.filepath FROM sill_immeubles i JOIN sill_medias m ON i.image_id = m.id WHERE i.is_active = 1 ORDER BY i.sort_order LIMIT 1');
+    if ($firstImmeuble) {
+        $heroImg = SITE_URL . str_replace('/wp-content/uploads/', '/uploads/', $firstImmeuble['filepath']);
+    }
+?>
+<section class="hero" style="background-image: url('<?= $heroImg ?>');">
     <div class="hero-content">
         <h1 class="hero-title">SILL SA</h1>
         <p class="hero-subtitle"><?= e($tagline) ?></p>
