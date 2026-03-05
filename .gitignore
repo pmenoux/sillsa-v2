@@ -1,0 +1,20 @@
+# Credentials
+site/config.php
+
+# Uploads (large media files)
+site/uploads/
+
+# WordPress export data
+download (2)/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+
+# Zip archives
+*.zip
