@@ -515,6 +515,11 @@ blockquote {
   padding: 64px 0;
 }
 
+/* Hide interactive map on mobile, show card grid instead */
+.portefeuille-layout {
+  display: none;
+}
+
 .carte-container {
   position: relative;
   width: 100%;
@@ -535,33 +540,82 @@ blockquote {
   fill: #E8F0FE;
 }
 
+/* Building points on map */
+.map-point {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.map-point:hover {
+  z-index: 6;
+}
+
 .point-circle {
-  fill: var(--color-accent);
+  display: block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
   opacity: 0.3;
-  transition: opacity var(--transition);
+  transition: opacity var(--transition), transform var(--transition);
+  position: relative;
 }
 
 .point-inner {
-  fill: var(--color-accent);
-  cursor: pointer;
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   transition: transform var(--transition);
 }
 
-.point-inner:hover {
+.map-point:hover .point-circle {
+  opacity: 0.5;
   transform: scale(1.3);
 }
 
-.point-inner:hover + .point-circle,
-.point-group:hover .point-circle {
-  opacity: 0.5;
+.map-point:hover .point-inner {
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+.map-point.is-active .point-circle {
+  opacity: 0.6;
+  transform: scale(1.4);
+}
+
+.map-point.is-active .point-inner {
+  background-color: #CC0000;
 }
 
 /* Tooltip */
 .map-tooltip {
   display: none;
   position: absolute;
-  z-index: 10;
+  z-index: 20;
   pointer-events: none;
+  background: var(--color-text);
+  color: var(--color-white);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 8px;
 }
 
 .map-tooltip.visible {

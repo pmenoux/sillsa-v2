@@ -124,14 +124,20 @@ document.addEventListener('DOMContentLoaded', function () {
       : null;
 
     // Tooltip show/hide on hover
+    var wrapper = document.querySelector('.carte-wrapper');
     mapPoints.forEach(function (point) {
       point.addEventListener('mouseenter', function () {
         if (!tooltip) return;
-        // Position tooltip near the point if needed
         var label = point.getAttribute('data-label') || '';
         if (label && tooltip.querySelector('.tooltip-text')) {
           tooltip.querySelector('.tooltip-text').textContent = label;
         }
+        // Position tooltip above the point
+        var ptRect = point.getBoundingClientRect();
+        var wrapRect = wrapper.getBoundingClientRect();
+        tooltip.style.left = (ptRect.left - wrapRect.left + ptRect.width / 2) + 'px';
+        tooltip.style.top = (ptRect.top - wrapRect.top - 8) + 'px';
+        tooltip.style.transform = 'translate(-50%, -100%)';
         tooltip.classList.add('visible');
       });
 
