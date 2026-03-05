@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://26.sillsa.ch/sitemap.xml
