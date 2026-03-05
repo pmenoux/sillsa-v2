@@ -54,6 +54,12 @@ $routes = [
     'publications'           => 'templates/publications.php',
 ];
 
+// 301 redirect: /chronologie -> /#chronologie (timeline is on homepage)
+if ($page === 'chronologie') {
+    header('Location: ' . SITE_URL . '/#chronologie', true, 301);
+    exit;
+}
+
 // Portefeuille detail route
 if ($page === 'portefeuille' && $slug) {
     $template = 'templates/immeuble.php';

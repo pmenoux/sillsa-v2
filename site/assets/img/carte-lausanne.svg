@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" aria-label="Carte de Lausanne">
+  <defs>
+    <style>
+      .carte-lac { fill: #E8F4F8; }
+      .carte-outline { stroke: #E0E0E0; stroke-width: 1; fill: none; }
+      .carte-quartier { stroke: #EFEFEF; stroke-width: 0.5; fill: none; }
+      .carte-route { stroke: #F0F0F0; stroke-width: 0.75; fill: none; }
+      .carte-label { font-family: 'Inter', 'Helvetica Neue', sans-serif; font-size: 9px; fill: #CCCCCC; letter-spacing: 0.05em; text-transform: uppercase; }
+      .carte-label-lac { font-family: 'Inter', 'Helvetica Neue', sans-serif; font-size: 11px; fill: #B8D8E8; font-style: italic; letter-spacing: 0.08em; }
+    </style>
+  </defs>
+
+  <!-- Lake Leman — southern edge, gentle arc -->
+  <path class="carte-lac" d="
+    M 0,520
+    C 80,490 160,475 240,470
+    C 320,465 400,462 480,465
+    C 560,468 640,478 720,488
+    L 800,495
+    L 800,600
+    L 0,600
+    Z
+  "/>
+
+  <!-- Shoreline detail — subtle wave -->
+  <path class="carte-quartier" d="
+    M 0,520
+    C 80,490 160,475 240,470
+    C 320,465 400,462 480,465
+    C 560,468 640,478 720,488
+    L 800,495
+  " stroke-width="0.75"/>
+
+  <!-- City outline — approximate Lausanne municipal boundary -->
+  <path class="carte-outline" d="
+    M 180,80
+    C 200,70 260,55 320,60
+    C 380,65 420,58 460,62
+    C 520,68 570,75 600,90
+    C 630,105 650,130 660,160
+    C 675,200 680,250 670,300
+    C 660,340 640,380 610,410
+    C 580,440 540,455 480,462
+    C 420,460 360,458 300,462
+    C 240,468 200,470 160,460
+    C 130,440 110,400 100,360
+    C 90,310 95,260 105,210
+    C 115,170 130,130 155,100
+    C 165,88 175,82 180,80
+    Z
+  "/>
+
+  <!-- District zones — very subtle filled areas -->
+  <!-- Centre-ville / Flon -->
+  <ellipse cx="390" cy="350" rx="50" ry="35" fill="#F8F8F8" opacity="0.6"/>
+
+  <!-- Plaines-du-Loup / Fiches-Nord zone -->
+  <ellipse cx="380" cy="170" rx="65" ry="45" fill="#F8F8F8" opacity="0.5"/>
+
+  <!-- Sallaz zone -->
+  <ellipse cx="480" cy="260" rx="35" ry="25" fill="#F8F8F8" opacity="0.5"/>
+
+  <!-- Major routes — thin subtle lines -->
+  <!-- Avenue d'Ouchy (north-south toward lake) -->
+  <line class="carte-route" x1="380" y1="300" x2="395" y2="462"/>
+
+  <!-- Route de Berne (toward Sallaz / east) -->
+  <path class="carte-route" d="M 390,340 C 420,320 450,290 490,260"/>
+
+  <!-- Avenue du Grey / toward Malley (west) -->
+  <path class="carte-route" d="M 370,350 C 330,365 290,375 250,385"/>
+
+  <!-- Route des Plaines-du-Loup (north) -->
+  <path class="carte-route" d="M 385,310 C 380,270 375,220 370,170"/>
+
+  <!-- Pont Bessires / Grand-Pont axis -->
+  <path class="carte-route" d="M 350,340 L 430,340" stroke-dasharray="3,3"/>
+
+  <!-- District labels -->
+  <text class="carte-label" x="355" y="355">Centre</text>
+  <text class="carte-label" x="348" y="160">Plaines-du-Loup</text>
+  <text class="carte-label" x="465" y="250">Sallaz</text>
+  <text class="carte-label" x="220" y="385">Malley</text>
+  <text class="carte-label" x="505" y="335">Faverges</text>
+  <text class="carte-label" x="380" y="125">Fiches-Nord</text>
+
+  <!-- Lake label -->
+  <text class="carte-label-lac" x="370" y="530">Lac Leman</text>
+
+</svg>
