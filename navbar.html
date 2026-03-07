@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SILL SA - Navigation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100px;
+            background-color: #F5F0EB;
+            padding: 0 48px;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            border-bottom: 2px solid #000000;
+        }
+
+        .navbar__logo img {
+            height: 70px;
+            display: block;
+        }
+
+        .navbar__nav {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .navbar__nav a {
+            color: #1A1A1A;
+            text-decoration: none;
+            font-size: 13px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: color 0.2s ease;
+        }
+
+        .navbar__nav a:hover {
+            color: #FF0000;
+        }
+
+        .navbar__nav a.active {
+            color: #FF0000;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="/" class="navbar__logo">
+        <img src="../BDPfollow/Website/assets/img/logo_sill.png" alt="SILL SA">
+    </a>
+    <ul class="navbar__nav">
+        <li><a href="/" class="active">Accueil</a></li>
+        <li><a href="/a-propos">À propos</a></li>
+        <li><a href="/portefeuille">Portefeuille</a></li>
+        <li><a href="/publications">Publications</a></li>
+        <li><a href="/location">Location</a></li>
+    </ul>
+</nav>
+
+</body>
+</html>
