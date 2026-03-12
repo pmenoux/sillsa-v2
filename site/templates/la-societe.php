@@ -24,7 +24,7 @@ $textContent = preg_replace('/<img[^>]+>/i', '', $content);
 // Find the first <ul> or <ol> — everything before is intro, everything from there is operations
 $introText = $textContent;
 $listText = '';
-if (preg_match('/(<(?:ul|ol)\b.*)/is', $textContent, $listMatch, PREG_OFFSET_MATCH)) {
+if (preg_match('/(<(?:ul|ol)\b.*)/is', $textContent, $listMatch, PREG_OFFSET_CAPTURE)) {
     $introText = substr($textContent, 0, $listMatch[0][1]);
     $listText = $listMatch[0][0];
 }
