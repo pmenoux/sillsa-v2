@@ -285,6 +285,17 @@ body {
   box-shadow: 0 0 0 3px rgba(0, 71, 187, 0.12);
 }
 
+.form-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.form-row .form-group {
+  flex: 1;
+  min-width: 140px;
+}
+
 .form-actions {
   display: flex;
   gap: 10px;
