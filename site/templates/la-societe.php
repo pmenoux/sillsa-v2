@@ -1,5 +1,5 @@
 <?php
-// templates/la-societe.php — Swiss Design layout for "La Société"
+// templates/la-societe.php — Swiss Design 3-column layout
 $page = getPage($pageData['route']);
 if (!$page) {
     http_response_code(404);
@@ -7,21 +7,20 @@ if (!$page) {
     return;
 }
 
-// Parse HTML content: extract paragraphs, lists, and images
+// Parse HTML content
 $content = $page['content'];
 
-// Remove the leading h2 "La Société" (duplicate of page h1)
+// Remove leading h2 (duplicate of page h1)
 $content = preg_replace('/<h2[^>]*>.*?<\/h2>/is', '', $content, 1);
 
 // Extract all images
 preg_match_all('/<img[^>]+>/i', $content, $imgMatches);
 $images = $imgMatches[0] ?? [];
 
-// Remove images from content flow
+// Remove images from text flow
 $textContent = preg_replace('/<img[^>]+>/i', '', $content);
 
-// Split content into intro paragraphs and the list section
-// Find the first <ul> or <ol> — everything before is intro, everything from there is operations
+// Split: paragraphs before first list = intro, list onwards = operations
 $introText = $textContent;
 $listText = '';
 if (preg_match('/(<(?:ul|ol)\b.*)/is', $textContent, $listMatch, PREG_OFFSET_CAPTURE)) {
@@ -29,20 +28,29 @@ if (preg_match('/(<(?:ul|ol)\b.*)/is', $textContent, $listMatch, PREG_OFFSET_CAP
     $listText = $listMatch[0][0];
 }
 
-// Clean up empty paragraphs
 $introText = preg_replace('/<p>\s*<\/p>/i', '', trim($introText));
 $listText = preg_replace('/<p>\s*<\/p>/i', '', trim($listText));
 
-// First image for hero column
+// Split intro paragraphs: first = chapeau, rest = body
+$introParagraphs = [];
+preg_match_all('/<p[^>]*>.*?<\/p>/is', $introText, $pMatches);
+if (!empty($pMatches[0])) {
+    $introParagraphs = $pMatches[0];
+}
+$chapeau = $introParagraphs[0] ?? '';
+$bodyParagraphs = array_slice($introParagraphs, 1);
+
+// Hero image
 $heroImage = $images[0] ?? '';
 if ($heroImage) {
-    // Add CSS class to the image
     $heroImage = str_replace('<img', '<img class="societe-hero-img"', $heroImage);
-    // Ensure loading lazy
     if (strpos($heroImage, 'loading=') === false) {
         $heroImage = str_replace('<img', '<img loading="lazy"', $heroImage);
     }
 }
+
+// Carousel buildings
+$immeubles = query('SELECT nom, slug, image_id FROM sill_immeubles WHERE is_active = 1 AND image_id IS NOT NULL AND image_id > 0 ORDER BY annee_livraison DESC LIMIT 12');
 ?>
 
 <section class="page-header">
@@ -54,10 +62,15 @@ if ($heroImage) {
 <section class="societe-section">
   <div class="container">
 
-    <!-- Intro: 2-column layout — text left, image right -->
-    <div class="societe-intro">
-      <div class="societe-text rich-text">
-        <?= $introText ?>
+    <!-- 3-column grid: chapeau | body text | image -->
+    <div class="societe-grid">
+      <div class="societe-chapeau rich-text">
+        <?= $chapeau ?>
+      </div>
+      <div class="societe-body rich-text">
+        <?php foreach ($bodyParagraphs as $p): ?>
+          <?= $p ?>
+        <?php endforeach; ?>
       </div>
       <?php if ($heroImage): ?>
       <div class="societe-image">
@@ -67,23 +80,29 @@ if ($heroImage) {
     </div>
 
     <?php if ($listText): ?>
-    <!-- Operations: full width with accent left border -->
+    <!-- Operations with accent border -->
     <div class="societe-operations">
       <h2>Opérations</h2>
-      <div class="rich-text">
+      <div class="societe-ops-content rich-text">
         <?= $listText ?>
       </div>
     </div>
     <?php endif; ?>
 
-    <?php
-    // Carousel: featured buildings with images
-    $immeubles = query('SELECT nom, slug, image_id FROM sill_immeubles WHERE is_active = 1 AND image_id IS NOT NULL AND image_id > 0 ORDER BY annee_livraison DESC LIMIT 12');
-    if ($immeubles):
-    ?>
-    <!-- Carrousel projets phares -->
+    <?php if ($immeubles): ?>
+    <!-- Carrousel with navigation -->
     <div class="societe-carousel">
-      <h2>Nos réalisations</h2>
+      <div class="carousel-header">
+        <h2>Nos réalisations</h2>
+        <div class="carousel-nav">
+          <button class="carousel-btn carousel-prev" aria-label="Précédent">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button class="carousel-btn carousel-next" aria-label="Suivant">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 6 15 12 9 18"/></svg>
+          </button>
+        </div>
+      </div>
       <div class="carousel-track">
         <?php foreach ($immeubles as $im): ?>
         <a href="<?= SITE_URL ?>/portefeuille/<?= e($im['slug']) ?>" class="carousel-slide">

@@ -1092,33 +1092,39 @@ main {
 }
 
 /* --------------------------------------------------------------------------
-   La Société — Swiss Design layout
+   La Société — Swiss Design 3-column layout
    -------------------------------------------------------------------------- */
 .societe-section {
-  padding: 48px 0 64px;
+  padding: 48px 0 80px;
 }
 
-.societe-intro {
+/* 3-column grid — mobile: stacked */
+.societe-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 32px;
+  gap: 24px;
   margin-bottom: 64px;
 }
 
-.societe-text {
-  max-width: none;
-}
-
-.societe-text p:first-child {
+/* Chapeau — large intro text */
+.societe-chapeau p {
   font-size: var(--fs-chapeau);
   line-height: var(--lh-chapeau);
   font-weight: 300;
   color: var(--color-heading);
+  margin: 0;
 }
 
+/* Body text */
+.societe-body {
+  max-width: none;
+}
+
+/* Image column */
 .societe-image {
   overflow: hidden;
   border-radius: var(--radius);
+  min-height: 300px;
 }
 
 .societe-hero-img {
@@ -1146,20 +1152,65 @@ main {
   margin-bottom: 16px;
 }
 
+.societe-ops-content {
+  columns: 1;
+}
+
 /* Carrousel projets phares */
 .societe-carousel {
   margin-top: 64px;
   overflow: hidden;
 }
 
-.societe-carousel h2 {
+.carousel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.carousel-header h2 {
   font-family: var(--font-heading);
   font-size: var(--fs-h3);
   line-height: var(--lh-h3);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin-bottom: 24px;
+  margin: 0;
+}
+
+.carousel-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.carousel-btn {
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--color-heading);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  color: var(--color-heading);
+}
+
+.carousel-btn:hover {
+  background: var(--color-heading);
+  color: var(--color-white);
+}
+
+.carousel-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.carousel-btn:disabled:hover {
+  background: transparent;
+  color: var(--color-heading);
 }
 
 .carousel-track {
@@ -1167,6 +1218,7 @@ main {
   gap: 16px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   padding-bottom: 8px;
@@ -1459,17 +1511,37 @@ main {
     max-width: 800px;
   }
 
-  /* La Société — 2 columns on large screens */
-  .societe-intro {
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
+  /* La Société — 3 columns on large screens */
+  .societe-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 32px;
     align-items: start;
   }
 
+  .societe-chapeau {
+    grid-column: 1;
+    grid-row: 1;
+    padding-right: 16px;
+    border-right: 2px solid var(--color-heading);
+  }
+
+  .societe-body {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
   .societe-image {
+    grid-column: 3;
+    grid-row: 1;
     position: sticky;
     top: 120px;
-    max-height: 500px;
+    min-height: 400px;
+  }
+
+  .societe-ops-content {
+    columns: 2;
+    column-gap: 32px;
   }
 
   .carousel-slide {

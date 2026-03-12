@@ -272,4 +272,36 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   })();
 
+  /* =================================================================
+     8. Carousel navigation (prev / next buttons)
+     ================================================================= */
+  (function initCarousel() {
+    var track = document.querySelector('.carousel-track');
+    var prevBtn = document.querySelector('.carousel-prev');
+    var nextBtn = document.querySelector('.carousel-next');
+    if (!track || !prevBtn || !nextBtn) return;
+
+    var slideWidth = function () {
+      var slide = track.querySelector('.carousel-slide');
+      if (!slide) return 300;
+      return slide.offsetWidth + 16; // width + gap
+    };
+
+    prevBtn.addEventListener('click', function () {
+      track.scrollBy({ left: -slideWidth() * 2, behavior: 'smooth' });
+    });
+
+    nextBtn.addEventListener('click', function () {
+      track.scrollBy({ left: slideWidth() * 2, behavior: 'smooth' });
+    });
+
+    function updateButtons() {
+      prevBtn.disabled = track.scrollLeft <= 0;
+      nextBtn.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+    }
+
+    track.addEventListener('scroll', updateButtons);
+    updateButtons();
+  })();
+
 });
