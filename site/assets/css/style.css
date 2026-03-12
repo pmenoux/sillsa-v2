@@ -376,9 +376,14 @@ blockquote {
 }
 
 .kpi-grid {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--gutter);
+}
+
+.kpi-grid > * {
+  flex: 0 1 100%;
 }
 
 .kpi-card,
@@ -1083,8 +1088,8 @@ blockquote {
   }
 
   /* KPI */
-  .kpi-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .kpi-grid > * {
+    flex: 0 1 calc(50% - var(--gutter));
   }
 
   /* Timeline — still left-aligned on tablet */
@@ -1185,8 +1190,8 @@ blockquote {
   }
 
   /* KPI */
-  .kpi-grid {
-    grid-template-columns: repeat(4, 1fr);
+  .kpi-grid > * {
+    flex: 0 1 calc(25% - var(--gutter));
   }
 
   /* Timeline — alternating left / right */
