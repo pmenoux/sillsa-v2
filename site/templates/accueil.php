@@ -6,7 +6,7 @@
 $tagline = setting('site_tagline') ?? SITE_TAGLINE;
 
 $kpis = query(
-    'SELECT * FROM sill_kpi WHERE is_public = 1 ORDER BY sort_order LIMIT 4'
+    'SELECT * FROM sill_kpi WHERE is_public = 1 ORDER BY sort_order LIMIT 8'
 );
 
 $events = query(

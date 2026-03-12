@@ -406,12 +406,13 @@ blockquote {
 
 .kpi-label {
   display: block;
-  font-size: var(--fs-base);
+  font-size: var(--fs-h4);
+  font-family: var(--font-heading);
   color: var(--color-heading);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  font-weight: 500;
+  letter-spacing: 0.06em;
+  font-weight: 600;
 }
 
 /* --------------------------------------------------------------------------
