@@ -415,7 +415,8 @@ blockquote {
   font-size: var(--fs-h4);
   font-family: var(--font-heading);
   color: var(--color-heading);
-  margin-bottom: 10px;
+  margin-bottom: auto;
+  padding-bottom: 12px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-weight: 600;
