@@ -197,7 +197,6 @@ blockquote {
   z-index: 1000;
   height: var(--header-h);
   background: var(--color-nav-bg);
-  border-bottom: 2px solid #000000;
   display: flex;
   align-items: center;
 }
