@@ -81,3 +81,10 @@ if ($currentRoute && $currentRoute !== 'accueil') {
 </header>
 
 <main>
+
+<!-- Bauhaus geometric decorations -->
+<div class="bauhaus-shapes" aria-hidden="true">
+  <div class="bauhaus-circle"></div>
+  <div class="bauhaus-triangle"></div>
+  <div class="bauhaus-square"></div>
+</div>
