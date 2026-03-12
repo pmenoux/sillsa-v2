@@ -796,46 +796,66 @@ blockquote {
 
 /* Photo de groupe CA */
 .ca-group-photo {
-  margin-bottom: 48px;
+  margin-bottom: 56px;
   border-radius: var(--radius);
   overflow: hidden;
-  max-height: 500px;
+  max-height: 320px;
 }
 
 .ca-group-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 30%;
   display: block;
 }
 
+/* Grille membres — Swiss typographic style */
 .ca-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--gutter);
+  grid-template-columns: 1fr;
+  gap: 0;
 }
 
 .ca-card {
-  text-align: center;
-  padding: 24px 16px;
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--color-border);
 }
 
-.ca-card img {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin: 0 auto 16px;
+.ca-card:first-child {
+  border-top: 2px solid var(--color-heading);
 }
 
-.ca-card h4 {
-  margin-bottom: 4px;
+.ca-card-name {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-heading);
+  flex: 1;
 }
 
 .ca-fonction {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
   color: var(--color-muted);
-  font-style: italic;
+  white-space: nowrap;
+}
+
+.ca-fonction-president {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.ca-bio {
   font-size: 13px;
+  color: var(--color-muted);
+  margin-top: 2px;
 }
 
 /* --------------------------------------------------------------------------
@@ -1506,9 +1526,9 @@ main {
     grid-template-columns: repeat(4, 1fr);
   }
 
-  /* CA */
-  .ca-grid {
-    grid-template-columns: repeat(3, 1fr);
+  /* CA — wider photo crop on desktop */
+  .ca-group-photo {
+    max-height: 360px;
   }
 
   /* Publications */

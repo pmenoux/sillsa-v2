@@ -1,5 +1,5 @@
 <?php
-// templates/ca.php — Conseil d'administration
+// templates/ca.php — Conseil d'administration — Swiss typographic layout
 $membres = query('SELECT ca.*, m.filepath FROM sill_membres_ca ca LEFT JOIN sill_medias m ON ca.photo_id = m.id WHERE ca.is_active = 1 ORDER BY ca.sort_order');
 ?>
 
@@ -20,18 +20,8 @@ $membres = query('SELECT ca.*, m.filepath FROM sill_membres_ca ca LEFT JOIN sill
     <div class="ca-grid">
       <?php foreach ($membres as $membre): ?>
         <div class="ca-card reveal">
-          <?php if ($membre['filepath']): ?>
-            <img src="<?= mediaUrl((int)$membre['photo_id']) ?>"
-                 alt="<?= e($membre['prenom'] . ' ' . $membre['nom']) ?>"
-                 class="ca-photo" loading="lazy">
-          <?php else: ?>
-            <div class="ca-photo-placeholder"></div>
-          <?php endif; ?>
-          <h3><?= e($membre['prenom']) ?> <?= e($membre['nom']) ?></h3>
-          <p class="ca-fonction"><?= e($membre['fonction']) ?></p>
-          <?php if ($membre['bio']): ?>
-            <p class="ca-bio"><?= e($membre['bio']) ?></p>
-          <?php endif; ?>
+          <span class="ca-card-name"><?= e($membre['prenom']) ?> <?= e($membre['nom']) ?></span>
+          <span class="ca-fonction<?= in_array($membre['fonction'], ['Présidente', 'Président', 'Vice-président', 'Vice-présidente']) ? ' ca-fonction-president' : '' ?>"><?= e($membre['fonction']) ?></span>
         </div>
       <?php endforeach; ?>
     </div>
