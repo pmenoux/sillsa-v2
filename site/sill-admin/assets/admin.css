@@ -1,6 +1,6 @@
 /* ============================================================
    SILL SA — Admin Backend CSS
-   Minimal Swiss Design system
+   Horizontal topbar layout — Swiss Design
    ============================================================ */
 
 /* Reset */
@@ -12,12 +12,15 @@
 
 /* CSS Variables */
 :root {
-  --admin-sidebar-w: 220px;
+  --admin-topbar-h: 56px;
   --admin-accent: #0047BB;
   --admin-danger: #CC0000;
   --admin-success: #2E7D32;
-  --admin-bg: #F8F8F8;
+  --admin-bg: #F5F5F5;
   --admin-border: #DDD;
+  --admin-card-bg: #FFF;
+  --admin-card-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  --admin-radius: 6px;
 }
 
 /* Body */
@@ -29,90 +32,108 @@ body {
 }
 
 /* ============================================================
-   LAYOUT
+   LAYOUT — Topbar horizontal
    ============================================================ */
 
 .admin-layout {
   display: flex;
+  flex-direction: column;
   min-height: 100vh;
 }
 
-/* Sidebar */
-.admin-sidebar {
+/* Topbar */
+.admin-topbar {
   position: fixed;
-  left: 0;
   top: 0;
-  width: var(--admin-sidebar-w);
-  height: 100vh;
+  left: 0;
+  right: 0;
+  height: var(--admin-topbar-h);
   background: #1A1A1A;
   color: #FFF;
-  overflow-y: auto;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  padding: 0 24px;
+  gap: 8px;
   z-index: 100;
 }
 
-.sidebar-header {
-  padding: 20px 16px;
-  font-size: 16px;
+.topbar-brand {
+  font-size: 15px;
   font-weight: 600;
-  border-bottom: 1px solid #333;
-  letter-spacing: 0.01em;
-  flex-shrink: 0;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  padding-right: 20px;
+  border-right: 1px solid #444;
+  margin-right: 8px;
 }
 
-.admin-sidebar nav {
+.topbar-nav {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 2px;
   flex: 1;
 }
 
-.admin-sidebar nav a {
-  display: block;
-  padding: 12px 16px;
-  color: #CCC;
+.topbar-nav a {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  color: #BBB;
   text-decoration: none;
-  border-left: 3px solid transparent;
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 4px;
   transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
 }
 
-.admin-sidebar nav a:hover {
+.topbar-nav a:hover {
   background: #333;
   color: #FFF;
 }
 
-.admin-sidebar nav a.active {
-  background: #333;
+.topbar-nav a.active {
+  background: var(--admin-accent);
   color: #FFF;
-  border-left-color: var(--admin-accent);
 }
 
-.logout {
-  margin-top: auto;
-  border-top: 1px solid #333;
-  flex-shrink: 0;
+.topbar-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+  white-space: nowrap;
 }
 
-.logout a {
-  display: block;
-  padding: 12px 16px;
+.topbar-username {
+  font-size: 13px;
+  color: #999;
+}
+
+.topbar-logout {
+  font-size: 12px;
   color: #999;
   text-decoration: none;
-  font-size: 12px;
-  transition: color 0.15s;
+  padding: 4px 10px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  transition: color 0.15s, border-color 0.15s;
 }
 
-.logout a:hover {
+.topbar-logout:hover {
   color: #FFF;
+  border-color: #999;
 }
 
 /* Main content */
 .admin-main {
-  margin-left: var(--admin-sidebar-w);
-  padding: 24px 32px;
+  margin-top: var(--admin-topbar-h);
+  padding: 28px 32px;
   flex: 1;
-  min-width: 0;
+  max-width: 1200px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* ============================================================
@@ -120,8 +141,8 @@ body {
    ============================================================ */
 
 .flash {
-  padding: 12px;
-  border-radius: 4px;
+  padding: 12px 16px;
+  border-radius: var(--admin-radius);
   margin-bottom: 20px;
   font-size: 14px;
 }
@@ -159,30 +180,34 @@ body {
    TABLES
    ============================================================ */
 
+.table-wrapper {
+  overflow-x: auto;
+}
+
 .admin-table {
   width: 100%;
   border-collapse: collapse;
-  background: #FFF;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  background: var(--admin-card-bg);
+  border-radius: var(--admin-radius);
+  box-shadow: var(--admin-card-shadow);
   overflow: hidden;
 }
 
 .admin-table th {
   background: #F5F5F5;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #555;
+  letter-spacing: 0.06em;
+  color: #777;
   padding: 10px 14px;
   text-align: left;
-  border-bottom: 1px solid var(--admin-border);
+  border-bottom: 2px solid #E8E8E8;
 }
 
 .admin-table td {
   padding: 10px 14px;
-  border-bottom: 1px solid #EEE;
+  border-bottom: 1px solid #F0F0F0;
   color: #333;
   vertical-align: middle;
 }
@@ -195,15 +220,27 @@ body {
   background: #FAFAFA;
 }
 
+.cell-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.cell-readonly {
+  color: #666;
+  font-variant-numeric: tabular-nums;
+}
+
 /* ============================================================
    FORMS
    ============================================================ */
 
 .admin-form {
-  background: #FFF;
-  padding: 24px;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  background: var(--admin-card-bg);
+  padding: 28px;
+  border-radius: var(--admin-radius);
+  box-shadow: var(--admin-card-shadow);
   max-width: 960px;
 }
 
@@ -246,6 +283,42 @@ body {
   box-shadow: 0 0 0 3px rgba(0, 71, 187, 0.12);
 }
 
+.form-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #EEE;
+}
+
+.form-inline {
+  display: inline;
+}
+
+.form-group--checkbox label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.form-group--checkbox input[type="checkbox"] {
+  width: auto;
+}
+
+.form-hint {
+  display: block;
+  font-size: 12px;
+  color: #999;
+  margin-top: 4px;
+}
+
+.required {
+  color: var(--admin-danger);
+}
+
 /* ============================================================
    BUTTONS
    ============================================================ */
@@ -274,6 +347,17 @@ body {
   background: var(--admin-accent);
   color: #FFF;
   border-color: var(--admin-accent);
+}
+
+.btn-secondary {
+  background: #FFF;
+  color: #555;
+  border-color: var(--admin-border);
+}
+
+.btn-secondary:hover {
+  background: #F5F5F5;
+  opacity: 1;
 }
 
 .btn-danger {
@@ -327,7 +411,7 @@ body {
   position: absolute;
   cursor: pointer;
   inset: 0;
-  background: #BBB;
+  background: #CCC;
   border-radius: 22px;
   transition: background 0.2s;
 }
@@ -373,7 +457,7 @@ body {
   background: #FFF;
   padding: 40px;
   width: 360px;
-  border-radius: 4px;
+  border-radius: var(--admin-radius);
   box-shadow: 0 2px 12px rgba(0,0,0,0.10);
 }
 
@@ -430,10 +514,10 @@ body {
 }
 
 .stat-card {
-  background: #FFF;
+  background: var(--admin-card-bg);
   padding: 20px;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  border-radius: var(--admin-radius);
+  box-shadow: var(--admin-card-shadow);
 }
 
 .stat-value {
@@ -450,81 +534,6 @@ body {
   letter-spacing: 0.06em;
   color: #999;
   font-weight: 500;
-}
-
-/* ============================================================
-   SECONDARY BUTTON
-   ============================================================ */
-
-.btn-secondary {
-  background: #FFF;
-  color: #555;
-  border-color: var(--admin-border);
-}
-
-.btn-secondary:hover {
-  background: #F5F5F5;
-  opacity: 1;
-}
-
-/* ============================================================
-   TABLE EXTRAS
-   ============================================================ */
-
-.table-wrapper {
-  overflow-x: auto;
-}
-
-.cell-actions {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  white-space: nowrap;
-}
-
-.cell-readonly {
-  color: #666;
-  font-variant-numeric: tabular-nums;
-}
-
-/* ============================================================
-   FORM EXTRAS
-   ============================================================ */
-
-.form-actions {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  margin-top: 20px;
-  padding-top: 16px;
-  border-top: 1px solid #EEE;
-}
-
-.form-inline {
-  display: inline;
-}
-
-.form-group--checkbox label {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 400;
-  cursor: pointer;
-}
-
-.form-group--checkbox input[type="checkbox"] {
-  width: auto;
-}
-
-.form-hint {
-  display: block;
-  font-size: 12px;
-  color: #999;
-  margin-top: 4px;
-}
-
-.required {
-  color: var(--admin-danger);
 }
 
 /* ============================================================
@@ -574,9 +583,9 @@ body {
   font-size: 14px;
   margin-bottom: 20px;
   padding: 12px 16px;
-  background: #FFF;
+  background: var(--admin-card-bg);
   border-left: 3px solid var(--admin-accent);
-  border-radius: 0 4px 4px 0;
+  border-radius: 0 var(--admin-radius) var(--admin-radius) 0;
 }
 
 .admin-empty,
@@ -585,7 +594,49 @@ body {
   font-size: 14px;
   padding: 32px;
   text-align: center;
-  background: #FFF;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  background: var(--admin-card-bg);
+  border-radius: var(--admin-radius);
+  box-shadow: var(--admin-card-shadow);
+}
+
+/* ============================================================
+   RESPONSIVE — mobile topbar
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .admin-topbar {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 12px 16px;
+    gap: 8px;
+  }
+
+  .topbar-brand {
+    border-right: none;
+    padding-right: 0;
+    margin-right: 0;
+  }
+
+  .topbar-user {
+    order: 2;
+  }
+
+  .topbar-nav {
+    order: 3;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding-top: 8px;
+    border-top: 1px solid #444;
+  }
+
+  .topbar-nav a {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .admin-main {
+    margin-top: auto;
+    padding: 20px 16px;
+  }
 }

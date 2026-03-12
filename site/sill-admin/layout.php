@@ -1,5 +1,5 @@
 <?php
-// sill-admin/layout.php — Admin shell: sidebar + main content
+// sill-admin/layout.php — Admin shell: topbar horizontal + main content
 // Variables expected: $page (string), $action (string), $pageFile (string)
 
 $pageTitles = [
@@ -25,11 +25,11 @@ $flash = getFlash();
 </head>
 <body class="admin-layout">
 
-<aside class="admin-sidebar">
-    <div class="sidebar-header">
+<header class="admin-topbar">
+    <div class="topbar-brand">
         <strong>SILL Admin</strong>
     </div>
-    <nav>
+    <nav class="topbar-nav">
         <a href="?page=dashboard"<?= $page === 'dashboard' ? ' class="active"' : '' ?>>Tableau de bord</a>
         <a href="?page=kpi"<?= $page === 'kpi' ? ' class="active"' : '' ?>>KPIs</a>
         <a href="?page=pages"<?= $page === 'pages' ? ' class="active"' : '' ?>>Pages</a>
@@ -37,10 +37,11 @@ $flash = getFlash();
         <a href="?page=settings"<?= $page === 'settings' ? ' class="active"' : '' ?>>Paramètres</a>
         <a href="?page=menu"<?= $page === 'menu' ? ' class="active"' : '' ?>>Menu</a>
     </nav>
-    <div class="logout">
-        <a href="?page=logout">Déconnexion (<?= e($_SESSION['admin_username'] ?? '') ?>)</a>
+    <div class="topbar-user">
+        <span class="topbar-username"><?= e($_SESSION['admin_username'] ?? '') ?></span>
+        <a href="?page=logout" class="topbar-logout">Déconnexion</a>
     </div>
-</aside>
+</header>
 
 <main class="admin-main">
     <?php if ($flash): ?>
