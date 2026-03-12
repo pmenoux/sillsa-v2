@@ -408,7 +408,10 @@ blockquote {
   display: block;
   font-size: var(--fs-base);
   color: var(--color-heading);
-  margin-top: 12px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 500;
 }
 
 /* --------------------------------------------------------------------------

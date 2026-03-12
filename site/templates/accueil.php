@@ -78,14 +78,19 @@ $categoryLabels = [
         <div class="kpi-grid">
             <?php foreach ($kpis as $kpi): ?>
                 <div class="kpi-item reveal">
+                    <span class="kpi-label"><?= e($kpi['label'] ?? '') ?></span>
+
                     <?php if (!empty($kpi['value_text'])): ?>
-                        <!-- Text value (e.g. année de création) — no counter animation -->
                         <span class="kpi-value"><?= e($kpi['value_text']) ?></span>
                     <?php else: ?>
-                        <!-- Numeric value — animated counter -->
+                        <?php
+                            $num = (float)($kpi['value_num'] ?? 0);
+                            $hasDecimals = (floor($num) != $num);
+                            $countVal = $hasDecimals ? number_format($num, 1, '.', '') : number_format($num, 0, '.', '');
+                        ?>
                         <span class="kpi-value"
-                              data-count="<?= e((string)($kpi['value_num'] ?? '0')) ?>"
-                              <?php if (floor((float)$kpi['value_num']) != (float)$kpi['value_num']): ?>
+                              data-count="<?= e($countVal) ?>"
+                              <?php if ($hasDecimals): ?>
                                   data-decimals="1"
                               <?php endif; ?>
                         >0</span>
@@ -94,8 +99,6 @@ $categoryLabels = [
                     <?php if (!empty($kpi['unit'])): ?>
                         <span class="kpi-unit"><?= e($kpi['unit']) ?></span>
                     <?php endif; ?>
-
-                    <span class="kpi-label"><?= e($kpi['label'] ?? '') ?></span>
                 </div>
             <?php endforeach; ?>
         </div>
