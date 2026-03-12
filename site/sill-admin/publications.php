@@ -95,6 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $annee      = (int) ($_POST['annee'] ?? date('Y'));
     $type       = $_POST['type'] ?? 'rapport_annuel';
     $description = trim($_POST['description'] ?? '');
+    $sort_order = (int) ($_POST['sort_order'] ?? 0);
     $is_active  = isset($_POST['is_active']) ? 1 : 0;
     $prefix     = makePrefix($annee, $title);
 
@@ -126,10 +127,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $stmt = db()->prepare(
-            "INSERT INTO sill_publications (title, annee, type, pdf_path, cover_path, description, is_active)
-             VALUES (?, ?, ?, ?, ?, ?, ?)"
+            "INSERT INTO sill_publications (title, annee, type, pdf_path, cover_path, description, is_active, sort_order)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
         );
-        $stmt->execute([$title, $annee, $type, $pdf_path, $cover_path, $description, $is_active]);
+        $stmt->execute([$title, $annee, $type, $pdf_path, $cover_path, $description, $is_active, $sort_order]);
         flash('success', 'Publication créée.');
         header('Location: ?page=publications');
         exit;
@@ -153,10 +154,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $stmt = db()->prepare(
             "UPDATE sill_publications
-             SET title = ?, annee = ?, type = ?, pdf_path = ?, cover_path = ?, description = ?, is_active = ?
+             SET title = ?, annee = ?, type = ?, pdf_path = ?, cover_path = ?, description = ?, is_active = ?, sort_order = ?
              WHERE id = ?"
         );
-        $stmt->execute([$title, $annee, $type, $pdf_path, $cover_path, $description, $is_active, $item_id]);
+        $stmt->execute([$title, $annee, $type, $pdf_path, $cover_path, $description, $is_active, $sort_order, $item_id]);
         flash('success', 'Publication mise à jour.');
         header('Location: ?page=publications');
         exit;
@@ -202,6 +203,11 @@ if ($action === 'edit' && $id) {
                         <option value="<?= e($val) ?>" <?= ($item['type'] ?? '') === $val ? 'selected' : '' ?>><?= e($label) ?></option>
                     <?php endforeach; ?>
                 </select>
+            </div>
+            <div class="form-group">
+                <label for="sort_order">Position</label>
+                <input type="number" id="sort_order" name="sort_order" value="<?= (int) ($item['sort_order'] ?? 0) ?>" min="0" max="999">
+                <small class="form-hint">Ordre d'affichage (1 = premier).</small>
             </div>
         </div>
 
@@ -278,6 +284,11 @@ if ($action === 'create') {
                     <?php endforeach; ?>
                 </select>
             </div>
+            <div class="form-group">
+                <label for="sort_order">Position</label>
+                <input type="number" id="sort_order" name="sort_order" value="0" min="0" max="999">
+                <small class="form-hint">Ordre d'affichage (1 = premier).</small>
+            </div>
         </div>
 
         <div class="form-group">
@@ -317,7 +328,7 @@ if ($action === 'create') {
 // ---------------------------------------------------------------------------
 // VIEW: List (default)
 // ---------------------------------------------------------------------------
-$all_items = query("SELECT * FROM sill_publications ORDER BY annee DESC, title");
+$all_items = query("SELECT * FROM sill_publications ORDER BY sort_order ASC, annee DESC, title");
 ?>
 
 <div class="page-header">
@@ -332,6 +343,7 @@ $all_items = query("SELECT * FROM sill_publications ORDER BY annee DESC, title")
     <table class="admin-table">
         <thead>
             <tr>
+                <th>Pos.</th>
                 <th>Couverture</th>
                 <th>Titre</th>
                 <th>Année</th>
@@ -344,6 +356,7 @@ $all_items = query("SELECT * FROM sill_publications ORDER BY annee DESC, title")
         <tbody>
         <?php foreach ($all_items as $item): ?>
             <tr>
+                <td style="text-align:center; color:#999; font-size:13px"><?= (int) $item['sort_order'] ?></td>
                 <td>
                     <?php if (!empty($item['cover_path'])): ?>
                         <img src="<?= SITE_URL ?>/uploads/<?= e($item['cover_path']) ?>" alt="" style="height:48px; border-radius:3px; box-shadow:0 1px 3px rgba(0,0,0,0.15)">
