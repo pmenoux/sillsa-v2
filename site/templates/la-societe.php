@@ -82,7 +82,7 @@ $immeubles = query('SELECT nom, slug, image_id FROM sill_immeubles WHERE is_acti
     <?php if ($listText): ?>
     <!-- Operations with accent border -->
     <div class="societe-operations">
-      <h2>Opérations</h2>
+      <h2>Projets réalisés</h2>
       <div class="societe-ops-content rich-text">
         <?= $listText ?>
       </div>
