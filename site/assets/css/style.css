@@ -19,7 +19,7 @@
   --color-muted:     #999999;
   --color-white:     #FFFFFF;
   --color-dark:      #1A1A1A;
-  --color-nav-bg:    #F5F0EB;
+  --color-nav-bg:    #F0F2F5;
   --color-blue:      #0047BB;
   --color-yellow:    #FFD700;
 
@@ -369,9 +369,10 @@ blockquote {
 /* --------------------------------------------------------------------------
    7. KPI Section
    -------------------------------------------------------------------------- */
-.kpi-section {
+.kpi-section,
+.section-kpi {
   background: var(--color-bg-warm);
-  padding: 48px 0;
+  padding: 80px 0;
 }
 
 .kpi-grid {
@@ -408,8 +409,14 @@ blockquote {
 /* --------------------------------------------------------------------------
    8. Timeline
    -------------------------------------------------------------------------- */
-.timeline-section {
-  padding: 64px 0;
+.timeline-section,
+.section-timeline {
+  padding: 96px 0;
+}
+
+.timeline-section h2,
+.section-timeline h2 {
+  margin-bottom: 48px;
 }
 
 /* Filters */
