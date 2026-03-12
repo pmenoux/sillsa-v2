@@ -19,10 +19,14 @@
   --color-muted:     #999999;
   --color-white:     #FFFFFF;
   --color-dark:      #1A1A1A;
+  --color-nav-bg:    #F5F0EB;
+  --color-blue:      #0047BB;
+  --color-yellow:    #FFD700;
 
   /* Typography — Golden Ratio (base 14.67 px) */
   --font-body:    'Lato', sans-serif;
   --font-heading: 'Inter', sans-serif;
+  --font-nav:     'Helvetica Neue', Helvetica, Arial, sans-serif;
 
   --fs-base:    14.67px;
   --lh-base:    23.7px;
@@ -56,7 +60,7 @@
   --shadow:       0 2px 8px rgba(0, 0, 0, 0.08);
   --shadow-lg:    0 4px 20px rgba(0, 0, 0, 0.10);
   --transition:   0.3s ease;
-  --header-h:     72px;
+  --header-h:     100px;
 }
 
 /* --------------------------------------------------------------------------
@@ -191,8 +195,8 @@ blockquote {
   right: 0;
   z-index: 1000;
   height: var(--header-h);
-  background: var(--color-white);
-  border-bottom: 1px solid var(--color-border);
+  background: var(--color-nav-bg);
+  border-bottom: 2px solid #000000;
   display: flex;
   align-items: center;
 }
@@ -204,8 +208,8 @@ blockquote {
   width: 100%;
 }
 
-.site-logo img {
-  height: 40px;
+.logo img {
+  height: 70px;
   width: auto;
 }
 
@@ -221,7 +225,7 @@ blockquote {
 .nav-toggle span {
   display: block;
   height: 2px;
-  background: var(--color-heading);
+  background: #000000;
   border-radius: 2px;
   transition: var(--transition);
 }
@@ -233,8 +237,8 @@ blockquote {
   top: var(--header-h);
   left: 0;
   right: 0;
-  background: var(--color-white);
-  border-bottom: 1px solid var(--color-border);
+  background: var(--color-nav-bg);
+  border-bottom: 2px solid #000000;
   padding: 16px 0;
   flex-direction: column;
 }
@@ -255,18 +259,20 @@ blockquote {
   display: block;
   padding: 12px var(--margin-mobile);
   color: var(--color-heading);
-  font-family: var(--font-heading);
+  font-family: var(--font-nav);
   font-size: var(--fs-base);
   font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
-.nav-list a:hover,
-.nav-list a.is-active {
+.nav-list a:hover {
   color: var(--color-accent);
 }
 
 .nav-list a.is-active {
-  border-bottom: 2px solid var(--color-accent);
+  color: var(--color-heading);
+  border-bottom: 2px solid #000000;
 }
 
 /* Dropdown */
@@ -1119,7 +1125,7 @@ blockquote {
   }
 
   .nav-list a.is-active {
-    border-bottom: 2px solid var(--color-accent);
+    border-bottom: 2px solid #000000;
     padding-bottom: 6px;
   }
 
@@ -1130,8 +1136,8 @@ blockquote {
     top: 100%;
     left: 0;
     min-width: 200px;
-    background: var(--color-white);
-    border: 1px solid var(--color-border);
+    background: var(--color-nav-bg);
+    border: 1px solid #000000;
     border-radius: var(--radius-sm);
     box-shadow: var(--shadow);
     padding: 8px 0;

@@ -43,7 +43,7 @@ if ($currentRoute && $currentRoute !== 'accueil') {
 <header class="site-header">
     <div class="container">
         <a href="<?= SITE_URL ?>/" class="logo">
-            <img src="<?= SITE_URL ?>/assets/img/logo_sill.svg" alt="SILL SA" width="120" height="40">
+            <img src="<?= SITE_URL ?>/assets/img/logo_sill.png" alt="SILL SA" height="70">
         </a>
 
         <nav class="main-nav" aria-label="Navigation principale">
