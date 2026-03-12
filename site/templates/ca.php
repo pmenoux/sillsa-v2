@@ -11,6 +11,12 @@ $membres = query('SELECT ca.*, m.filepath FROM sill_membres_ca ca LEFT JOIN sill
 
 <section class="section-ca">
   <div class="container">
+    <!-- Photo de groupe -->
+    <div class="ca-group-photo reveal">
+      <img src="<?= SITE_URL ?>/uploads/2025/10/ca-groupe-sill.jpg"
+           alt="Conseil d'administration SILL SA" loading="lazy">
+    </div>
+
     <div class="ca-grid">
       <?php foreach ($membres as $membre): ?>
         <div class="ca-card reveal">
