@@ -15,7 +15,7 @@ $action = preg_replace('/[^a-z_-]/', '', strtolower($_GET['action'] ?? 'list'));
 $id     = isset($_GET['id']) ? (int) $_GET['id'] : null;
 
 $publicPages = ['login'];
-$validPages  = ['login', 'dashboard', 'kpi', 'pages', 'publications', 'settings', 'menu'];
+$validPages  = ['login', 'dashboard', 'kpi', 'pages', 'actualites', 'publications', 'settings', 'menu'];
 
 // Reject unknown pages
 if (!in_array($page, $validPages, true)) {
@@ -37,14 +37,6 @@ if ($page === 'logout') {
 
 if (!in_array($page, $publicPages, true)) {
     requireAuth();
-}
-
-// ---------------------------------------------------------------------------
-// CSRF check on POST (for all authenticated pages)
-// ---------------------------------------------------------------------------
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && !in_array($page, $publicPages, true)) {
-    csrfCheck();
 }
 
 // ---------------------------------------------------------------------------
