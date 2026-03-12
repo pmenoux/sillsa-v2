@@ -1,15 +1,16 @@
 <?php
 // templates/publications.php
-$publications = query('SELECT p.*, m.filepath FROM sill_publications p LEFT JOIN sill_medias m ON p.cover_image_id = m.id WHERE p.is_active = 1 ORDER BY p.annee DESC');
+$publications = query('SELECT * FROM sill_publications WHERE is_active = 1 ORDER BY annee DESC, title');
 
-// Get unique types for filter
-$types = array_unique(array_column($publications, 'type'));
 $typeLabels = [
     'rapport_annuel' => 'Rapports annuels',
-    'communique' => 'Communiqués',
-    'esg' => 'ESG',
-    'autre' => 'Autres'
+    'communique'     => 'Communiqués',
+    'esg'            => 'ESG',
+    'autre'          => 'Autres'
 ];
+
+// Get unique types for filter
+$types = array_unique(array_filter(array_column($publications, 'type')));
 ?>
 
 <section class="page-header">
@@ -35,13 +36,30 @@ $typeLabels = [
     <?php endif; ?>
 
     <div class="publications-grid">
-      <?php foreach ($publications as $pub): ?>
-        <a href="<?= SITE_URL ?>/uploads/<?= e(basename($pub['pdf_path'] ?? '')) ?>"
+      <?php foreach ($publications as $pub):
+          // Resolve PDF URL
+          $pdf_url = '';
+          if (!empty($pub['pdf_path'])) {
+              if (str_starts_with($pub['pdf_path'], '/wp-content/')) {
+                  // Legacy WP path → redirect to uploads/
+                  $pdf_url = SITE_URL . str_replace('/wp-content/uploads/', '/uploads/', $pub['pdf_path']);
+              } else {
+                  $pdf_url = SITE_URL . '/uploads/' . $pub['pdf_path'];
+              }
+          }
+
+          // Resolve cover image
+          $cover_url = '';
+          if (!empty($pub['cover_path'])) {
+              $cover_url = SITE_URL . '/uploads/' . $pub['cover_path'];
+          }
+      ?>
+        <a href="<?= e($pdf_url) ?>"
            target="_blank" rel="noopener"
            class="publication-card reveal"
            data-type="<?= e($pub['type']) ?>">
-          <?php if ($pub['filepath']): ?>
-            <img src="<?= mediaUrl((int)$pub['cover_image_id']) ?>"
+          <?php if ($cover_url): ?>
+            <img src="<?= e($cover_url) ?>"
                  alt="<?= e($pub['title']) ?>" loading="lazy">
           <?php else: ?>
             <div class="publication-cover-placeholder">
@@ -49,7 +67,7 @@ $typeLabels = [
             </div>
           <?php endif; ?>
           <div class="publication-info">
-            <span class="publication-year"><?= (int)$pub['annee'] ?></span>
+            <span class="publication-year"><?= (int) $pub['annee'] ?></span>
             <h3><?= e($pub['title']) ?></h3>
             <span class="publication-type"><?= e($typeLabels[$pub['type']] ?? '') ?></span>
           </div>
