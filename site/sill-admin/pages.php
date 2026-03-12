@@ -55,12 +55,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // --- DELETE (soft) ---
-    if ($action === 'delete') {
-        $page_id = (int) ($_POST['id'] ?? $id);
-        $stmt = db()->prepare("UPDATE sill_pages SET is_active = 0 WHERE id = ?");
-        $stmt->execute([$page_id]);
-        flash('success', 'Page désactivée.');
+    // --- TOGGLE active ---
+    if ($action === 'toggle') {
+        $page_id   = (int) ($_POST['id'] ?? 0);
+        $is_active = (int) ($_POST['is_active'] ?? 0);
+        if ($page_id > 0) {
+            $stmt = db()->prepare("UPDATE sill_pages SET is_active = ? WHERE id = ?");
+            $stmt->execute([$is_active, $page_id]);
+            flash('success', $is_active ? 'Page activée.' : 'Page désactivée.');
+        }
         header('Location: ?page=pages');
         exit;
     }
@@ -241,15 +244,21 @@ $all_pages = query("SELECT * FROM sill_pages ORDER BY id DESC");
             <tr>
                 <td><?= e($page['title']) ?></td>
                 <td><code><?= e($page['slug']) ?></code></td>
-                <td><?= $page['is_active'] ? 'Oui' : 'Non' ?></td>
-                <td class="cell-actions">
-                    <a href="?page=pages&action=edit&id=<?= (int) $page['id'] ?>" class="btn btn-sm btn-secondary">Modifier</a>
-                    <form method="post" action="?page=pages&action=delete" class="form-inline"
-                          onsubmit="return confirm('Désactiver cette page ?')">
+                <td>
+                    <form method="post" action="?page=pages&action=toggle" class="form-inline">
                         <?= csrfField() ?>
                         <input type="hidden" name="id" value="<?= (int) $page['id'] ?>">
-                        <button type="submit" class="btn btn-sm btn-danger">Désactiver</button>
+                        <input type="hidden" name="is_active" value="<?= $page['is_active'] ? 0 : 1 ?>">
+                        <label class="toggle">
+                            <input type="checkbox"
+                                   <?= $page['is_active'] ? 'checked' : '' ?>
+                                   onchange="this.form.submit()">
+                            <span class="toggle-slider"></span>
+                        </label>
                     </form>
+                </td>
+                <td>
+                    <a href="?page=pages&action=edit&id=<?= (int) $page['id'] ?>" class="btn btn-sm btn-secondary">Modifier</a>
                 </td>
             </tr>
         <?php endforeach; ?>
