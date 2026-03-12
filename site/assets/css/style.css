@@ -84,7 +84,8 @@ body {
   font-size: var(--fs-base);
   line-height: var(--lh-base);
   color: var(--color-body);
-  background-color: var(--color-bg);
+  background: radial-gradient(ellipse at center, #FFFFFF 0%, #E9E7E4 100%);
+  background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
