@@ -96,9 +96,7 @@ $categoryLabels = [
                         >0</span>
                     <?php endif; ?>
 
-                    <?php if (!empty($kpi['unit'])): ?>
-                        <span class="kpi-unit"><?= e($kpi['unit']) ?></span>
-                    <?php endif; ?>
+                    <span class="kpi-unit"><?= e($kpi['unit'] ?? '') ?></span>
                 </div>
             <?php endforeach; ?>
         </div>

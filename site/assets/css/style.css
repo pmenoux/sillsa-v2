@@ -376,50 +376,47 @@ blockquote {
 }
 
 .kpi-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-rows: auto auto auto;
+  grid-auto-flow: column;
   justify-content: center;
-  gap: 16px var(--gutter);
-}
-
-.kpi-grid > * {
-  flex: 1 1 100%;
-  min-width: 0;
+  gap: 0;
+  text-align: center;
 }
 
 .kpi-card,
 .kpi-item {
-  text-align: center;
-  padding: 24px 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: contents;
+}
+
+.kpi-label {
+  grid-row: 1;
+  font-size: var(--fs-h4);
+  font-family: var(--font-heading);
+  color: var(--color-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  padding: 0 20px 16px;
+  align-self: end;
 }
 
 .kpi-value {
+  grid-row: 2;
   font-family: var(--font-heading);
   font-size: clamp(36px, 5vw, var(--fs-h1));
   font-weight: 700;
   line-height: 1.1;
   color: var(--color-accent);
+  padding: 0 20px;
 }
 
 .kpi-unit {
+  grid-row: 3;
   font-size: var(--fs-base);
   color: var(--color-muted);
-  margin-top: 2px;
-}
-
-.kpi-label {
-  display: block;
-  font-size: var(--fs-h4);
-  font-family: var(--font-heading);
-  color: var(--color-heading);
-  margin-bottom: auto;
-  padding-bottom: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-weight: 600;
+  padding: 4px 20px 0;
+  min-height: 24px;
 }
 
 /* --------------------------------------------------------------------------
@@ -1089,10 +1086,20 @@ blockquote {
     padding-inline: var(--margin-tablet);
   }
 
-  /* KPI */
-  .kpi-grid > * {
-    flex: 1 1 0;
-    max-width: calc(50% - var(--gutter));
+  /* KPI — tablet: stack vertically, 2 columns */
+  .kpi-grid {
+    grid-auto-flow: unset;
+    grid-template-rows: unset;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .kpi-item {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+  }
+  .kpi-label, .kpi-value, .kpi-unit {
+    grid-row: unset;
   }
 
   /* Timeline — still left-aligned on tablet */
@@ -1192,14 +1199,18 @@ blockquote {
     max-width: 700px;
   }
 
-  /* KPI — all items on one row, evenly distributed */
+  /* KPI — desktop: 3-row aligned grid */
   .kpi-grid {
-    flex-wrap: nowrap;
+    grid-auto-flow: column;
+    grid-template-rows: auto auto auto;
+    grid-template-columns: unset;
   }
-  .kpi-grid > * {
-    flex: 1 1 0;
-    max-width: none;
+  .kpi-item {
+    display: contents !important;
   }
+  .kpi-label { grid-row: 1; }
+  .kpi-value { grid-row: 2; }
+  .kpi-unit  { grid-row: 3; }
 
   /* Timeline — alternating left / right */
   .timeline {
