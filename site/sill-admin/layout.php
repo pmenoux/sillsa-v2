@@ -23,6 +23,26 @@ $flash = getFlash();
     <title>SILL Admin — <?= e($pageTitle) ?></title>
     <link rel="stylesheet" href="assets/admin.css">
     <script src="https://cdn.ckeditor.com/4.25.1-lts/standard/ckeditor.js"></script>
+    <script>
+    // Fallback: if CKEditor CDN blocked, try jsDelivr mirror
+    if (typeof CKEDITOR === 'undefined') {
+        document.write('<scr'+'ipt src="https://cdn.jsdelivr.net/npm/ckeditor4@4.25.1/ckeditor.js"><\/scr'+'ipt>');
+    }
+    </script>
+    <script>
+    // Final fallback: warn if still not loaded
+    window.addEventListener('DOMContentLoaded', function() {
+        if (typeof CKEDITOR === 'undefined') {
+            document.querySelectorAll('textarea[id="content"]').forEach(function(ta) {
+                var warn = document.createElement('div');
+                warn.style.cssText = 'background:#FFF3CD;border:1px solid #FFD700;padding:8px 12px;margin-bottom:8px;font-size:13px;border-radius:4px;';
+                warn.innerHTML = '<strong>Editeur visuel non disponible</strong> — Le CDN CKEditor est bloque par votre navigateur. Desactivez le bloqueur de pub sur cette page.';
+                ta.parentNode.insertBefore(warn, ta);
+                ta.rows = 20;
+            });
+        }
+    });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
 </head>
 <body class="admin-layout">
