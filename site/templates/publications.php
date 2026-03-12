@@ -1,6 +1,6 @@
 <?php
 // templates/publications.php
-$publications = query('SELECT * FROM sill_publications WHERE is_active = 1 ORDER BY sort_order ASC, annee DESC, title');
+$publications = query('SELECT * FROM sill_publications WHERE is_active = 1 ORDER BY annee DESC, sort_order ASC, title');
 
 $typeLabels = [
     'rapport_annuel' => 'Rapports annuels',

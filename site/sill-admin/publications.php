@@ -343,7 +343,7 @@ if ($action === 'create') {
 // ---------------------------------------------------------------------------
 // VIEW: List (default)
 // ---------------------------------------------------------------------------
-$all_items = query("SELECT * FROM sill_publications ORDER BY sort_order ASC, annee DESC, title");
+$all_items = query("SELECT * FROM sill_publications ORDER BY annee DESC, sort_order ASC, title");
 ?>
 
 <div class="page-header">
