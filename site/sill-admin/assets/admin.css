@@ -142,14 +142,14 @@ body {
    PAGE HEADER
    ============================================================ */
 
-.admin-page-header {
+.page-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
 }
 
-.admin-page-header h1 {
+.page-header h1 {
   font-size: 22px;
   font-weight: 600;
   color: #1A1A1A;
@@ -450,4 +450,142 @@ body {
   letter-spacing: 0.06em;
   color: #999;
   font-weight: 500;
+}
+
+/* ============================================================
+   SECONDARY BUTTON
+   ============================================================ */
+
+.btn-secondary {
+  background: #FFF;
+  color: #555;
+  border-color: var(--admin-border);
+}
+
+.btn-secondary:hover {
+  background: #F5F5F5;
+  opacity: 1;
+}
+
+/* ============================================================
+   TABLE EXTRAS
+   ============================================================ */
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.cell-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.cell-readonly {
+  color: #666;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   FORM EXTRAS
+   ============================================================ */
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #EEE;
+}
+
+.form-inline {
+  display: inline;
+}
+
+.form-group--checkbox label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.form-group--checkbox input[type="checkbox"] {
+  width: auto;
+}
+
+.form-hint {
+  display: block;
+  font-size: 12px;
+  color: #999;
+  margin-top: 4px;
+}
+
+.required {
+  color: var(--admin-danger);
+}
+
+/* ============================================================
+   SETTINGS PAGE
+   ============================================================ */
+
+.admin-section-header {
+  margin-bottom: 24px;
+}
+
+.admin-section-header h2 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #1A1A1A;
+}
+
+.settings-form {
+  max-width: 800px;
+}
+
+.settings-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.settings-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 12px;
+  align-items: start;
+  margin-bottom: 0;
+}
+
+.settings-row label {
+  font-family: monospace;
+  font-size: 13px;
+  padding-top: 8px;
+}
+
+/* ============================================================
+   INFO & EMPTY STATES
+   ============================================================ */
+
+.admin-info {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 20px;
+  padding: 12px 16px;
+  background: #FFF;
+  border-left: 3px solid var(--admin-accent);
+  border-radius: 0 4px 4px 0;
+}
+
+.admin-empty,
+.empty-state {
+  color: #999;
+  font-size: 14px;
+  padding: 32px;
+  text-align: center;
+  background: #FFF;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
 }

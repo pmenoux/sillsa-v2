@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!is_array($settings_post)) {
         flash('error', 'Données invalides.');
-        header('Location: ' . SITE_URL . 'sill-admin/?section=settings');
+        header('Location: ' . ?page=settings);
         exit;
     }
 
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     flash('success', $updated . ' paramètre(s) mis à jour.');
-    header('Location: ' . SITE_URL . 'sill-admin/?section=settings');
+    header('Location: ' . ?page=settings);
     exit;
 }
 
