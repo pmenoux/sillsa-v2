@@ -988,11 +988,11 @@ main {
    14. Footer
    -------------------------------------------------------------------------- */
 .site-footer {
-  background: var(--color-dark);
-  color: #CCCCCC;
+  background: var(--color-nav-bg);
+  color: var(--color-body);
   padding: 48px 0 0;
-  margin-top: 0;
-  border-top: none;
+  margin-top: 64px;
+  border-top: 2px solid var(--color-heading);
 }
 
 .footer-grid {
@@ -1003,17 +1003,17 @@ main {
 }
 
 .footer-grid a {
-  color: #CCCCCC;
+  color: var(--color-body);
   text-decoration: none;
 }
 
 .footer-grid a:hover {
-  color: var(--color-white);
+  color: var(--color-accent);
 }
 
 .footer-grid h3,
 .footer-grid h4 {
-  color: var(--color-white);
+  color: var(--color-heading);
   margin-bottom: 12px;
   font-size: var(--fs-base);
   text-transform: uppercase;
@@ -1030,9 +1030,9 @@ main {
 .footer-bottom {
   text-align: center;
   font-size: 12px;
-  color: #888888;
+  color: var(--color-muted);
   padding: 20px 0;
-  border-top: 1px solid #333333;
+  border-top: 1px solid var(--color-border);
 }
 
 /* --------------------------------------------------------------------------
