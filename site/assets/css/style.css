@@ -381,9 +381,13 @@ blockquote {
   gap: var(--gutter);
 }
 
-.kpi-card {
+.kpi-card,
+.kpi-item {
   text-align: center;
   padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .kpi-value {
@@ -397,13 +401,14 @@ blockquote {
 .kpi-unit {
   font-size: var(--fs-base);
   color: var(--color-muted);
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 .kpi-label {
+  display: block;
   font-size: var(--fs-base);
   color: var(--color-heading);
-  margin-top: 8px;
+  margin-top: 12px;
 }
 
 /* --------------------------------------------------------------------------
