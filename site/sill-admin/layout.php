@@ -6,8 +6,7 @@ $pageTitles = [
     'dashboard'    => 'Tableau de bord',
     'kpi'          => 'KPIs',
     'pages'        => 'Pages',
-    'actualites'   => 'Actualités',
-    'timeline'     => 'Timeline',
+    'timeline'     => 'Actualités',
     'publications' => 'Publications',
     'settings'     => 'Paramètres',
     'menu'         => 'Menu',
@@ -35,8 +34,7 @@ $flash = getFlash();
         <a href="?page=dashboard"<?= $page === 'dashboard' ? ' class="active"' : '' ?>>Tableau de bord</a>
         <a href="?page=kpi"<?= $page === 'kpi' ? ' class="active"' : '' ?>>KPIs</a>
         <a href="?page=pages"<?= $page === 'pages' ? ' class="active"' : '' ?>>Pages</a>
-        <a href="?page=actualites"<?= $page === 'actualites' ? ' class="active"' : '' ?>>Actualités</a>
-        <a href="?page=timeline"<?= $page === 'timeline' ? ' class="active"' : '' ?>>Timeline</a>
+        <a href="?page=timeline"<?= $page === 'timeline' ? ' class="active"' : '' ?>>Actualités</a>
         <a href="?page=publications"<?= $page === 'publications' ? ' class="active"' : '' ?>>Publications</a>
         <a href="?page=settings"<?= $page === 'settings' ? ' class="active"' : '' ?>>Paramètres</a>
         <a href="?page=menu"<?= $page === 'menu' ? ' class="active"' : '' ?>>Menu</a>
