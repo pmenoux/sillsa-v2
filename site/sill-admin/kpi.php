@@ -49,7 +49,7 @@ $kpis = query("SELECT * FROM sill_kpi ORDER BY sort_order, id");
         <?php foreach ($kpis as $kpi): ?>
             <tr>
                 <td><?= e($kpi['label']) ?></td>
-                <td class="cell-readonly"><?= e($kpi['value']) ?></td>
+                <td class="cell-readonly"><?= e($kpi['value_text'] ?: number_format((float)$kpi['value_num'], 2, '.', "'")) ?></td>
                 <td><?= e($kpi['unit'] ?? '') ?></td>
                 <td>
                     <form method="post" action="?page=kpi&action=toggle">
