@@ -1156,6 +1156,10 @@ main {
   columns: 1;
 }
 
+.societe-ops-content li {
+  break-inside: avoid;
+}
+
 /* Carrousel projets phares */
 .societe-carousel {
   margin-top: 64px;
@@ -1540,7 +1544,7 @@ main {
   }
 
   .societe-ops-content {
-    columns: 2;
+    columns: 3;
     column-gap: 32px;
   }
 
