@@ -67,6 +67,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: ?page=pages');
         exit;
     }
+
+    // --- DELETE (permanent) ---
+    if ($action === 'delete') {
+        $page_id = (int) ($_POST['id'] ?? 0);
+        if ($page_id > 0) {
+            $stmt = db()->prepare("DELETE FROM sill_pages WHERE id = ?");
+            $stmt->execute([$page_id]);
+            flash('success', 'Page supprimée définitivement.');
+        }
+        header('Location: ?page=pages');
+        exit;
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -257,8 +269,14 @@ $all_pages = query("SELECT * FROM sill_pages ORDER BY id DESC");
                         </label>
                     </form>
                 </td>
-                <td>
+                <td class="cell-actions">
                     <a href="?page=pages&action=edit&id=<?= (int) $page['id'] ?>" class="btn btn-sm btn-secondary">Modifier</a>
+                    <form method="post" action="?page=pages&action=delete" class="form-inline"
+                          onsubmit="return confirm('Supprimer définitivement cette page ?')">
+                        <?= csrfField() ?>
+                        <input type="hidden" name="id" value="<?= (int) $page['id'] ?>">
+                        <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
+                    </form>
                 </td>
             </tr>
         <?php endforeach; ?>
