@@ -123,6 +123,21 @@ if ($action === 'edit' && $id) {
             <a href="?page=pages" class="btn btn-secondary">Retour</a>
         </div>
     </form>
+    <script>
+    CKEDITOR.replace('content', {
+        language: 'fr',
+        height: 350,
+        removePlugins: 'elementspath',
+        toolbar: [
+            { name: 'basic',   items: ['Bold', 'Italic', 'Underline', 'Strike', '-', 'RemoveFormat'] },
+            { name: 'para',    items: ['NumberedList', 'BulletedList', '-', 'Blockquote'] },
+            { name: 'links',   items: ['Link', 'Unlink'] },
+            { name: 'insert',  items: ['Image', 'Table', 'HorizontalRule'] },
+            { name: 'styles',  items: ['Format'] },
+            { name: 'tools',   items: ['Maximize', 'Source'] }
+        ]
+    });
+    </script>
     <?php
     return;
 }
@@ -178,6 +193,21 @@ if ($action === 'create') {
             <a href="?page=pages" class="btn btn-secondary">Retour</a>
         </div>
     </form>
+    <script>
+    CKEDITOR.replace('content', {
+        language: 'fr',
+        height: 350,
+        removePlugins: 'elementspath',
+        toolbar: [
+            { name: 'basic',   items: ['Bold', 'Italic', 'Underline', 'Strike', '-', 'RemoveFormat'] },
+            { name: 'para',    items: ['NumberedList', 'BulletedList', '-', 'Blockquote'] },
+            { name: 'links',   items: ['Link', 'Unlink'] },
+            { name: 'insert',  items: ['Image', 'Table', 'HorizontalRule'] },
+            { name: 'styles',  items: ['Format'] },
+            { name: 'tools',   items: ['Maximize', 'Source'] }
+        ]
+    });
+    </script>
     <?php
     return;
 }
