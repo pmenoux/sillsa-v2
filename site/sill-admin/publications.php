@@ -63,6 +63,31 @@ function makePrefix(int $annee, string $title): string
 // ---------------------------------------------------------------------------
 // POST handling
 // ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// AJAX: reorder (JSON body)
+// ---------------------------------------------------------------------------
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'reorder') {
+    header('Content-Type: application/json');
+    $input = json_decode(file_get_contents('php://input'), true);
+    if (!is_array($input['ids'] ?? null) || empty($input['csrf_token'])) {
+        http_response_code(400);
+        echo json_encode(['ok' => false, 'error' => 'Données invalides']);
+        exit;
+    }
+    // Validate CSRF
+    if (($input['csrf_token'] ?? '') !== ($_SESSION['csrf_token'] ?? '')) {
+        http_response_code(403);
+        echo json_encode(['ok' => false, 'error' => 'Token CSRF invalide']);
+        exit;
+    }
+    $stmt = db()->prepare("UPDATE sill_publications SET sort_order = ? WHERE id = ?");
+    foreach ($input['ids'] as $pos => $pub_id) {
+        $stmt->execute([$pos + 1, (int) $pub_id]);
+    }
+    echo json_encode(['ok' => true]);
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrfCheck();
 
@@ -204,11 +229,6 @@ if ($action === 'edit' && $id) {
                     <?php endforeach; ?>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="sort_order">Position</label>
-                <input type="number" id="sort_order" name="sort_order" value="<?= (int) ($item['sort_order'] ?? 0) ?>" min="0" max="999">
-                <small class="form-hint">Ordre d'affichage (1 = premier).</small>
-            </div>
         </div>
 
         <div class="form-group">
@@ -284,11 +304,6 @@ if ($action === 'create') {
                     <?php endforeach; ?>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="sort_order">Position</label>
-                <input type="number" id="sort_order" name="sort_order" value="0" min="0" max="999">
-                <small class="form-hint">Ordre d'affichage (1 = premier).</small>
-            </div>
         </div>
 
         <div class="form-group">
@@ -343,7 +358,7 @@ $all_items = query("SELECT * FROM sill_publications ORDER BY sort_order ASC, ann
     <table class="admin-table">
         <thead>
             <tr>
-                <th>Pos.</th>
+                <th style="width:40px"></th>
                 <th>Couverture</th>
                 <th>Titre</th>
                 <th>Année</th>
@@ -355,8 +370,8 @@ $all_items = query("SELECT * FROM sill_publications ORDER BY sort_order ASC, ann
         </thead>
         <tbody>
         <?php foreach ($all_items as $item): ?>
-            <tr>
-                <td style="text-align:center; color:#999; font-size:13px"><?= (int) $item['sort_order'] ?></td>
+            <tr data-id="<?= (int) $item['id'] ?>">
+                <td class="drag-handle" title="Glisser pour réordonner">&#9776;</td>
                 <td>
                     <?php if (!empty($item['cover_path'])): ?>
                         <img src="<?= SITE_URL ?>/uploads/<?= e($item['cover_path']) ?>" alt="" style="height:48px; border-radius:3px; box-shadow:0 1px 3px rgba(0,0,0,0.15)">
@@ -401,4 +416,29 @@ $all_items = query("SELECT * FROM sill_publications ORDER BY sort_order ASC, ann
         </tbody>
     </table>
 </div>
+
+<!-- Drag-and-drop reorder -->
+<script>
+(function() {
+    var tbody = document.querySelector('.admin-table tbody');
+    if (!tbody) return;
+    Sortable.create(tbody, {
+        handle: '.drag-handle',
+        animation: 180,
+        ghostClass: 'drag-ghost',
+        onEnd: function() {
+            var rows = tbody.querySelectorAll('tr[data-id]');
+            var ids = [];
+            rows.forEach(function(r) { ids.push(parseInt(r.dataset.id)); });
+            fetch('?page=publications&action=reorder', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ids: ids, csrf_token: '<?= e($_SESSION['csrf_token'] ?? '') ?>' })
+            }).then(function(r) { return r.json(); }).then(function(d) {
+                if (!d.ok) alert('Erreur : ' + (d.error || 'inconnue'));
+            }).catch(function() { alert('Erreur réseau'); });
+        }
+    });
+})();
+</script>
 <?php endif; ?>

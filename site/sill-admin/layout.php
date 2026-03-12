@@ -23,6 +23,7 @@ $flash = getFlash();
     <title>SILL Admin — <?= e($pageTitle) ?></title>
     <link rel="stylesheet" href="assets/admin.css">
     <script src="https://cdn.ckeditor.com/4.25.1-lts/standard/ckeditor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
 </head>
 <body class="admin-layout">
 

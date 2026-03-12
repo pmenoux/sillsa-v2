@@ -613,6 +613,35 @@ body {
 }
 
 /* ============================================================
+   DRAG & DROP REORDER
+   ============================================================ */
+
+.drag-handle {
+  cursor: grab;
+  text-align: center;
+  color: #BBB;
+  font-size: 16px;
+  user-select: none;
+  width: 40px;
+}
+
+.drag-handle:hover {
+  color: #666;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.drag-ghost {
+  background: #E3EDFA !important;
+}
+
+.drag-ghost td {
+  background: #E3EDFA !important;
+}
+
+/* ============================================================
    RESPONSIVE — mobile topbar
    ============================================================ */
 
