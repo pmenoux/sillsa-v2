@@ -1,6 +1,15 @@
 # CHANGELOG — SILL SA Refonte 2026
 
 ## [2026-03-12]
+### Refonte page "La Société" — Swiss Design layout
+- Suppression du h2 "La Société" en doublon (déjà dans le h1 page-header)
+- Nouveau template dédié `la-societe.php` remplaçant le générique `page.php`
+- Layout 2 colonnes sur desktop : texte à gauche, image à droite (sticky)
+- Premier paragraphe en style chapeau (taille élevée, font-weight 300)
+- Section opérations avec bordure rouge accent à gauche
+- Carrousel horizontal "Nos réalisations" avec photos des immeubles (scroll snap, swipe mobile)
+- Responsive : 1 colonne mobile, 2 colonnes >= 1200px
+
 ### Fix — Menu mobile dropdown "À propos"
 - Fix mismatch classe CSS `is-open` vs JS `dropdown-open` — le JS utilisait `dropdown-open` mais le CSS attendait `is-open` sur `.has-dropdown`
 - Fix seuil mobile `isMobile()` : 768px → 1024px pour correspondre au breakpoint CSS de la nav horizontale

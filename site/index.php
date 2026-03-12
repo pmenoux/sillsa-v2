@@ -43,7 +43,7 @@ if ($page === 'api' && ($segments[1] ?? '') === 'immeuble' && ($segments[2] ?? '
 $routes = [
     'accueil'                => 'templates/accueil.php',
     ''                       => 'templates/accueil.php',
-    'la-societe'             => 'templates/page.php',
+    'la-societe'             => 'templates/la-societe.php',
     'conseil-administration' => 'templates/ca.php',
     'organisation'           => 'templates/page.php',
     'environnement'          => 'templates/page.php',
