@@ -73,7 +73,7 @@ $categoryLabels = [
      2. KPI
      ════════════════════════════════════════════════════════════════ -->
 <?php if ($kpis): ?>
-<section class="section-kpi" style="background: var(--color-bg-warm);">
+<section class="section-kpi">
     <div class="container">
         <div class="kpi-grid">
             <?php foreach ($kpis as $kpi): ?>

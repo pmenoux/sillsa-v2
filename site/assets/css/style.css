@@ -371,7 +371,7 @@ blockquote {
    -------------------------------------------------------------------------- */
 .kpi-section,
 .section-kpi {
-  background: var(--color-bg-warm);
+  background: radial-gradient(ellipse at center, #FFFFFF 0%, #E9E7E4 100%);
   padding: 80px 0;
 }
 
