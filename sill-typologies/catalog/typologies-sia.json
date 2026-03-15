@@ -1,0 +1,133 @@
+{
+  "_doc": "Typologies de logements selon normes SIA 500 / SIA 180 — Surfaces minimales recommandées en Suisse",
+  "typologies": [
+    {
+      "code": "S",
+      "nom": "Studio",
+      "pieces": 1,
+      "surface_min_m2": 25,
+      "surface_typ_m2": 30,
+      "description": "Pièce principale avec coin cuisine, salle d'eau",
+      "pieces_detail": {
+        "sejour_cuisine": { "min_m2": 18, "typ_m2": 22 },
+        "salle_eau": { "min_m2": 3.5, "typ_m2": 4 },
+        "degagement": { "min_m2": 2, "typ_m2": 3 }
+      }
+    },
+    {
+      "code": "2P",
+      "nom": "2 pièces",
+      "pieces": 2,
+      "surface_min_m2": 40,
+      "surface_typ_m2": 50,
+      "description": "Séjour-cuisine + 1 chambre, salle de bain",
+      "pieces_detail": {
+        "sejour_cuisine": { "min_m2": 20, "typ_m2": 25 },
+        "chambre_1": { "min_m2": 10, "typ_m2": 14 },
+        "salle_bain": { "min_m2": 4, "typ_m2": 5 },
+        "degagement": { "min_m2": 3, "typ_m2": 4 }
+      }
+    },
+    {
+      "code": "2.5P",
+      "nom": "2½ pièces",
+      "pieces": 2.5,
+      "surface_min_m2": 50,
+      "surface_typ_m2": 60,
+      "description": "Séjour + cuisine séparée + 1 chambre, salle de bain",
+      "pieces_detail": {
+        "sejour": { "min_m2": 18, "typ_m2": 22 },
+        "cuisine": { "min_m2": 8, "typ_m2": 10 },
+        "chambre_1": { "min_m2": 12, "typ_m2": 14 },
+        "salle_bain": { "min_m2": 4.5, "typ_m2": 5.5 },
+        "degagement": { "min_m2": 4, "typ_m2": 5 }
+      }
+    },
+    {
+      "code": "3P",
+      "nom": "3 pièces",
+      "pieces": 3,
+      "surface_min_m2": 60,
+      "surface_typ_m2": 72,
+      "description": "Séjour-cuisine + 2 chambres, salle de bain",
+      "pieces_detail": {
+        "sejour_cuisine": { "min_m2": 25, "typ_m2": 30 },
+        "chambre_1": { "min_m2": 12, "typ_m2": 14 },
+        "chambre_2": { "min_m2": 10, "typ_m2": 12 },
+        "salle_bain": { "min_m2": 5, "typ_m2": 6 },
+        "degagement": { "min_m2": 5, "typ_m2": 6 }
+      }
+    },
+    {
+      "code": "3.5P",
+      "nom": "3½ pièces",
+      "pieces": 3.5,
+      "surface_min_m2": 72,
+      "surface_typ_m2": 85,
+      "description": "Séjour + cuisine séparée + 2 chambres, salle de bain + WC séparé",
+      "pieces_detail": {
+        "sejour": { "min_m2": 22, "typ_m2": 26 },
+        "cuisine": { "min_m2": 10, "typ_m2": 12 },
+        "chambre_1": { "min_m2": 14, "typ_m2": 16 },
+        "chambre_2": { "min_m2": 10, "typ_m2": 12 },
+        "salle_bain": { "min_m2": 5, "typ_m2": 6 },
+        "wc": { "min_m2": 1.5, "typ_m2": 2 },
+        "degagement": { "min_m2": 5, "typ_m2": 6 }
+      }
+    },
+    {
+      "code": "4P",
+      "nom": "4 pièces",
+      "pieces": 4,
+      "surface_min_m2": 85,
+      "surface_typ_m2": 100,
+      "description": "Séjour-cuisine + 3 chambres, salle de bain + WC séparé",
+      "pieces_detail": {
+        "sejour_cuisine": { "min_m2": 30, "typ_m2": 35 },
+        "chambre_1": { "min_m2": 14, "typ_m2": 16 },
+        "chambre_2": { "min_m2": 12, "typ_m2": 14 },
+        "chambre_3": { "min_m2": 10, "typ_m2": 12 },
+        "salle_bain": { "min_m2": 5.5, "typ_m2": 7 },
+        "wc": { "min_m2": 1.5, "typ_m2": 2 },
+        "degagement": { "min_m2": 6, "typ_m2": 8 }
+      }
+    },
+    {
+      "code": "4.5P",
+      "nom": "4½ pièces",
+      "pieces": 4.5,
+      "surface_min_m2": 100,
+      "surface_typ_m2": 115,
+      "description": "Séjour + cuisine séparée + 3 chambres, 2 salles d'eau",
+      "pieces_detail": {
+        "sejour": { "min_m2": 25, "typ_m2": 30 },
+        "cuisine": { "min_m2": 12, "typ_m2": 14 },
+        "chambre_1": { "min_m2": 14, "typ_m2": 16 },
+        "chambre_2": { "min_m2": 12, "typ_m2": 14 },
+        "chambre_3": { "min_m2": 10, "typ_m2": 12 },
+        "salle_bain": { "min_m2": 6, "typ_m2": 7 },
+        "salle_douche": { "min_m2": 3.5, "typ_m2": 4.5 },
+        "degagement": { "min_m2": 7, "typ_m2": 9 }
+      }
+    },
+    {
+      "code": "5P",
+      "nom": "5 pièces",
+      "pieces": 5,
+      "surface_min_m2": 115,
+      "surface_typ_m2": 130,
+      "description": "Séjour + cuisine + 4 chambres, 2 salles d'eau",
+      "pieces_detail": {
+        "sejour": { "min_m2": 28, "typ_m2": 32 },
+        "cuisine": { "min_m2": 12, "typ_m2": 14 },
+        "chambre_1": { "min_m2": 14, "typ_m2": 16 },
+        "chambre_2": { "min_m2": 12, "typ_m2": 14 },
+        "chambre_3": { "min_m2": 10, "typ_m2": 12 },
+        "chambre_4": { "min_m2": 10, "typ_m2": 12 },
+        "salle_bain": { "min_m2": 6, "typ_m2": 7 },
+        "salle_douche": { "min_m2": 4, "typ_m2": 5 },
+        "degagement": { "min_m2": 8, "typ_m2": 10 }
+      }
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+# SILL Typologies — Dependencies
+ezdxf>=1.3.0          # DXF read/write/conversion
+Pillow>=10.0.0        # Image processing
+PyMuPDF>=1.24.0       # PDF reading (fitz)
+numpy>=1.26.0         # Geometry calculations

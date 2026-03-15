@@ -1,0 +1,104 @@
+{
+  "immeubles": [
+    {
+      "slug": "bonne-esperance",
+      "nom": "Bonne-Espérance 30-32",
+      "adresse": "Chemin de Bonne-Espérance 30-32, 1006 Lausanne",
+      "nb_logements": 37,
+      "annee_livraison": 2018,
+      "categorie": ["LLM", "LLA"],
+      "label_energie": "Minergie-P-Eco",
+      "typologies": []
+    },
+    {
+      "slug": "viaduc",
+      "nom": "Viaduc 26-28",
+      "adresse": "Avenue du Viaduc 26-28, 1003 Lausanne",
+      "nb_logements": 54,
+      "annee_livraison": 2020,
+      "categorie": ["LLM"],
+      "label_energie": "Minergie-P-Eco",
+      "typologies": []
+    },
+    {
+      "slug": "sevelin",
+      "nom": "Sévelinpark",
+      "adresse": "Rue de Sévelinpark, 1004 Lausanne",
+      "nb_logements": 152,
+      "annee_livraison": 2021,
+      "categorie": ["LLM", "LLA", "Libre"],
+      "label_energie": "Minergie-P-Eco",
+      "typologies": []
+    },
+    {
+      "slug": "plaines-du-loup",
+      "nom": "Plaines-du-Loup",
+      "adresse": "Les Plaines-du-Loup, 1018 Lausanne",
+      "nb_logements": 220,
+      "annee_livraison": 2025,
+      "categorie": ["LLM", "LLA", "Étudiants"],
+      "label_energie": "Minergie-P-Eco",
+      "typologies": []
+    },
+    {
+      "slug": "maillefer",
+      "nom": "Maillefer 35-37",
+      "adresse": "Chemin de Maillefer 35-37, 1052 Le Mont-sur-Lausanne",
+      "nb_logements": 42,
+      "annee_livraison": 2017,
+      "categorie": ["LLM"],
+      "label_energie": "Minergie",
+      "typologies": []
+    },
+    {
+      "slug": "grey",
+      "nom": "Grey 36",
+      "adresse": "Avenue de Grey 36, 1004 Lausanne",
+      "nb_logements": 28,
+      "annee_livraison": 2019,
+      "categorie": ["LLA"],
+      "label_energie": "Minergie-P",
+      "typologies": []
+    },
+    {
+      "slug": "renens",
+      "nom": "Renens",
+      "adresse": "Rue de la Gare, 1020 Renens",
+      "nb_logements": 95,
+      "annee_livraison": 2022,
+      "categorie": ["LLM", "LLA"],
+      "label_energie": "Minergie-P-Eco",
+      "typologies": []
+    },
+    {
+      "slug": "bourdonnette",
+      "nom": "Bourdonnette",
+      "adresse": "Chemin de la Bourdonnette, 1018 Lausanne",
+      "nb_logements": 80,
+      "annee_livraison": 2023,
+      "categorie": ["LLM", "Libre"],
+      "label_energie": "Minergie-P-Eco",
+      "typologies": []
+    },
+    {
+      "slug": "pontaise",
+      "nom": "Pontaise",
+      "adresse": "Avenue de la Pontaise, 1018 Lausanne",
+      "nb_logements": 68,
+      "annee_livraison": 2024,
+      "categorie": ["LLM", "LLA"],
+      "label_energie": "Minergie-P-Eco",
+      "typologies": []
+    },
+    {
+      "slug": "florissant",
+      "nom": "Florissant",
+      "adresse": "Chemin de Florissant, 1006 Lausanne",
+      "nb_logements": 58,
+      "annee_livraison": 2026,
+      "categorie": ["LLM", "LLA", "Libre"],
+      "label_energie": "Minergie-P-Eco",
+      "typologies": []
+    }
+  ]
+}
