@@ -31,6 +31,25 @@ if ($page === 'api' && ($segments[1] ?? '') === 'immeuble' && ($segments[2] ?? '
             <span class="label-energie"><?= e($im['label_energie']) ?></span>
         <?php endif; ?>
     </div>
+    <?php
+    $loyerMix = json_decode($im['loyer_mix'] ?? 'null', true);
+    if ($loyerMix):
+        $labels = ['LLM' => 'Sub.', 'LLA' => 'Contr.', 'LM' => 'Libre', 'ETU' => 'Étud.'];
+        $classes = ['LLM' => 'mix-llm', 'LLA' => 'mix-lla', 'LM' => 'mix-lm', 'ETU' => 'mix-etu'];
+    ?>
+    <div class="loyer-mix" style="margin-top:8px">
+        <div class="loyer-mix-bar">
+            <?php foreach ($loyerMix as $type => $count): ?>
+                <span class="<?= $classes[$type] ?? '' ?>" style="flex: <?= $count ?>"></span>
+            <?php endforeach; ?>
+        </div>
+        <div class="loyer-mix-legend">
+            <?php foreach ($loyerMix as $type => $count): ?>
+                <span class="<?= $classes[$type] ?? '' ?>"><?= $labels[$type] ?? $type ?> <?= $count ?></span>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <?php endif; ?>
     <?php if ($im['chapeau']): ?>
         <p><?= e($im['chapeau']) ?></p>
     <?php endif; ?>

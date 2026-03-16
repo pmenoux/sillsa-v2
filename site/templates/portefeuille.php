@@ -19,27 +19,30 @@ foreach ($immeubles as $im) {
 
 // ─── Position map: slug => [x, y] on the 800x600 SVG viewBox ─────
 // Only real buildings — no neighborhood entries
+// Positions recalibrées par coordonnées GPS réelles
+// Projection non-linéaire : nord comprimé pour inclure Cojonnex
+// Ref: Gare CFF (46.517°N, 6.629°E) ≈ SVG(400, 340)
 $positions = [
-    'bonne-esperance-32'                        => ['x' => 520, 'y' => 340],
-    'chemin-de-la-prairie-5a-et-5c'             => ['x' => 250, 'y' => 380],
-    'place-de-la-sallaz-4-et-5'                 => ['x' => 480, 'y' => 250],
-    'fiches-nord-lots-8-9'                      => ['x' => 420, 'y' => 150],
-    'fiches-nord-lot-11'                        => ['x' => 450, 'y' => 170],
-    'falaises'                                  => ['x' => 460, 'y' => 270],
-    'rue-elisabeth-jeanne-de-cerjat-2-4'        => ['x' => 380, 'y' => 180],
-    'route-des-plaines-du-loup-51a-51b-et-53'  => ['x' => 360, 'y' => 200],
-    'route-des-plaines-du-loup-47a-47b'         => ['x' => 340, 'y' => 190],
-    'en-cojonnex'                                => ['x' => 720, 'y' => 150],
+    'en-cojonnex'                                => ['x' => 600, 'y' => 30],
+    'fiches-nord-lots-8-9'                      => ['x' => 475, 'y' => 185],
+    'fiches-nord-lot-11'                        => ['x' => 500, 'y' => 177],
+    'rue-elisabeth-jeanne-de-cerjat-2-4'        => ['x' => 310, 'y' => 198],
+    'route-des-plaines-du-loup-51a-51b-et-53'  => ['x' => 340, 'y' => 206],
+    'route-des-plaines-du-loup-47a-47b'         => ['x' => 325, 'y' => 210],
+    'place-de-la-sallaz-4-et-5'                 => ['x' => 476, 'y' => 244],
+    'falaises'                                  => ['x' => 455, 'y' => 256],
+    'chemin-de-la-prairie-5a-et-5c'             => ['x' => 240, 'y' => 350],
+    'bonne-esperance-32'                        => ['x' => 510, 'y' => 320],
 ];
 
 // Quartier label positions on the SVG (near their buildings, offset)
 $quartierLabels = [
-    'Les Fiches-Nord'     => ['x' => 435, 'y' => 115],
-    'Les Plaines-du-Loup' => ['x' => 340, 'y' => 165],
-    'Les Falaises'        => ['x' => 460, 'y' => 255],
-    'La Sallaz'           => ['x' => 480, 'y' => 235],
-    'Sous-Gare'           => ['x' => 320, 'y' => 370],
-    'En Cojonnex'         => ['x' => 720, 'y' => 132],
+    'En Cojonnex'         => ['x' => 620, 'y' => 25],
+    'Les Fiches-Nord'     => ['x' => 515, 'y' => 172],
+    'Les Plaines-du-Loup' => ['x' => 210, 'y' => 185],
+    'La Sallaz'           => ['x' => 496, 'y' => 237],
+    'Les Falaises'        => ['x' => 472, 'y' => 270],
+    'Sous-Gare'           => ['x' => 310, 'y' => 400],
 ];
 ?>
 
@@ -49,7 +52,7 @@ $quartierLabels = [
 <section class="page-header">
   <div class="container">
     <h1>Portefeuille immobilier</h1>
-    <p class="chapeau">Notre patrimoine de 9 développements réalisés à Lausanne</p>
+    <p class="page-chapeau">Notre patrimoine de 9 développements réalisés à Lausanne</p>
   </div>
 </section>
 
@@ -106,8 +109,8 @@ $quartierLabels = [
             <!-- ═══════════════════════════════════════════════
                  LAYER 2: Parcs et espaces verts
                  ═══════════════════════════════════════════════ -->
-            <!-- Foret de Sauvabelin -->
-            <ellipse class="carte-parc" cx="340" cy="90" rx="45" ry="30"/>
+            <!-- Foret de Sauvabelin — entre Plaines-du-Loup et Fiches-Nord -->
+            <ellipse class="carte-parc" cx="400" cy="185" rx="40" ry="25"/>
             <!-- Parc de Mon-Repos -->
             <ellipse class="carte-parc" cx="420" cy="295" rx="18" ry="12"/>
             <!-- Parc de Montbenon -->
@@ -321,33 +324,37 @@ $quartierLabels = [
               C 478,200 472,182 465,168
               C 458,155 452,145 448,135
             "/>
-            <rect x="472" y="238" width="18" height="11" rx="3" fill="#E2001A"/>
-            <text x="481" y="246" text-anchor="middle" class="carte-label-transport" fill="#FFF">M2</text>
+            <rect x="460" y="220" width="18" height="11" rx="3" fill="#E2001A"/>
+            <text x="469" y="228" text-anchor="middle" class="carte-label-transport" fill="#FFF">M2</text>
 
             <!-- ═══════════════════════════════════════════════
                  LAYER 8: Repères urbains (très discrets)
                  ═══════════════════════════════════════════════ -->
             <text class="carte-label-small" x="385" y="305">Cathedrale</text>
-            <text class="carte-label-small" x="345" y="380">Ouchy</text>
-            <text class="carte-label-small" x="295" y="305">Stade</text>
+            <text class="carte-label-small" x="370" y="455">Ouchy</text>
             <text class="carte-label-small" x="565" y="350">Pully</text>
-            <text class="carte-label-small" x="110" y="390">Renens</text>
-            <text class="carte-label-small" x="335" y="85">Sauvabelin</text>
+            <text class="carte-label-small" x="70" y="390">Renens</text>
+            <text class="carte-label-small" x="380" y="175">Sauvabelin</text>
 
             <!-- ═══════════════════════════════════════════════
                  LAYER 9: Labels — Quartiers SILL (rouge) + repères neutres
                  ═══════════════════════════════════════════════ -->
             <!-- Repères géographiques neutres -->
             <text class="carte-label" x="355" y="355">Centre</text>
-            <text class="carte-label" x="195" y="385">Malley</text>
+            <text class="carte-label" x="130" y="388" style="fill:#777">Malley</text>
 
             <!-- Quartiers SILL SA -->
-            <text class="carte-label-quartier" x="420" y="115">Les Fiches-Nord</text>
-            <text class="carte-label-quartier" x="340" y="165">Les Plaines-du-Loup</text>
-            <text class="carte-label-quartier" x="460" y="255">Les Falaises</text>
-            <text class="carte-label-quartier" x="480" y="235">La Sallaz</text>
-            <text class="carte-label-quartier" x="290" y="370">Sous-Gare</text>
-            <text class="carte-label-quartier" x="680" y="138">En Cojonnex</text>
+            <!-- Encart En Cojonnex (hors échelle — Chalet-à-Gobet) -->
+            <rect x="570" y="10" width="180" height="50" rx="0" fill="none" stroke="#CC0000" stroke-width="0.5" stroke-dasharray="3,2"/>
+            <text class="carte-label-quartier" x="580" y="30">En Cojonnex</text>
+            <text class="carte-label-small" x="580" y="45" style="fill:#999">Chalet-à-Gobet</text>
+            <line x1="570" y1="55" x2="530" y2="100" stroke="#CC0000" stroke-width="0.4" stroke-dasharray="2,2"/>
+
+            <text class="carte-label-quartier" x="515" y="172">Les Fiches-Nord</text>
+            <text class="carte-label-quartier" x="210" y="185">Les Plaines-du-Loup</text>
+            <text class="carte-label-quartier" x="496" y="237">La Sallaz</text>
+            <text class="carte-label-quartier" x="472" y="270">Les Falaises</text>
+            <text class="carte-label-quartier" x="310" y="400">Sous-Gare</text>
 
             <!-- Lake label -->
             <text class="carte-label-lac" x="380" y="540" text-anchor="middle">Lac Leman</text>

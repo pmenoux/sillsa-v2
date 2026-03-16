@@ -1,5 +1,5 @@
 <?php
-// templates/la-societe.php — Swiss Design 3-column layout
+// templates/la-societe.php — Swiss Design layout with sidebar navigation
 $page = getPage($pageData['route']);
 if (!$page) {
     http_response_code(404);
@@ -7,18 +7,20 @@ if (!$page) {
     return;
 }
 
-// Parse HTML content
+// Parse HTML content — fix WordPress URLs
 $content = $page['content'];
+$content = str_replace('https://sillsa.ch/wp-content/uploads/', SITE_URL . '/uploads/', $content);
+$content = str_replace('/wp-content/uploads/', '/uploads/', $content);
 
 // Remove leading h2 (duplicate of page h1)
 $content = preg_replace('/<h2[^>]*>.*?<\/h2>/is', '', $content, 1);
 
-// Extract all images
-preg_match_all('/<img[^>]+>/i', $content, $imgMatches);
+// Extract all images (including srcset)
+preg_match_all('/<img[^>]+\/?>/i', $content, $imgMatches);
 $images = $imgMatches[0] ?? [];
 
 // Remove images from text flow
-$textContent = preg_replace('/<img[^>]+>/i', '', $content);
+$textContent = preg_replace('/<img[^>]+\/?>/i', '', $content);
 
 // Split: paragraphs before first list = intro, list onwards = operations
 $introText = $textContent;
@@ -59,60 +61,85 @@ $immeubles = query('SELECT nom, slug, image_id FROM sill_immeubles WHERE is_acti
   </div>
 </section>
 
-<section class="societe-section">
+<section class="section-about">
   <div class="container">
+    <div class="about-layout">
 
-    <!-- 3-column grid: chapeau | body text | image -->
-    <div class="societe-grid">
-      <div class="societe-chapeau rich-text">
-        <?= $chapeau ?>
-      </div>
-      <div class="societe-body rich-text">
-        <?php foreach ($bodyParagraphs as $p): ?>
-          <?= $p ?>
-        <?php endforeach; ?>
-      </div>
-      <?php if ($heroImage): ?>
-      <div class="societe-image">
-        <?= $heroImage ?>
-      </div>
-      <?php endif; ?>
-    </div>
+      <!-- Left: contextual sidebar navigation -->
+      <aside class="about-sidebar">
+        <nav class="about-nav" aria-label="Section À propos">
+          <?php
+          $navItems = [
+              'la-societe'             => 'La Société',
+              'conseil-administration' => 'Le CA',
+              'organisation'           => 'L\'organisation',
+              'aspects-societaux'      => 'Aspects sociétaux',
+              'environnement'          => 'Environnement',
+          ];
+          foreach ($navItems as $route => $label): ?>
+            <a href="<?= SITE_URL ?>/<?= $route ?>"
+               class="about-nav-link<?= ('la-societe' === $route) ? ' is-active' : '' ?>">
+              <?= $label ?>
+            </a>
+          <?php endforeach; ?>
+        </nav>
+      </aside>
 
-    <?php if ($listText): ?>
-    <!-- Operations with accent border -->
-    <div class="societe-operations">
-      <h2>Projets réalisés</h2>
-      <div class="societe-ops-content rich-text">
-        <?= $listText ?>
-      </div>
-    </div>
-    <?php endif; ?>
-
-    <?php if ($immeubles): ?>
-    <!-- Carrousel with navigation -->
-    <div class="societe-carousel">
-      <div class="carousel-header">
-        <h2>Nos réalisations</h2>
-        <div class="carousel-nav">
-          <button class="carousel-btn carousel-prev" aria-label="Précédent">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-          </button>
-          <button class="carousel-btn carousel-next" aria-label="Suivant">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 6 15 12 9 18"/></svg>
-          </button>
+      <!-- Right: content -->
+      <div class="about-body">
+        <!-- Chapeau + body text -->
+        <div class="societe-intro">
+          <div class="societe-chapeau rich-text">
+            <?= $chapeau ?>
+          </div>
+          <div class="societe-body rich-text">
+            <?php foreach ($bodyParagraphs as $p): ?>
+              <?= $p ?>
+            <?php endforeach; ?>
+          </div>
         </div>
-      </div>
-      <div class="carousel-track">
-        <?php foreach ($immeubles as $im): ?>
-        <a href="<?= SITE_URL ?>/portefeuille/<?= e($im['slug']) ?>" class="carousel-slide">
-          <img src="<?= mediaUrl((int)$im['image_id']) ?>" alt="<?= e($im['nom']) ?>" loading="lazy">
-          <span class="carousel-caption"><?= e($im['nom']) ?></span>
-        </a>
-        <?php endforeach; ?>
-      </div>
-    </div>
-    <?php endif; ?>
 
+        <?php if ($heroImage): ?>
+        <div class="societe-image reveal">
+          <?= $heroImage ?>
+        </div>
+        <?php endif; ?>
+
+        <?php if ($listText): ?>
+        <div class="societe-operations">
+          <h2>Projets réalisés</h2>
+          <div class="societe-ops-content rich-text">
+            <?= $listText ?>
+          </div>
+        </div>
+        <?php endif; ?>
+
+        <?php if ($immeubles): ?>
+        <div class="societe-carousel">
+          <div class="carousel-header">
+            <h2>Nos réalisations</h2>
+            <div class="carousel-nav">
+              <button class="carousel-btn carousel-prev" aria-label="Précédent">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <button class="carousel-btn carousel-next" aria-label="Suivant">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 6 15 12 9 18"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="carousel-track">
+            <?php foreach ($immeubles as $im): ?>
+            <a href="<?= SITE_URL ?>/portefeuille/<?= e($im['slug']) ?>" class="carousel-slide">
+              <img src="<?= mediaUrl((int)$im['image_id']) ?>" alt="<?= e($im['nom']) ?>" loading="lazy">
+              <span class="carousel-caption"><?= e($im['nom']) ?></span>
+            </a>
+            <?php endforeach; ?>
+          </div>
+        </div>
+        <?php endif; ?>
+
+      </div>
+
+    </div>
   </div>
 </section>

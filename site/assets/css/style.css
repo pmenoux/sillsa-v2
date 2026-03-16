@@ -9,7 +9,7 @@
    -------------------------------------------------------------------------- */
 :root {
   /* Colours — Swiss Design SILL SA */
-  --color-bg:        #FFFFFF;
+  --color-bg:        #F5F0EB;
   --color-bg-warm:   #F5F0EB;
   --color-heading:   #000000;
   --color-body:      #333333;
@@ -19,7 +19,7 @@
   --color-muted:     #999999;
   --color-white:     #FFFFFF;
   --color-dark:      #000000;
-  --color-nav-bg:    #FFFFFF;
+  --color-nav-bg:    #F5F0EB;
   --color-nav-text:  #000000;
 
   /* Typography — Helvetica Neue system stack
@@ -99,9 +99,9 @@ body {
   line-height: var(--lh-base);
   color: var(--color-body);
   background: var(--color-bg);
-  font-weight: 300;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
 }
 
 img,
@@ -226,6 +226,8 @@ blockquote {
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 .logo img {
@@ -700,7 +702,7 @@ blockquote {
 .marche-teaser-text {
   font-size: var(--fs-base);
   color: var(--color-body);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.6;
   max-width: 360px;
   margin-bottom: var(--space-sm);
@@ -831,50 +833,58 @@ blockquote {
 
 .timeline-item {
   position: relative;
-  margin-bottom: 40px;
+  margin-bottom: var(--space-md);
 }
 
 .timeline-dot {
   position: absolute;
   left: -32px;
-  top: 4px;
-  width: 16px;
-  height: 16px;
+  top: 0;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  background: var(--color-accent);
-  border: 3px solid var(--color-white);
-  box-shadow: 0 0 0 2px var(--color-accent);
+  background: #FFD700;
+  border: 2px solid var(--color-bg);
+  box-shadow: 0 0 0 2px #FFD700;
   z-index: 1;
 }
 
 .timeline-card {
   background: var(--color-white);
-  border-radius: 0;
-  border-top: 1px solid var(--color-border);
-  padding: 24px 0;
+  border-top: 2px solid var(--color-accent);
+  padding: var(--space-md) var(--space-md) var(--space-md);
 }
 
 .timeline-date {
+  display: block;
   font-family: var(--font-heading);
   font-weight: 300;
   color: var(--color-accent);
-  font-size: 20px;
-  letter-spacing: 0.05em;
-  margin-bottom: 8px;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-sm);
 }
 
 .timeline-card h3 {
-  margin-bottom: 8px;
+  font-weight: 400;
+  font-size: var(--fs-h4);
+  line-height: var(--lh-h4);
+  margin-bottom: var(--space-xs);
 }
 
 .timeline-card p {
-  margin-bottom: 12px;
+  font-size: var(--fs-base);
+  line-height: 1.7;
+  color: var(--color-body);
+  margin-bottom: var(--space-sm);
 }
 
 .timeline-card img {
-  border-radius: var(--radius-sm);
   width: 100%;
-  margin-top: 12px;
+  max-height: 240px;
+  object-fit: cover;
+  margin-top: var(--space-sm);
 }
 
 /* --------------------------------------------------------------------------
@@ -895,8 +905,7 @@ blockquote {
 }
 
 .carte-wrapper {
-  background: #F8F8F6;
-  border: 1px solid var(--color-border);
+  background: #FAFAF8;
   border-radius: var(--radius);
   padding: 16px;
 }
@@ -1017,10 +1026,69 @@ blockquote {
 .map-info-panel {
   width: 100%;
   padding: 24px;
-  background: var(--color-white);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  background: var(--color-bg);
+  border-left: 2px solid var(--color-accent);
   margin-top: 24px;
+}
+
+.map-info-panel img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  margin-bottom: 16px;
+}
+
+.map-info-panel h2 {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h4);
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+
+.panel-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--color-muted);
+  line-height: 1;
+  padding: 4px;
+}
+
+.panel-close:hover {
+  color: var(--color-heading);
+}
+
+.panel-address {
+  font-size: 13px;
+  color: var(--color-muted);
+  margin-bottom: 12px;
+}
+
+.panel-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font-size: 13px;
+  color: var(--color-body);
+  padding: 12px 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 12px;
+}
+
+.panel-stats strong {
+  font-weight: 500;
+}
+
+.map-info-panel .btn-link {
+  font-size: 13px;
+  margin-top: 8px;
 }
 
 /* Mosaic — default state before building is selected */
@@ -1076,17 +1144,24 @@ blockquote {
   text-align: center;
 }
 
+/* Panel info content (AJAX-loaded) */
+.map-info-panel p {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
 /* Mobile grid fallback — grouped by quartier */
 .portefeuille-grid-mobile {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-lg);
+  gap: var(--space-md);
 }
 
 .quartier-group {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--gutter);
+  gap: var(--space-sm);
 }
 
 .quartier-label {
@@ -1098,6 +1173,7 @@ blockquote {
   color: var(--color-accent);
   padding-bottom: 8px;
   border-bottom: 1px solid var(--color-border);
+  margin-top: var(--space-xs);
   margin-bottom: 0;
 }
 
@@ -1106,12 +1182,12 @@ blockquote {
   border-radius: 0;
   overflow: hidden;
   border: 1px solid var(--color-border);
-  background: var(--color-white);
+  background: var(--color-bg);
 }
 
 .immeuble-card img {
   width: 100%;
-  height: 180px;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
 }
 
@@ -1133,42 +1209,57 @@ blockquote {
    10. Immeuble Detail
    -------------------------------------------------------------------------- */
 .section-immeuble {
-  padding-bottom: 64px;
+  padding-bottom: var(--space-lg);
 }
 
 .section-immeuble h1 {
-  margin-bottom: 16px;
-}
-
-.section-immeuble .chapeau {
-  margin-bottom: 24px;
+  font-weight: 300;
+  margin-bottom: var(--space-sm);
 }
 
 .immeuble-hero {
-  margin-bottom: 32px;
+  margin-bottom: var(--space-md);
 }
 
 .immeuble-hero img {
   width: 100%;
-  max-height: 500px;
+  max-height: clamp(280px, 50vw, 560px);
   object-fit: cover;
-  border-radius: 0 0 var(--radius) var(--radius);
 }
 
-.immeuble-meta {
+/* 2-column Swiss layout — mobile: stacked, desktop: sidebar + body */
+.immeuble-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+.immeuble-sidebar {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  padding: 24px 0;
+  gap: var(--space-sm);
+  padding: var(--space-sm) 0;
+  border-top: 2px solid var(--color-accent);
   border-bottom: 1px solid var(--color-border);
-  margin-bottom: 32px;
+}
+
+.immeuble-body .page-chapeau {
+  margin-bottom: var(--space-sm);
+}
+
+.immeuble-description {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  line-height: var(--lh-base);
+  color: var(--color-body);
+  margin-bottom: var(--space-md);
 }
 
 .meta-label {
   font-size: 11px;
   color: var(--color-muted);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.12em;
   margin-bottom: 2px;
 }
 
@@ -1182,7 +1273,7 @@ blockquote {
   align-items: center;
   gap: 6px;
   color: var(--color-accent);
-  font-weight: 500;
+  font-weight: 400;
   margin-bottom: 24px;
 }
 
@@ -1215,36 +1306,125 @@ blockquote {
   font-size: 11px;
   font-weight: 500;
   border-radius: 0;
-  background: #E6F4EA;
-  color: #1B7D3A;
+  background: #FFD700;
+  color: #333;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
 
 /* --------------------------------------------------------------------------
-   11. Conseil d'Administration
+   11. Section À propos — unified layout (La Société, CA, Organisation, etc.)
    -------------------------------------------------------------------------- */
-.ca-section {
-  padding: 64px 0;
+
+/* Main layout: sidebar + body */
+.section-about {
+  padding: var(--space-lg) 0;
 }
 
-/* Photo de groupe CA */
-.ca-group-photo {
-  margin-bottom: 56px;
-  border-radius: var(--radius);
+.about-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+/* Sidebar navigation — contextual links */
+.about-sidebar {
+  border-top: 2px solid var(--color-accent);
+  padding-top: var(--space-sm);
+}
+
+.about-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+}
+
+.about-nav-link {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-muted);
+  text-decoration: none;
+  padding: 8px 16px 8px 0;
+  transition: color var(--transition);
+}
+
+.about-nav-link:hover {
+  color: var(--color-heading);
+}
+
+.about-nav-link.is-active {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+/* Body content area */
+.about-body {
+  min-width: 0;
   overflow: hidden;
-  max-height: 320px;
+}
+
+.about-body .page-chapeau {
+  margin-bottom: var(--space-md);
+}
+
+.about-body .rich-text {
+  line-height: 1.8;
+}
+
+.about-body .rich-text p {
+  margin-bottom: 1.4em;
+}
+
+.about-body .rich-text h3,
+.about-body .rich-text h4 {
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 2em;
+  margin-bottom: 0.6em;
+}
+
+.about-body .rich-text img {
+  width: 100%;
+  height: auto;
+  max-height: 360px;
+  object-fit: cover;
+  display: block;
+  margin: var(--space-md) 0;
+}
+
+/* Hero image in about pages */
+.about-hero {
+  margin-bottom: var(--space-md);
+  overflow: hidden;
+}
+
+.about-hero img {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-height: clamp(280px, 40vw, 480px);
+  object-fit: cover;
+}
+
+/* --- CA-specific styles --- */
+
+.ca-group-photo {
+  margin-bottom: var(--space-md);
+  overflow: hidden;
+  max-height: 420px;
 }
 
 .ca-group-photo img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 75%;
+  height: auto;
   display: block;
 }
 
-/* Grille membres — Swiss typographic style */
 .ca-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -1255,35 +1435,36 @@ blockquote {
   display: flex;
   align-items: baseline;
   gap: 16px;
-  padding: 20px 0;
+  padding: 14px 0;
   border-bottom: 1px solid var(--color-border);
 }
 
 .ca-card:first-child {
-  border-top: 2px solid var(--color-heading);
+  border-top: 2px solid var(--color-accent);
 }
 
 .ca-card-name {
   font-family: var(--font-heading);
-  font-size: var(--fs-h3);
-  line-height: var(--lh-h3);
-  font-weight: 300;
+  font-size: var(--fs-base);
+  line-height: var(--lh-base);
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.12em;
   color: var(--color-heading);
   flex: 1;
 }
 
 .ca-fonction {
   font-family: var(--font-body);
-  font-size: var(--fs-base);
+  font-size: 13px;
   color: var(--color-muted);
+  letter-spacing: 0.04em;
   white-space: nowrap;
 }
 
 .ca-fonction-president {
   color: var(--color-accent);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .ca-bio {
@@ -1488,7 +1669,7 @@ main {
 
 /* Rich-text content block */
 .rich-text p {
-  margin-bottom: 1em;
+  margin-bottom: 1.4em;
 }
 
 .rich-text ul,
@@ -1510,7 +1691,6 @@ main {
 }
 
 .rich-text img {
-  border-radius: var(--radius);
   margin: 1.5em 0;
 }
 
@@ -1518,19 +1698,94 @@ main {
   text-decoration: underline;
 }
 
+/* Immeuble rich-text — Swiss typography: generous leading, structured rhythm */
+.immeuble-body .rich-text {
+  font-size: var(--fs-base);
+  line-height: 1.8;
+  color: var(--color-body);
+}
+
+.immeuble-body .rich-text p {
+  margin-bottom: 1.6em;
+}
+
+/* Mini loyer-mix bar — sidebar housing type proportion */
+.loyer-mix {
+  grid-column: 1 / -1;
+  margin-top: var(--space-xs);
+}
+
+.loyer-mix .meta-label {
+  margin-bottom: 6px;
+}
+
+.loyer-mix-bar {
+  display: flex;
+  height: 4px;
+  border-radius: 0;
+  overflow: hidden;
+  gap: 1px;
+}
+
+.loyer-mix-bar span {
+  display: block;
+  height: 100%;
+}
+
+.loyer-mix-bar .mix-llm { background: var(--color-accent); }
+.loyer-mix-bar .mix-lla { background: #999; }
+.loyer-mix-bar .mix-lm  { background: #FFD700; }
+.loyer-mix-bar .mix-etu { background: var(--color-heading); }
+
+.loyer-mix-legend {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+.loyer-mix-legend span {
+  font-size: 10px;
+  color: var(--color-muted);
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.loyer-mix-legend span::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+}
+
+.loyer-mix-legend .mix-llm::before { background: var(--color-accent); }
+.loyer-mix-legend .mix-lla::before { background: #999; }
+.loyer-mix-legend .mix-lm::before  { background: #FFD700; }
+.loyer-mix-legend .mix-etu::before { background: var(--color-heading); }
+
+/* Architect signature — last element, detached */
+.architect-signature {
+  margin-top: var(--space-md);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--color-border);
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-muted);
+  line-height: 1.8;
+}
+
 /* --------------------------------------------------------------------------
    La Société — Swiss Design 3-column layout
    -------------------------------------------------------------------------- */
-.societe-section {
-  padding: 48px 0 80px;
-}
+/* --- La Société — specific styles --- */
 
-/* 3-column grid — mobile: stacked */
-.societe-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
-  margin-bottom: 64px;
+.societe-intro {
+  margin-bottom: var(--space-md);
 }
 
 /* Chapeau — large intro text */
@@ -1539,7 +1794,7 @@ main {
   line-height: var(--lh-chapeau);
   font-weight: 300;
   color: var(--color-heading);
-  margin: 0;
+  margin: 0 0 var(--space-md) 0;
 }
 
 /* Body text */
@@ -1547,26 +1802,25 @@ main {
   max-width: none;
 }
 
-/* Image column */
+/* Image */
 .societe-image {
   overflow: hidden;
-  border-radius: var(--radius);
-  min-height: 300px;
+  margin-bottom: var(--space-md);
 }
 
 .societe-hero-img {
   width: 100%;
-  height: 100%;
+  height: auto;
+  max-height: 320px;
   object-fit: cover;
   display: block;
-  border-radius: var(--radius);
 }
 
 /* Operations section */
 .societe-operations {
-  border-left: 4px solid var(--color-accent);
+  border-left: 3px solid var(--color-accent);
   padding-left: 24px;
-  margin-top: 48px;
+  margin-top: var(--space-md);
 }
 
 .societe-operations h2 {
@@ -1776,8 +2030,12 @@ main {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  /* Immeuble meta */
-  .immeuble-meta {
+  .immeuble-card img {
+    aspect-ratio: 3 / 2;
+  }
+
+  /* Immeuble — sidebar 3 cols on tablet */
+  .immeuble-sidebar {
     grid-template-columns: repeat(3, 1fr);
   }
 
@@ -1948,6 +2206,7 @@ main {
 
   .timeline-card {
     text-align: left;
+    padding: var(--space-md);
   }
 
   /* Portefeuille */
@@ -1964,15 +2223,47 @@ main {
     width: 400px;
     flex-shrink: 0;
     margin-top: 0;
+    position: relative;
   }
 
   .portefeuille-grid-mobile {
     display: none;
   }
 
-  /* Immeuble meta */
-  .immeuble-meta {
-    grid-template-columns: repeat(4, 1fr);
+  /* About — Müller-Brockmann 1/3 + 2/3 grid */
+  .about-layout {
+    grid-template-columns: 1fr 3fr;
+    gap: var(--space-lg);
+  }
+
+  .about-sidebar {
+    position: sticky;
+    top: 120px;
+    align-self: start;
+  }
+
+  .about-nav {
+    flex-direction: column;
+  }
+
+  .about-nav-link {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .about-nav-link:last-child {
+    border-bottom: none;
+  }
+
+  /* Immeuble — Müller-Brockmann 1/3 + 2/3 grid */
+  .immeuble-content {
+    grid-template-columns: 1fr 2fr;
+    gap: var(--space-lg);
+  }
+
+  .immeuble-sidebar {
+    grid-template-columns: 1fr;
+    border-bottom: none;
   }
 
   /* CA — wider photo crop on desktop */
@@ -1999,36 +2290,14 @@ main {
     max-width: 800px;
   }
 
-  /* La Société — 3 columns on large screens */
-  .societe-grid {
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: auto;
-    gap: 32px;
-    align-items: start;
-  }
-
+  /* La Société — chapeau with accent border */
   .societe-chapeau {
-    grid-column: 1;
-    grid-row: 1;
-    padding-right: 16px;
-    border-right: 2px solid var(--color-heading);
-  }
-
-  .societe-body {
-    grid-column: 2;
-    grid-row: 1;
-  }
-
-  .societe-image {
-    grid-column: 3;
-    grid-row: 1;
-    position: sticky;
-    top: 120px;
-    min-height: 400px;
+    border-left: 3px solid var(--color-accent);
+    padding-left: var(--space-sm);
   }
 
   .societe-ops-content {
-    columns: 3;
+    columns: 2;
     column-gap: 32px;
   }
 

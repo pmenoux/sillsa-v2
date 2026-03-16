@@ -1,5 +1,37 @@
 # CHANGELOG — SILL SA Refonte 2026
 
+## [2026-03-16] — Session 4
+### Harmonisation Portefeuille + Immeuble — style Swiss
+- Portefeuille : `.chapeau` → `.page-chapeau` (cohérence avec contexte)
+- Portefeuille mobile : gap 64px → 32px, cards ratio 16:9 au lieu de hauteur fixe 180px
+- Quartier labels : ajout margin-top 8px pour respiration
+- Carte SVG : suppression bordure, fond allégé #FAFAF8
+- Immeuble hero : suppression border-radius, max-height responsive via clamp()
+- Immeuble : layout 2 colonnes asymétriques Müller-Brockmann (1/3 meta + 2/3 texte) desktop
+- Immeuble sidebar : meta empilées verticalement (légendes Swiss), border-top 2px rouge
+- Meta labels : letter-spacing 0.05em → 0.12em (aligné sur contexte)
+- Back-link : font-weight 500 → 400 (Swiss léger)
+- Description : séparée du chapeau, font-size base au lieu de chapeau
+- h1 immeuble : font-weight 300 explicite
+- Ajout quartier dans les meta si disponible
+- Tablette : sidebar 3 colonnes, cards ratio 3:2
+
+### Fond gris perlé global + typographie Musica Viva
+- Fond site entier : `--color-bg` #FFFFFF → #F5F0EB (gris perlé chaud, ref. Müller-Brockmann)
+- Navigation : `--color-nav-bg` → #F5F0EB (unifié)
+- Label énergie : fond vert → jaune Swiss #FFD700 (palette gris/rouge/jaune)
+- Sidebar immeuble : border-top noir → rouge accent
+- Rich-text immeuble : interligne 1.8, espacement paragraphes 1.6em
+- Signature architecte : extraite du texte, rendue séparément — petites capitales, filet, letter-spacing 0.12em
+- Images rich-text : suppression border-radius (Swiss = angles vifs)
+- Navigation : +30px respiration verticale (padding 15px top/bottom)
+- Texte Falaises : restructuré en 6 paragraphes thématiques (était un bloc monolithique)
+- Signature architecte Falaises : "Pour MPH Architectes / Olaf Hunger" extraite et stylée
+- Colonne `loyer_mix` JSON ajoutée à sill_immeubles — répartition types de loyers par projet
+- Mini-barre CSS proportionnelle dans sidebar : rouge (subventionné), gris (contrôlé), jaune (libre), noir (étudiants)
+- Légende mini avec dots colorés et nombre d'unités par type
+- 10 immeubles peuplés avec données loyer_mix
+
 ## [2026-03-16] — Session 3
 ### Page /marche — Répartition des types de loyers
 - Barre empilée CSS : LLM 303 lots (36%), LLA 305 lots (37%), LM 58 lots (7%), Étudiants 42 lots (5%)
