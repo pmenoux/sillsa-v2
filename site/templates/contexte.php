@@ -1,5 +1,5 @@
 <?php
-// templates/marche.php — Page dédiée Contexte de marché & conjoncture
+// templates/contexte.php — Page dédiée Contexte économique
 // Données : sill_kpi categories 'marche', 'energie', 'sill'
 
 $kpiMarche = query(
@@ -331,11 +331,11 @@ function initMarcheCharts() {
      SECTION 2 : Camembert global + Barres par projet
      ══════════════════════════════════════════════════════════════ */
 
-  var colorLLM  = '#FF0000';      // rouge SILL
-  var colorLLA  = '#1A1A1A';      // noir
-  var colorLM   = '#999999';      // gris
-  var colorEtud = '#E0E0E0';      // gris clair
-  var colorAct  = '#C8C8C8';      // gris moyen
+  var colorLLM  = '#E8686A';      // rouge rosé doux
+  var colorLLA  = '#5B8EC9';      // bleu pastel
+  var colorLM   = '#F2C46D';      // jaune sable
+  var colorEtud = '#7EC8A4';      // vert amande
+  var colorAct  = '#C4B0D4';      // mauve clair
 
   /* ── Camembert (donut) — répartition globale ── */
   var donutCtx = document.getElementById('chartLoyerDonut');

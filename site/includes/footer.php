@@ -16,10 +16,14 @@
             <div class="footer-col">
                 <h3>Navigation</h3>
                 <ul>
-                    <li><a href="<?= SITE_URL ?>/la-societe">La Société</a></li>
-                    <li><a href="<?= SITE_URL ?>/portefeuille">Portefeuille</a></li>
-                    <li><a href="<?= SITE_URL ?>/#chronologie">Chronologie</a></li>
-                    <li><a href="<?= SITE_URL ?>/publications">Publications</a></li>
+                    <?php foreach (getMenu() as $item): ?>
+                        <li><a href="<?= SITE_URL ?>/<?= e($item['target_value']) ?>"><?= e($item['label']) ?></a></li>
+                        <?php if (!empty($item['children'])): ?>
+                            <?php foreach ($item['children'] as $child): ?>
+                                <li><a href="<?= SITE_URL ?>/<?= e($child['target_value']) ?>"><?= e($child['label']) ?></a></li>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
                 </ul>
             </div>
         </div>

@@ -118,7 +118,7 @@ $marcheTeaser = query(
                 <span class="marche-rule"></span>
                 <h2 class="marche-title">Contexte de marché</h2>
                 <p class="marche-teaser-text">Taux, loyers, énergie — les indicateurs clés du marché immobilier romand.</p>
-                <a href="<?= SITE_URL ?>/marche" class="btn-marche">Voir les indicateurs &rarr;</a>
+                <a href="<?= SITE_URL ?>/contexte" class="btn-marche">Voir les indicateurs &rarr;</a>
             </div>
             <div class="marche-teaser-right">
                 <?php foreach ($marcheTeaser as $k):

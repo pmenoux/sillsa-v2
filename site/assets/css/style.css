@@ -446,7 +446,7 @@ blockquote {
    L'espace blanc fait le travail.
    -------------------------------------------------------------------------- */
 .section-marche {
-  padding: var(--space-lg) 0;
+  padding: var(--space-md) 0;
   background: var(--color-bg);
 }
 
@@ -486,7 +486,7 @@ blockquote {
 .marche-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-lg);
+  gap: var(--space-md);
 }
 
 /* Colonne */
@@ -552,7 +552,7 @@ blockquote {
 
 /* Sources */
 .marche-sources {
-  margin-top: var(--space-lg);
+  margin-top: var(--space-md);
   font-size: 11px;
   color: var(--color-muted);
   letter-spacing: 0.02em;
@@ -569,12 +569,12 @@ blockquote {
 
 /* Section positionnement SILL SA */
 .section-sill-position {
-  padding: var(--space-lg) 0;
+  padding: var(--space-md) 0;
   border-top: 2px solid var(--color-heading);
 }
 
 .sill-position-header {
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-md);
 }
 
 .sill-position-header h2 {
@@ -585,7 +585,7 @@ blockquote {
 
 /* Graphiques d'évolution — section charts */
 .section-charts {
-  padding: var(--space-lg) 0;
+  padding: var(--space-md) 0;
   border-top: 1px solid var(--color-border);
 }
 
@@ -596,18 +596,23 @@ blockquote {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--color-heading);
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-md);
 }
 
 .charts-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-lg);
+  gap: var(--space-md);
 }
 
 .chart-card {
   position: relative;
-  height: 300px;
+}
+
+.chart-canvas-wrap {
+  position: relative;
+  width: 100%;
+  height: 260px;
 }
 
 .chart-title {
@@ -629,8 +634,8 @@ blockquote {
 
 /* Répartition types de loyers — camembert + barres par projet */
 .loyer-types {
-  margin-top: var(--space-xl);
-  padding-top: var(--space-lg);
+  margin-top: var(--space-lg);
+  padding-top: var(--space-md);
   border-top: 1px solid var(--color-border);
 }
 
@@ -665,7 +670,7 @@ blockquote {
 
 .loyer-chart-bars {
   position: relative;
-  height: 420px;
+  min-height: 480px;
 }
 
 .loyer-types-note {
@@ -1420,7 +1425,7 @@ main {
   padding-top: calc(var(--header-h) + 48px);
   padding-bottom: 32px;
   border-bottom: 1px solid var(--color-border);
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-md);
 }
 
 .page-header h1 {
@@ -1749,10 +1754,20 @@ main {
     flex: 0 0 50%;
   }
 
-  /* Loyer types — barres plus hautes sur tablette */
+  /* Loyer types — barres sur tablette */
   .loyer-chart-bars {
-    height: 380px;
+    min-height: 460px;
   }
+
+  /* Restore desktop spacing for marche sections */
+  .page-header { margin-bottom: var(--space-lg); }
+  .section-marche { padding: var(--space-lg) 0; }
+  .section-charts { padding: var(--space-lg) 0; }
+  .charts-section-title { margin-bottom: var(--space-lg); }
+  .charts-grid { gap: var(--space-lg); }
+  .section-sill-position { padding: var(--space-lg) 0; }
+  .sill-position-header { margin-bottom: var(--space-lg); }
+  .loyer-types { margin-top: var(--space-xl); padding-top: var(--space-lg); }
 
   /* Timeline — still left-aligned on tablet */
 
