@@ -6,7 +6,7 @@
 $tagline = setting('site_tagline') ?? SITE_TAGLINE;
 
 $kpis = query(
-    'SELECT * FROM sill_kpi WHERE is_public = 1 ORDER BY sort_order LIMIT 8'
+    "SELECT * FROM sill_kpi WHERE is_public = 1 AND category = 'patrimoine' ORDER BY sort_order"
 );
 
 $events = query(
@@ -16,15 +16,6 @@ $events = query(
      WHERE t.is_active = 1
      ORDER BY t.event_date DESC'
 );
-
-// Build unique category list from timeline data
-$categories = [];
-foreach ($events as $ev) {
-    $cat = $ev['category'] ?? '';
-    if ($cat && !isset($categories[$cat])) {
-        $categories[$cat] = $cat;
-    }
-}
 
 // Category display labels (French)
 $categoryLabels = [
@@ -44,6 +35,18 @@ $categoryLabels = [
     'politique_fonciere'       => 'Foncier',
     'communication_transparence' => 'Communication',
 ];
+
+// Build unique category list from timeline data (deduplicate by display label)
+$categories = [];
+$seenLabels = [];
+foreach ($events as $ev) {
+    $cat = $ev['category'] ?? '';
+    $label = $categoryLabels[$cat] ?? ucfirst(str_replace('_', ' ', $cat));
+    if ($cat && !isset($seenLabels[$label])) {
+        $categories[$cat] = $cat;
+        $seenLabels[$label] = true;
+    }
+}
 ?>
 
 <!-- ════════════════════════════════════════════════════════════════
@@ -76,29 +79,63 @@ $categoryLabels = [
 <section class="section-kpi">
     <div class="container">
         <div class="kpi-grid">
-            <?php foreach ($kpis as $kpi): ?>
+            <?php foreach ($kpis as $kpi):
+                $fmt = kpiFormat($kpi['value_num'] ?? null);
+            ?>
                 <div class="kpi-item reveal">
                     <span class="kpi-label"><?= e($kpi['label'] ?? '') ?></span>
 
-                    <?php if (!empty($kpi['value_text'])): ?>
+                    <?php if ($kpi['value_num'] === null && !empty($kpi['value_text'])): ?>
                         <span class="kpi-value"><?= e($kpi['value_text']) ?></span>
                     <?php else: ?>
-                        <?php
-                            $num = (float)($kpi['value_num'] ?? 0);
-                            $hasDecimals = (floor($num) != $num);
-                            $countVal = $hasDecimals ? number_format($num, 1, '.', '') : number_format($num, 0, '.', '');
-                        ?>
                         <span class="kpi-value"
-                              data-count="<?= e($countVal) ?>"
-                              <?php if ($hasDecimals): ?>
-                                  data-decimals="1"
-                              <?php endif; ?>
+                              data-count="<?= e($fmt['formatted']) ?>"
+                              <?php if ($fmt['decimals'] > 0): ?>data-decimals="<?= $fmt['decimals'] ?>"<?php endif; ?>
                         >0</span>
                     <?php endif; ?>
 
                     <span class="kpi-unit"><?= e($kpi['unit'] ?? '') ?></span>
                 </div>
             <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+<?php endif; ?>
+
+<!-- ════════════════════════════════════════════════════════════════
+     2b. TEASER MARCHÉ → lien vers page dédiée
+     ════════════════════════════════════════════════════════════════ -->
+<?php
+$marcheTeaser = query(
+    "SELECT * FROM sill_kpi WHERE category = 'marche' AND is_public = 1 ORDER BY sort_order LIMIT 3"
+);
+?>
+<?php if ($marcheTeaser): ?>
+<section class="section-marche-teaser">
+    <div class="container">
+        <div class="marche-teaser-inner">
+            <div class="marche-teaser-left">
+                <span class="marche-rule"></span>
+                <h2 class="marche-title">Contexte de marché</h2>
+                <p class="marche-teaser-text">Taux, loyers, énergie — les indicateurs clés du marché immobilier romand.</p>
+                <a href="<?= SITE_URL ?>/marche" class="btn-marche">Voir les indicateurs &rarr;</a>
+            </div>
+            <div class="marche-teaser-right">
+                <?php foreach ($marcheTeaser as $k):
+                    $fmt = kpiFormat($k['value_num'] ?? null);
+                ?>
+                <div class="marche-teaser-kpi">
+                    <span class="marche-value"
+                          <?php if ($k['value_num'] !== null): ?>
+                          data-count="<?= e($fmt['formatted']) ?>"
+                          <?php if ($fmt['decimals'] > 0): ?>data-decimals="<?= $fmt['decimals'] ?>"<?php endif; ?>
+                          <?php endif; ?>
+                    ><?= ($k['value_num'] !== null) ? '0' : e($k['value_text'] ?? '') ?></span>
+                    <span class="marche-unit"><?= e($k['unit'] ?? '') ?></span>
+                    <span class="marche-label"><?= e($k['label'] ?? '') ?></span>
+                </div>
+                <?php endforeach; ?>
+            </div>
         </div>
     </div>
 </section>
@@ -116,8 +153,16 @@ $categoryLabels = [
         <div class="timeline-filters reveal">
             <button class="filter-btn is-active" data-filter="all">Tous</button>
             <?php foreach ($categories as $catKey): ?>
-                <button class="filter-btn" data-filter="<?= e($catKey) ?>">
-                    <?= e($categoryLabels[$catKey] ?? ucfirst(str_replace('_', ' ', $catKey))) ?>
+                <?php
+                    $label = $categoryLabels[$catKey] ?? ucfirst(str_replace('_', ' ', $catKey));
+                    // Collect all category keys that share this label
+                    $matchingKeys = [];
+                    foreach ($categoryLabels as $k => $l) {
+                        if ($l === $label) $matchingKeys[] = $k;
+                    }
+                ?>
+                <button class="filter-btn" data-filter="<?= e(implode(',', $matchingKeys)) ?>">
+                    <?= e($label) ?>
                 </button>
             <?php endforeach; ?>
         </div>
@@ -175,10 +220,10 @@ $categoryLabels = [
             filters.forEach(function (b) { b.classList.remove('is-active'); });
             btn.classList.add('is-active');
 
-            // Filter timeline items
-            var cat = btn.dataset.filter;
+            // Filter timeline items (supports comma-separated category keys)
+            var cats = btn.dataset.filter.split(',');
             items.forEach(function (item) {
-                if (cat === 'all' || item.dataset.category === cat) {
+                if (cats[0] === 'all' || cats.indexOf(item.dataset.category) !== -1) {
                     item.style.display = '';
                 } else {
                     item.style.display = 'none';

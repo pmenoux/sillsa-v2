@@ -69,9 +69,17 @@ document.addEventListener('DOMContentLoaded', function () {
       return 1 - Math.pow(1 - t, 3);
     }
 
+    // Swiss thousand separator: 66956 → 66'956
+    function swissFormat(num, decimals) {
+      var parts = num.toFixed(decimals).split('.');
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, "\u2019");
+      return parts.join('.');
+    }
+
     function animateCounter(el) {
       var target = parseFloat(el.getAttribute('data-count'));
       var decimals = parseInt(el.getAttribute('data-decimals'), 10) || 0;
+      var prefix = el.getAttribute('data-prefix') || '';
       var duration = 1500;           // ms
       var startTime = null;
 
@@ -80,11 +88,11 @@ document.addEventListener('DOMContentLoaded', function () {
         var elapsed = timestamp - startTime;
         var progress = Math.min(elapsed / duration, 1);
         var value = target * easeOutCubic(progress);
-        el.textContent = value.toFixed(decimals);
+        el.textContent = prefix + swissFormat(value, decimals);
         if (progress < 1) {
           requestAnimationFrame(step);
         } else {
-          el.textContent = target.toFixed(decimals);
+          el.textContent = prefix + swissFormat(target, decimals);
         }
       }
 
@@ -148,38 +156,76 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Click: fetch building data
       point.addEventListener('click', function (e) {
-        var slug = point.getAttribute('data-slug');
-        if (!slug || !infoPanel) return;
         e.preventDefault();
-
-        fetch('/api/immeuble/' + encodeURIComponent(slug))
-          .then(function (response) {
-            if (!response.ok) throw new Error(response.status);
-            return response.text();
-          })
-          .then(function (html) {
-            infoPanel.innerHTML = html;
-            infoPanel.classList.add('open');
-
-            // Re-bind close button inside the newly loaded content
-            var closeBtn = infoPanel.querySelector('.panel-close');
-            if (closeBtn) {
-              closeBtn.addEventListener('click', function () {
-                infoPanel.classList.remove('open');
-              });
-            }
-          })
-          .catch(function () {
-            // Fallback: navigate to the building page
-            window.location.href = '/portefeuille/' + encodeURIComponent(slug);
-          });
+        loadBuilding(point.getAttribute('data-slug'));
       });
     });
+
+    // Mosaic thumbnails — same behavior as map points
+    var mosaicThumbs = document.querySelectorAll('.mosaic-thumb');
+    mosaicThumbs.forEach(function (thumb) {
+      thumb.addEventListener('click', function (e) {
+        e.preventDefault();
+        var slug = thumb.getAttribute('data-slug');
+        loadBuilding(slug);
+        // Highlight corresponding map point
+        mapPoints.forEach(function (pt) {
+          pt.classList.toggle('is-active', pt.getAttribute('data-slug') === slug);
+        });
+      });
+    });
+
+    // Shared fetch function
+    function loadBuilding(slug) {
+      if (!slug || !infoPanel) return;
+
+      fetch('/api/immeuble/' + encodeURIComponent(slug))
+        .then(function (response) {
+          if (!response.ok) throw new Error(response.status);
+          return response.text();
+        })
+        .then(function (html) {
+          infoPanel.innerHTML = html;
+          infoPanel.classList.add('open');
+
+          // Re-bind close button inside the newly loaded content
+          var closeBtn = infoPanel.querySelector('.panel-close');
+          if (closeBtn) {
+            closeBtn.addEventListener('click', function () {
+              infoPanel.classList.remove('open');
+              // Restore mosaic
+              restoreMosaic();
+            });
+          }
+        })
+        .catch(function () {
+          window.location.href = '/portefeuille/' + encodeURIComponent(slug);
+        });
+    }
+
+    // Restore mosaic when panel is closed
+    var mosaicHTML = infoPanel ? infoPanel.innerHTML : '';
+    function restoreMosaic() {
+      if (!infoPanel) return;
+      infoPanel.innerHTML = mosaicHTML;
+      infoPanel.classList.remove('open');
+      // Re-bind mosaic thumbs
+      infoPanel.querySelectorAll('.mosaic-thumb').forEach(function (thumb) {
+        thumb.addEventListener('click', function (e) {
+          e.preventDefault();
+          var slug = thumb.getAttribute('data-slug');
+          loadBuilding(slug);
+          mapPoints.forEach(function (pt) {
+            pt.classList.toggle('is-active', pt.getAttribute('data-slug') === slug);
+          });
+        });
+      });
+    }
 
     // Close panel via original close button (if it exists in static markup)
     if (panelCloseBtn) {
       panelCloseBtn.addEventListener('click', function () {
-        infoPanel.classList.remove('open');
+        restoreMosaic();
       });
     }
   })();

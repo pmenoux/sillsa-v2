@@ -22,6 +22,7 @@ if ($currentRoute && $currentRoute !== 'accueil') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $metaTitle ?></title>
     <meta name="description" content="<?= $metaDesc ?>">
+    <meta name="robots" content="noindex, nofollow">
     <meta name="theme-color" content="#FF0000">
 
     <!-- Open Graph -->
@@ -30,10 +31,7 @@ if ($currentRoute && $currentRoute !== 'accueil') {
     <meta property="og:type" content="website">
     <meta property="og:url" content="<?= SITE_URL . '/' . $currentRoute ?>">
 
-    <!-- Fonts: Inter + Lato (variable, swap) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Fonts: Helvetica Neue system stack (no Google Fonts) -->
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="<?= SITE_URL ?>/assets/css/style.css">
@@ -43,7 +41,7 @@ if ($currentRoute && $currentRoute !== 'accueil') {
 <header class="site-header">
     <div class="container">
         <a href="<?= SITE_URL ?>/" class="logo">
-            <img src="<?= SITE_URL ?>/assets/img/logo_sill.png" alt="SILL SA" height="70" style="mix-blend-mode: multiply">
+            <img src="<?= SITE_URL ?>/assets/img/logo_sill.png" alt="SILL SA" height="70">
         </a>
 
         <nav class="main-nav" aria-label="Navigation principale">
@@ -82,9 +80,3 @@ if ($currentRoute && $currentRoute !== 'accueil') {
 
 <main>
 
-<!-- Bauhaus geometric decorations -->
-<div class="bauhaus-shapes" aria-hidden="true">
-  <div class="bauhaus-circle"></div>
-  <div class="bauhaus-triangle"></div>
-  <div class="bauhaus-square"></div>
-</div>

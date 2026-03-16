@@ -8,55 +8,69 @@
    1. CSS Custom Properties (Design Tokens)
    -------------------------------------------------------------------------- */
 :root {
-  /* Colours */
+  /* Colours — Swiss Design SILL SA */
   --color-bg:        #FFFFFF;
-  --color-bg-warm:   #FAFAF8;
-  --color-heading:   #1A1A1A;
+  --color-bg-warm:   #F5F0EB;
+  --color-heading:   #000000;
   --color-body:      #333333;
   --color-accent:    #FF0000;
   --color-accent-hover: #CC0000;
   --color-border:    #E0E0E0;
   --color-muted:     #999999;
   --color-white:     #FFFFFF;
-  --color-dark:      #1A1A1A;
-  --color-nav-bg:    #EEECEA;
-  --color-blue:      #0047BB;
-  --color-yellow:    #FFD700;
+  --color-dark:      #000000;
+  --color-nav-bg:    #FFFFFF;
+  --color-nav-text:  #000000;
 
-  /* Typography — Golden Ratio (base 14.67 px) */
-  --font-body:    'Lato', sans-serif;
-  --font-heading: 'Inter', sans-serif;
-  --font-nav:     'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /* Typography — Helvetica Neue system stack
+     Échelle Golden Ratio (φ = 1.618) depuis base 16px :
+     16 → 20 → 26 → 33 → 42 → 68
+     Sous-palier ×1.25 pour les intermédiaires.
+     ──────────────────────────────────────────── */
+  --font-stack:   'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-body:    var(--font-stack);
+  --font-heading: var(--font-stack);
+  --font-nav:     var(--font-stack);
 
-  --fs-base:    14.67px;
-  --lh-base:    23.7px;
+  --fs-base:    16px;        /* Base                          */
+  --lh-base:    1.6;
 
-  --fs-chapeau: 23.7px;
-  --lh-chapeau: 38.4px;
+  --fs-chapeau: 20px;        /* 16 × 1.25 — introductions    */
+  --lh-chapeau: 1.5;
 
-  --fs-h4:      18px;
-  --lh-h4:      27px;
+  --fs-h4:      20px;        /* 16 × 1.25 — sous-titres      */
+  --lh-h4:      1.4;
 
-  --fs-h3:      23.7px;
-  --lh-h3:      32px;
+  --fs-h3:      26px;        /* 16 × φ — titres section       */
+  --lh-h3:      1.3;
 
-  --fs-h2:      38.4px;
-  --lh-h2:      46.6px;
+  --fs-h2:      clamp(26px, 3.5vw, 42px);  /* 26 × φ — titres page */
+  --lh-h2:      1.15;
 
-  --fs-h1:      62.1px;
-  --lh-h1:      75.3px;
+  --fs-h1:      clamp(42px, 5.5vw, 68px);  /* 42 × φ — hero only   */
+  --lh-h1:      1.05;
 
-  /* Spacing & Layout */
-  --grid-max:     1200px;
-  --gutter:       24px;
-  --margin-mobile: 16px;
-  --margin-tablet: 24px;
-  --margin-desktop: 48px;
-  --narrow-max:   720px;
+  /* Spacing & Layout — 12-column grid */
+  --grid-max:      1400px;
+  --grid-columns:  12;
+  --grid-gutter:   20px;
+  --grid-margin:   80px;
+  --gutter:        20px;
+  --margin-mobile: 20px;
+  --margin-tablet: 40px;
+  --margin-desktop: 80px;
+  --narrow-max:    720px;
+
+  /* Spacing scale (multiples of 8) */
+  --space-xs:  8px;
+  --space-sm:  16px;
+  --space-md:  32px;
+  --space-lg:  64px;
+  --space-xl:  128px;
 
   /* Misc */
-  --radius:       8px;
-  --radius-sm:    4px;
+  --radius:       0;
+  --radius-sm:    0;
   --shadow:       0 2px 8px rgba(0, 0, 0, 0.08);
   --shadow-lg:    0 4px 20px rgba(0, 0, 0, 0.10);
   --transition:   0.3s ease;
@@ -84,8 +98,8 @@ body {
   font-size: var(--fs-base);
   line-height: var(--lh-base);
   color: var(--color-body);
-  background: radial-gradient(ellipse at center, #FFFFFF 0%, #E9E7E4 100%);
-  background-attachment: fixed;
+  background: var(--color-bg);
+  font-weight: 300;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -124,30 +138,35 @@ button {
 h1, h2, h3, h4 {
   font-family: var(--font-heading);
   color: var(--color-heading);
-  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 h1 {
-  font-size: clamp(36px, 5vw, var(--fs-h1));
-  line-height: 1.21;
+  font-size: var(--fs-h1);
+  line-height: var(--lh-h1);
+  font-weight: 200;
+  letter-spacing: 0.06em;
 }
 
 h2 {
-  font-size: clamp(28px, 4vw, var(--fs-h2));
+  font-size: var(--fs-h2);
   line-height: var(--lh-h2);
-  font-weight: 600;
+  font-weight: 300;
 }
 
 h3 {
   font-size: var(--fs-h3);
   line-height: var(--lh-h3);
-  font-weight: 600;
+  font-weight: 400;
+  letter-spacing: 0.05em;
 }
 
 h4 {
   font-size: var(--fs-h4);
   line-height: var(--lh-h4);
-  font-weight: 600;
+  font-weight: 400;
+  letter-spacing: 0.05em;
 }
 
 p {
@@ -156,9 +175,9 @@ p {
 
 .chapeau {
   font-family: var(--font-body);
-  font-size: clamp(18px, 2.5vw, var(--fs-chapeau));
+  font-size: var(--fs-chapeau);
   line-height: var(--lh-chapeau);
-  font-weight: 400;
+  font-weight: 300;
   color: var(--color-body);
 }
 
@@ -197,6 +216,7 @@ blockquote {
   z-index: 1000;
   height: var(--header-h);
   background: var(--color-nav-bg);
+  border-bottom: 2px solid #000000;
   display: flex;
   align-items: center;
 }
@@ -225,8 +245,8 @@ blockquote {
 .nav-toggle span {
   display: block;
   height: 2px;
-  background: #000000;
-  border-radius: 2px;
+  background: var(--color-nav-text);
+  border-radius: 0;
   transition: var(--transition);
 }
 
@@ -238,7 +258,6 @@ blockquote {
   left: 0;
   right: 0;
   background: var(--color-nav-bg);
-  border-bottom: 2px solid #000000;
   padding: 16px 0;
   flex-direction: column;
 }
@@ -248,7 +267,7 @@ blockquote {
 }
 
 .nav-list li {
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
 .nav-list li:last-child {
@@ -258,10 +277,10 @@ blockquote {
 .nav-list a {
   display: block;
   padding: 12px var(--margin-mobile);
-  color: var(--color-heading);
+  color: var(--color-nav-text);
   font-family: var(--font-nav);
-  font-size: var(--fs-base);
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
@@ -271,8 +290,8 @@ blockquote {
 }
 
 .nav-list a.is-active {
-  color: var(--color-heading);
-  border-bottom: 2px solid #000000;
+  color: var(--color-nav-text);
+  border-bottom: 2px solid var(--color-accent);
 }
 
 /* Dropdown */
@@ -371,50 +390,363 @@ blockquote {
    -------------------------------------------------------------------------- */
 .kpi-section,
 .section-kpi {
-  background: radial-gradient(ellipse at center, #FFFFFF 0%, #E9E7E4 100%);
-  padding: 80px 0;
+  background: var(--color-bg);
+  padding: var(--space-lg) 0;
 }
 
 .kpi-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 40px 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-lg) var(--space-md);
   text-align: center;
 }
 
 .kpi-card,
 .kpi-item {
-  flex: 0 0 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 16px;
+  padding: 0;
 }
 
 .kpi-label {
-  font-size: var(--fs-h4);
+  font-size: 11px;
   font-family: var(--font-heading);
-  color: var(--color-heading);
+  color: var(--color-muted);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-weight: 600;
-  margin-bottom: 12px;
+  letter-spacing: 0.12em;
+  font-weight: 500;
+  order: 2;
+  margin-top: 12px;
 }
 
 .kpi-value {
   font-family: var(--font-heading);
-  font-size: clamp(36px, 5vw, var(--fs-h1));
-  font-weight: 700;
-  line-height: 1.1;
-  color: var(--color-accent);
+  font-size: clamp(33px, 4.5vw, 42px);  /* = fs-h2 max — même palier φ */
+  font-weight: 200;
+  line-height: 1;
+  color: var(--color-heading);
+  letter-spacing: -0.02em;
+  order: 1;
 }
 
 .kpi-unit {
-  font-size: var(--fs-base);
+  font-size: 11px;
   color: var(--color-muted);
-  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  order: 3;
   min-height: 20px;
+}
+
+/* --------------------------------------------------------------------------
+   7b. Contexte de marché — Section KPI conjoncture
+   Composition : 3 colonnes séparées par des filets fins.
+   Typographie légère (font-weight 300), chiffres contenus.
+   L'espace blanc fait le travail.
+   -------------------------------------------------------------------------- */
+.section-marche {
+  padding: var(--space-lg) 0;
+  background: var(--color-bg);
+}
+
+/* En-tête : filet rouge + titre + sous-titre */
+.marche-header {
+  margin-bottom: var(--space-lg);
+  max-width: 480px;
+}
+
+.marche-rule {
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: var(--color-accent);
+  margin-bottom: var(--space-sm);
+}
+
+.marche-title {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-heading);
+  margin-bottom: var(--space-xs);
+}
+
+.marche-subtitle {
+  font-size: 13px;
+  color: var(--color-muted);
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+/* Grille 3 colonnes — mobile : empilé */
+.marche-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+/* Colonne */
+.marche-col {
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--color-border);
+}
+
+.marche-col-label {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-muted);
+  margin-bottom: var(--space-md);
+}
+
+/* Datum : un chiffre + son contexte */
+.marche-datum {
+  margin-bottom: var(--space-md);
+}
+
+.marche-datum:last-child {
+  margin-bottom: 0;
+}
+
+.marche-value {
+  display: inline;
+  font-family: var(--font-heading);
+  font-size: clamp(26px, 3vw, 33px);  /* palier φ : 26→33 */
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--color-heading);
+  letter-spacing: -0.01em;
+}
+
+.marche-unit {
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--color-muted);
+  letter-spacing: 0.02em;
+  margin-left: 4px;
+}
+
+.marche-label {
+  display: block;
+  font-size: 13px;
+  color: var(--color-body);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.marche-context {
+  display: block;
+  font-size: 11px;
+  color: var(--color-muted);
+  margin-top: 2px;
+  font-style: italic;
+}
+
+/* Sources */
+.marche-sources {
+  margin-top: var(--space-lg);
+  font-size: 11px;
+  color: var(--color-muted);
+  letter-spacing: 0.02em;
+}
+
+/* Page marché — variante pleine page : espace réduit car le page-header a déjà sa marge */
+.section-marche--page {
+  padding-top: 0;
+}
+
+.section-marche--page .marche-header {
+  display: none;  /* Le page-header fait déjà office de titre */
+}
+
+/* Section positionnement SILL SA */
+.section-sill-position {
+  padding: var(--space-lg) 0;
+  border-top: 2px solid var(--color-heading);
+}
+
+.sill-position-header {
+  margin-bottom: var(--space-lg);
+}
+
+.sill-position-header h2 {
+  font-size: var(--fs-h3);
+  font-weight: 300;
+  margin-bottom: 12px;
+}
+
+/* Graphiques d'évolution — section charts */
+.section-charts {
+  padding: var(--space-lg) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.charts-section-title {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-heading);
+  margin-bottom: var(--space-lg);
+}
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+.chart-card {
+  position: relative;
+  height: 300px;
+}
+
+.chart-title {
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-heading);
+  margin-bottom: 4px;
+}
+
+.chart-subtitle {
+  font-size: 11px;
+  color: var(--color-muted);
+  letter-spacing: 0.02em;
+  margin-bottom: var(--space-sm);
+}
+
+/* Répartition types de loyers — camembert + barres par projet */
+.loyer-types {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.loyer-types-title {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h4);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-heading);
+  margin-bottom: 4px;
+}
+
+.loyer-types-subtitle {
+  font-size: 13px;
+  color: var(--color-muted);
+  letter-spacing: 0.02em;
+  margin-bottom: var(--space-md);
+}
+
+.loyer-charts-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+.loyer-chart-donut {
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.loyer-chart-bars {
+  position: relative;
+  height: 420px;
+}
+
+.loyer-types-note {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-heading);
+  margin-top: var(--space-sm);
+  text-align: center;
+}
+
+/* Teaser marché — accueil */
+.section-marche-teaser {
+  padding: var(--space-lg) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.marche-teaser-inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+.marche-teaser-left .marche-title {
+  margin-bottom: 12px;
+}
+
+.marche-teaser-text {
+  font-size: var(--fs-base);
+  color: var(--color-body);
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 360px;
+  margin-bottom: var(--space-sm);
+}
+
+.btn-marche {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  padding: 12px 24px;
+  transition: var(--transition);
+}
+
+.btn-marche:hover {
+  background: var(--color-accent);
+  color: var(--color-white);
+}
+
+.marche-teaser-right {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+.marche-teaser-kpi {
+  text-align: center;
+}
+
+.marche-teaser-kpi .marche-value {
+  display: block;
+}
+
+.marche-teaser-kpi .marche-label {
+  text-align: center;
+}
+
+/* Page chapeau — intro sous le h1 */
+.page-chapeau {
+  font-family: var(--font-body);
+  font-size: var(--fs-chapeau);
+  line-height: var(--lh-chapeau);
+  font-weight: 300;
+  color: var(--color-muted);
+  max-width: 640px;
+  margin: 0;
 }
 
 /* --------------------------------------------------------------------------
@@ -430,15 +762,19 @@ blockquote {
   margin-bottom: 48px;
 }
 
-/* Filters */
+/* Filters — horizontal scroll */
 .timeline-filters {
   display: flex;
+  flex-wrap: nowrap;
   gap: 8px;
   overflow-x: auto;
-  padding-bottom: 8px;
+  padding-bottom: 12px;
   margin-bottom: 40px;
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+  mask-image: linear-gradient(to right, #000 90%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, #000 90%, transparent 100%);
 }
 
 .timeline-filters::-webkit-scrollbar {
@@ -449,10 +785,12 @@ blockquote {
   flex-shrink: 0;
   padding: 8px 20px;
   border: 1px solid var(--color-border);
-  border-radius: 999px;
+  border-radius: 0;
   font-size: 13px;
   font-family: var(--font-heading);
-  font-weight: 500;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   color: var(--color-body);
   background: var(--color-white);
   transition: var(--transition);
@@ -505,16 +843,17 @@ blockquote {
 
 .timeline-card {
   background: var(--color-white);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 24px;
+  border-radius: 0;
+  border-top: 1px solid var(--color-border);
+  padding: 24px 0;
 }
 
 .timeline-date {
   font-family: var(--font-heading);
-  font-weight: 700;
+  font-weight: 300;
   color: var(--color-accent);
-  font-size: var(--fs-base);
+  font-size: 20px;
+  letter-spacing: 0.05em;
   margin-bottom: 8px;
 }
 
@@ -549,6 +888,13 @@ blockquote {
   width: 100%;
 }
 
+.carte-wrapper {
+  background: #F8F8F6;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
 .carte-lausanne {
   width: 100%;
   height: auto;
@@ -581,15 +927,26 @@ blockquote {
   z-index: 6;
 }
 
+@keyframes pointPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
 .point-circle {
   display: block;
   width: 24px;
   height: 24px;
   border-radius: 50%;
   background-color: var(--color-accent);
-  opacity: 0.3;
+  opacity: 0.35;
   transition: opacity var(--transition), transform var(--transition);
   position: relative;
+  animation: pointPulse 3s ease-in-out infinite;
+}
+
+.map-point:hover .point-circle,
+.map-point.is-active .point-circle {
+  animation: none;
 }
 
 .point-inner {
@@ -629,17 +986,15 @@ blockquote {
   position: absolute;
   z-index: 20;
   pointer-events: none;
-  background: var(--color-text);
+  background: var(--color-dark, #1A1A1A);
   color: var(--color-white);
-  padding: 6px 12px;
+  padding: 8px 14px;
   border-radius: 4px;
-  font-size: 0.8rem;
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 500;
   white-space: nowrap;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-bottom: 8px;
 }
 
 .map-tooltip.visible {
@@ -662,18 +1017,89 @@ blockquote {
   margin-top: 24px;
 }
 
-/* Mobile grid fallback */
+/* Mosaic — default state before building is selected */
+.panel-mosaic-title {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h4);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0 0 16px;
+  color: var(--color-heading);
+}
+
+.panel-mosaic-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.mosaic-thumb {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  aspect-ratio: 1;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.mosaic-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(0.3);
+  transition: filter var(--transition);
+}
+
+.mosaic-thumb:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow);
+}
+
+.mosaic-thumb:hover img {
+  filter: grayscale(0);
+}
+
+.panel-mosaic-hint {
+  margin: 12px 0 0;
+  font-size: 11px;
+  color: var(--color-muted);
+  text-align: center;
+}
+
+/* Mobile grid fallback — grouped by quartier */
 .portefeuille-grid-mobile {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+.quartier-group {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--gutter);
 }
 
+.quartier-label {
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-accent);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 0;
+}
+
 .immeuble-card {
   position: relative;
-  border-radius: var(--radius);
+  border-radius: 0;
   overflow: hidden;
-  box-shadow: var(--shadow);
+  border: 1px solid var(--color-border);
   background: var(--color-white);
 }
 
@@ -733,7 +1159,7 @@ blockquote {
 }
 
 .meta-label {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--color-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -741,7 +1167,7 @@ blockquote {
 }
 
 .meta-value {
-  font-weight: 700;
+  font-weight: 500;
   color: var(--color-heading);
 }
 
@@ -770,7 +1196,7 @@ blockquote {
 }
 
 .photo-credit {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--color-muted);
   margin-top: 8px;
   margin-bottom: 0;
@@ -780,11 +1206,13 @@ blockquote {
 .label-energie {
   display: inline-block;
   padding: 3px 10px;
-  font-size: 12px;
-  font-weight: 600;
-  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 500;
+  border-radius: 0;
   background: #E6F4EA;
   color: #1B7D3A;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 /* --------------------------------------------------------------------------
@@ -833,9 +1261,9 @@ blockquote {
   font-family: var(--font-heading);
   font-size: var(--fs-h3);
   line-height: var(--lh-h3);
-  font-weight: 700;
+  font-weight: 300;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.05em;
   color: var(--color-heading);
   flex: 1;
 }
@@ -873,14 +1301,14 @@ blockquote {
 
 .publication-card {
   background: var(--color-white);
-  border-radius: var(--radius);
+  border-radius: 0;
   overflow: hidden;
-  box-shadow: var(--shadow);
-  transition: box-shadow var(--transition);
+  border: 1px solid var(--color-border);
+  transition: border-color var(--transition);
 }
 
 .publication-card:hover {
-  box-shadow: var(--shadow-lg);
+  border-color: var(--color-heading);
 }
 
 .publication-card img {
@@ -895,20 +1323,23 @@ blockquote {
 
 .publication-year {
   font-family: var(--font-heading);
-  font-weight: 700;
+  font-weight: 400;
   color: var(--color-accent);
   font-size: 13px;
+  letter-spacing: 0.05em;
 }
 
 .publication-type {
   display: inline-block;
   padding: 2px 8px;
   font-size: 11px;
-  font-weight: 600;
-  border-radius: 999px;
+  font-weight: 500;
+  border-radius: 0;
   background: var(--color-bg-warm);
   color: var(--color-muted);
   margin-left: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .publication-card h4 {
@@ -923,76 +1354,21 @@ blockquote {
   padding: 64px 0;
 }
 
-/* --------------------------------------------------------------------------
-   13b. Bauhaus Geometric Decorations
-   -------------------------------------------------------------------------- */
-.bauhaus-shapes {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-  overflow: hidden;
-}
-
-/* Circle — Blue (Kandinsky) */
-.bauhaus-circle {
-  position: absolute;
-  width: 280px;
-  height: 280px;
-  border-radius: 50%;
-  background: var(--color-blue);
-  opacity: 0.04;
-  top: 18%;
-  right: -60px;
-}
-
-/* Triangle — Yellow (Kandinsky) */
-.bauhaus-triangle {
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-left: 140px solid transparent;
-  border-right: 140px solid transparent;
-  border-bottom: 240px solid var(--color-yellow);
-  opacity: 0.04;
-  bottom: 25%;
-  left: -40px;
-}
-
-/* Square — Red (Kandinsky) */
-.bauhaus-square {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  background: var(--color-accent);
-  opacity: 0.04;
-  top: 55%;
-  right: 5%;
-  transform: rotate(12deg);
-}
-
 main {
   position: relative;
   z-index: 1;
-}
-
-/* Hide on print */
-@media print {
-  .bauhaus-shapes { display: none; }
 }
 
 /* --------------------------------------------------------------------------
    14. Footer
    -------------------------------------------------------------------------- */
 .site-footer {
-  background: var(--color-nav-bg);
-  color: var(--color-body);
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-border);
+  color: rgba(0,0,0,0.5);
   padding: 48px 0 0;
-  margin-top: 64px;
-  border-top: 2px solid var(--color-heading);
+  margin-top: var(--space-lg);
+  font-size: 13px;
 }
 
 .footer-grid {
@@ -1003,21 +1379,21 @@ main {
 }
 
 .footer-grid a {
-  color: var(--color-body);
+  color: rgba(0,0,0,0.6);
   text-decoration: none;
 }
 
 .footer-grid a:hover {
-  color: var(--color-accent);
+  color: var(--color-dark);
 }
 
 .footer-grid h3,
 .footer-grid h4 {
-  color: var(--color-heading);
+  color: var(--color-dark);
   margin-bottom: 12px;
-  font-size: var(--fs-base);
+  font-size: 13px;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
 }
 
 .footer-grid ul {
@@ -1029,21 +1405,28 @@ main {
 
 .footer-bottom {
   text-align: center;
-  font-size: 12px;
-  color: var(--color-muted);
+  font-size: 11px;
+  color: rgba(0,0,0,0.4);
   padding: 20px 0;
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid rgba(0,0,0,0.08);
 }
 
 /* --------------------------------------------------------------------------
-   15. Page Header
+   15. Page Header — Interior pages
+   Le titre est un repère, pas un cri. Taille contenue, poids léger.
    -------------------------------------------------------------------------- */
 .page-header {
-  padding-top: 120px;
-  padding-bottom: 48px;
+  padding-top: calc(var(--header-h) + 48px);
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--space-lg);
 }
 
 .page-header h1 {
+  font-size: var(--fs-h2);
+  font-weight: 300;
+  line-height: var(--lh-h2);
+  letter-spacing: 0.1em;
   margin-bottom: 12px;
 }
 
@@ -1062,10 +1445,11 @@ main {
 
 .page-404 .error-code {
   font-family: var(--font-heading);
-  font-size: clamp(80px, 20vw, 200px);
-  font-weight: 700;
+  font-size: var(--fs-h1);
+  font-weight: 200;
   color: var(--color-border);
   line-height: 1;
+  letter-spacing: 0.05em;
 }
 
 /* --------------------------------------------------------------------------
@@ -1076,8 +1460,9 @@ main {
   align-items: center;
   gap: 6px;
   color: var(--color-accent);
-  font-weight: 600;
+  font-weight: 400;
   font-size: var(--fs-base);
+  letter-spacing: 0.02em;
   transition: var(--transition);
 }
 
@@ -1182,7 +1567,7 @@ main {
   font-family: var(--font-heading);
   font-size: var(--fs-h3);
   line-height: var(--lh-h3);
-  font-weight: 700;
+  font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 16px;
@@ -1213,7 +1598,7 @@ main {
   font-family: var(--font-heading);
   font-size: var(--fs-h3);
   line-height: var(--lh-h3);
-  font-weight: 700;
+  font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin: 0;
@@ -1363,6 +1748,11 @@ main {
     flex: 0 0 50%;
   }
 
+  /* Loyer types — barres plus hautes sur tablette */
+  .loyer-chart-bars {
+    height: 380px;
+  }
+
   /* Timeline — still left-aligned on tablet */
 
   /* Portefeuille */
@@ -1423,7 +1813,7 @@ main {
   }
 
   .nav-list a.is-active {
-    border-bottom: 2px solid #000000;
+    border-bottom: 2px solid var(--color-accent);
     padding-bottom: 6px;
   }
 
@@ -1435,9 +1825,8 @@ main {
     left: 0;
     min-width: 200px;
     background: var(--color-nav-bg);
-    border: 1px solid #000000;
-    border-radius: var(--radius-sm);
-    box-shadow: var(--shadow);
+    border: none;
+    box-shadow: var(--shadow-lg);
     padding: 8px 0;
     z-index: 100;
   }
@@ -1460,9 +1849,52 @@ main {
     max-width: 700px;
   }
 
-  /* KPI — desktop: 3 per row (3+2 centered) */
-  .kpi-item {
-    flex: 0 0 33.333%;
+  /* KPI — desktop grid: 3 per row, second row centered */
+  .kpi-grid {
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+  }
+
+  /* Marché — 3 colonnes avec séparateurs verticaux */
+  .marche-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+
+  .marche-col {
+    border-top: none;
+    padding: 0 var(--space-md);
+    border-left: 1px solid var(--color-border);
+  }
+
+  .marche-col:first-child {
+    padding-left: 0;
+    border-left: none;
+  }
+
+  .marche-col:last-child {
+    padding-right: 0;
+  }
+
+  /* Charts — 2 colonnes desktop */
+  .charts-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Loyer types — camembert à gauche, barres à droite */
+  .loyer-charts-grid {
+    grid-template-columns: 1fr 2fr;
+    align-items: start;
+  }
+
+  .loyer-chart-donut {
+    max-width: none;
+  }
+
+  /* Teaser marché — 2 colonnes desktop */
+  .marche-teaser-inner {
+    grid-template-columns: 1fr 2fr;
+    align-items: center;
   }
 
   /* Timeline — alternating left / right */

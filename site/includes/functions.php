@@ -82,3 +82,19 @@ function isActive(string $route): string {
     global $pageData;
     return ($pageData['route'] === $route) ? ' class="active"' : '';
 }
+
+/**
+ * Format a KPI numeric value: detect actual decimal places.
+ * Returns ['formatted' => '1.25', 'decimals' => 2]
+ */
+function kpiFormat($value): array {
+    if ($value === null) return ['formatted' => '', 'decimals' => 0];
+    $num = (float)$value;
+    // Format with 2 decimals, then strip trailing zeros
+    $str = rtrim(rtrim(number_format($num, 2, '.', ''), '0'), '.');
+    $decimals = 0;
+    if (strpos($str, '.') !== false) {
+        $decimals = strlen($str) - strpos($str, '.') - 1;
+    }
+    return ['formatted' => $str, 'decimals' => $decimals];
+}

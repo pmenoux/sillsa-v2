@@ -16,7 +16,7 @@
     <circle cx="22" cy="18" r="18" fill="#FF0000" clip-path="url(#house-clip-sm)"/>
   </g>
   <!-- SILL text -->
-  <text x="68" y="60" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-weight="900" font-size="48" fill="#1A1A1A" letter-spacing="-1">SILL</text>
+  <text x="68" y="60" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="900" font-size="48" fill="#1A1A1A" letter-spacing="-1">SILL</text>
   <!-- SA suffix -->
-  <text x="210" y="60" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-weight="400" font-size="20" fill="#1A1A1A">SA</text>
+  <text x="210" y="60" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="400" font-size="20" fill="#1A1A1A">SA</text>
 </svg>

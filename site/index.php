@@ -48,6 +48,7 @@ $routes = [
     'organisation'           => 'templates/page.php',
     'environnement'          => 'templates/page.php',
     'aspects-societaux'      => 'templates/page.php',
+    'marche'                 => 'templates/marche.php',
     'portefeuille'           => 'templates/portefeuille.php',
     'chronologie'            => 'templates/chronologie.php',
     'location'               => 'templates/location.php',
