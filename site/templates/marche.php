@@ -176,7 +176,7 @@ function renderMarcheDatum($k, $haussePrefixKeys = []) {
             <!-- Camembert global + Barres par projet -->
             <div class="loyer-charts-grid">
                 <div class="loyer-chart-donut">
-                    <canvas id="chartLoyerDonut" height="280"></canvas>
+                    <canvas id="chartLoyerDonut"></canvas>
                     <p class="loyer-types-note">LUP (LLM + LLA) : 608 lots — 73 % du parc</p>
                 </div>
                 <div class="loyer-chart-bars">

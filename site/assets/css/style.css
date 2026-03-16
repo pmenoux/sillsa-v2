@@ -658,7 +658,8 @@ blockquote {
 }
 
 .loyer-chart-donut {
-  max-width: 320px;
+  max-width: 280px;
+  max-height: 340px;
   margin: 0 auto;
 }
 
