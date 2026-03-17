@@ -34,7 +34,7 @@ if ($currentRoute && $currentRoute !== 'accueil') {
     <!-- Fonts: Helvetica Neue system stack (no Google Fonts) -->
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="<?= SITE_URL ?>/assets/css/style.css">
+    <link rel="stylesheet" href="<?= SITE_URL ?>/assets/css/style.css?v=<?= filemtime(__DIR__ . '/../assets/css/style.css') ?>">
 </head>
 <body>
 

@@ -33,6 +33,6 @@
     </div>
 </footer>
 
-<script src="<?= SITE_URL ?>/assets/js/main.js" defer></script>
+<script src="<?= SITE_URL ?>/assets/js/main.js?v=<?= filemtime(__DIR__ . '/../assets/js/main.js') ?>" defer></script>
 </body>
 </html>
