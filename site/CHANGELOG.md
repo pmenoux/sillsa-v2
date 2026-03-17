@@ -1,5 +1,21 @@
 # CHANGELOG — SILL SA Refonte 2026
 
+## [2026-03-17] — Audit graphique Swiss Design + fix carte mobile
+### Analyse complète du site 26.sillsa.ch
+- Audit graphique Frontend Designer : 8 pages analysées (captures dans `analysis/`)
+- 3 diagrammes FigJam créés : architecture site, design system tokens, audit Swiss Design
+- Rapport complet : `analysis/ANALYSE-GRAPHIQUE-26-SILLSA-CH.md`
+- Constat : le design system Swiss Style est correctement implémenté (échelle typo Golden Ratio, palette disciplinée, Helvetica Neue uppercase)
+- Les problèmes visuels initiaux (contenus invisibles, charts vides) étaient des artefacts de capture — tout fonctionne correctement avec scroll (IntersectionObserver)
+
+### Fix : carte SVG portefeuille visible sur mobile
+- CSS : `.portefeuille-layout` passe de `display: none` à `display: block` sur mobile
+- CSS : `.map-info-panel` caché sur mobile (panneau latéral inutile en mobile)
+- CSS : points carte agrandis à 36px sur mobile (cible touch)
+- CSS : espacement ajouté entre carte et grille mobile
+- JS : détection mobile dans map interaction — navigation directe vers fiche immeuble (pas de fetch AJAX)
+- Desktop inchangé : layout flex + panneau latéral AJAX préservé
+
 ## [2026-03-16] — Session 4
 ### Harmonisation Portefeuille + Immeuble — style Swiss
 - Portefeuille : `.chapeau` → `.page-chapeau` (cohérence avec contexte)

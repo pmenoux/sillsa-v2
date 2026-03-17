@@ -894,8 +894,12 @@ blockquote {
   padding: 64px 0;
 }
 
-/* Hide interactive map on mobile, show card grid instead */
+/* Mobile: show map stacked above card grid, hide side panel */
 .portefeuille-layout {
+  display: block;
+}
+
+.portefeuille-layout .map-info-panel {
   display: none;
 }
 
@@ -1149,6 +1153,21 @@ blockquote {
   font-size: 14px;
   line-height: 1.6;
   margin-bottom: 8px;
+}
+
+/* Mobile: larger touch targets on map points */
+@media (max-width: 1023px) {
+  .map-point {
+    width: 36px;
+    height: 36px;
+  }
+  .point-circle {
+    width: 36px;
+    height: 36px;
+  }
+  .portefeuille-layout {
+    margin-bottom: var(--space-md);
+  }
 }
 
 /* Mobile grid fallback — grouped by quartier */
@@ -2209,10 +2228,14 @@ main {
     padding: var(--space-md);
   }
 
-  /* Portefeuille */
+  /* Portefeuille — desktop: side-by-side map + panel */
   .portefeuille-layout {
     display: flex;
     gap: var(--gutter);
+  }
+
+  .portefeuille-layout .map-info-panel {
+    display: block;
   }
 
   .carte-container {

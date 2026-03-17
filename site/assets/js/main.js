@@ -175,9 +175,20 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
 
+    // Mobile: navigate directly to immeuble page
+    function isMobileMap() {
+      return window.innerWidth < 1024;
+    }
+
     // Shared fetch function
     function loadBuilding(slug) {
-      if (!slug || !infoPanel) return;
+      if (!slug) return;
+
+      // On mobile, navigate directly (no side panel)
+      if (isMobileMap() || !infoPanel) {
+        window.location.href = '/portefeuille/' + encodeURIComponent(slug);
+        return;
+      }
 
       fetch('/api/immeuble/' + encodeURIComponent(slug))
         .then(function (response) {
