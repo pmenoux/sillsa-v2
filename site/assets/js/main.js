@@ -361,4 +361,54 @@ document.addEventListener('DOMContentLoaded', function () {
     updateButtons();
   })();
 
+    // ─── Lightbox galerie ─────────────────────────────────────────
+    (function initLightbox() {
+        var items = document.querySelectorAll('.galerie-item');
+        if (!items.length) return;
+        var currentIndex = 0;
+        var overlay = document.createElement('div');
+        overlay.className = 'lightbox-overlay';
+        overlay.innerHTML = '<button class="lightbox-close" aria-label="Fermer">&times;</button>'
+            + '<button class="lightbox-prev" aria-label="Précédent">&#8249;</button>'
+            + '<img src="" alt="">'
+            + '<button class="lightbox-next" aria-label="Suivant">&#8250;</button>'
+            + '<div class="lightbox-caption"></div>';
+        document.body.appendChild(overlay);
+        var lbImg = overlay.querySelector('img');
+        var lbCaption = overlay.querySelector('.lightbox-caption');
+        function showImage(index) {
+            if (index < 0) index = items.length - 1;
+            if (index >= items.length) index = 0;
+            currentIndex = index;
+            lbImg.src = items[index].href;
+            lbCaption.textContent = items[index].dataset.caption || '';
+        }
+        function openLightbox(index) {
+            showImage(index);
+            overlay.classList.add('is-open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLightbox() {
+            overlay.classList.remove('is-open');
+            document.body.style.overflow = '';
+        }
+        items.forEach(function (item, i) {
+            item.addEventListener('click', function (e) {
+                e.preventDefault();
+                openLightbox(i);
+            });
+        });
+        overlay.addEventListener('click', function (e) {
+            if (e.target === overlay || e.target.classList.contains('lightbox-close')) closeLightbox();
+            else if (e.target.classList.contains('lightbox-prev')) showImage(currentIndex - 1);
+            else if (e.target.classList.contains('lightbox-next')) showImage(currentIndex + 1);
+        });
+        document.addEventListener('keydown', function (e) {
+            if (!overlay.classList.contains('is-open')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+            if (e.key === 'ArrowRight') showImage(currentIndex + 1);
+        });
+    })();
+
 });
