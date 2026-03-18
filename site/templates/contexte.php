@@ -331,11 +331,11 @@ function initMarcheCharts() {
      SECTION 2 : Camembert global + Barres par projet
      ══════════════════════════════════════════════════════════════ */
 
-  var colorLLM  = '#E8686A';      // rouge rosé doux
-  var colorLLA  = '#5B8EC9';      // bleu pastel
-  var colorLM   = '#F2C46D';      // jaune sable
-  var colorEtud = '#7EC8A4';      // vert amande
-  var colorAct  = '#C4B0D4';      // mauve clair
+  var colorLLM  = '#FFD700';      // jaune Swiss
+  var colorLLA  = '#B0B0B0';      // gris moyen
+  var colorLM   = '#707070';      // gris foncé
+  var colorEtud = '#D4D4D4';      // gris clair
+  var colorAct  = '#404040';      // gris anthracite
 
   /* ── Camembert (donut) — répartition globale ── */
   var donutCtx = document.getElementById('chartLoyerDonut');
