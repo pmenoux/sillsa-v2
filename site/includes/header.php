@@ -41,7 +41,7 @@ if ($currentRoute && $currentRoute !== 'accueil') {
 <header class="site-header">
     <div class="container">
         <a href="<?= SITE_URL ?>/" class="logo">
-            <img src="<?= SITE_URL ?>/assets/img/logo_sill.png" alt="SILL SA" height="70">
+            <img src="<?= SITE_URL ?>/assets/img/logo_sill_2026.svg" alt="SILL SA — Société Immobilière Lausanne-Littoral" height="70">
         </a>
 
         <nav class="main-nav" aria-label="Navigation principale">
