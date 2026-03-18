@@ -4,10 +4,7 @@
 
 // ─── Data query ────────────────────────────────────────────────
 $immeuble = queryOne(
-    'SELECT i.*, m.filepath, m.alt_text, m.credit
-     FROM sill_immeubles i
-     LEFT JOIN sill_medias m ON i.image_id = m.id
-     WHERE i.slug = ? AND i.is_active = 1',
+    'SELECT * FROM sill_immeubles WHERE slug = ? AND is_active = 1',
     [$pageData['slug']]
 );
 
@@ -68,14 +65,14 @@ if ($detailsRaw) {
     <div class="container">
 
         <!-- Hero image -->
-        <?php if ($immeuble['filepath']): ?>
+        <?php
+        $coverUrl = immeubleCoverUrl($immeuble['slug'], (int) $immeuble['image_id'] ?: null);
+        if (!str_contains($coverUrl, 'placeholder')):
+        ?>
             <div class="immeuble-hero reveal">
-                <img src="<?= mediaUrl((int)$immeuble['image_id']) ?>"
-                     alt="<?= e($immeuble['alt_text'] ?? $immeuble['nom']) ?>"
+                <img src="<?= e($coverUrl) ?>"
+                     alt="<?= e($immeuble['nom']) ?>"
                      loading="eager">
-                <?php if ($immeuble['credit']): ?>
-                    <p class="photo-credit">&copy; <?= e($immeuble['credit']) ?></p>
-                <?php endif; ?>
             </div>
         <?php endif; ?>
 
@@ -179,6 +176,23 @@ if ($detailsRaw) {
             </div>
 
         </div>
+
+        <?php
+        $galerie = immeubleGalerie($immeuble['slug']);
+        if ($galerie):
+        ?>
+        <!-- Gallery -->
+        <div class="immeuble-galerie reveal">
+            <h2>Galerie</h2>
+            <div class="galerie-grid">
+                <?php foreach ($galerie as $img): ?>
+                    <a href="<?= e($img['url']) ?>" class="galerie-item" data-caption="<?= e($img['caption']) ?>">
+                        <img src="<?= e($img['url']) ?>" alt="<?= e($img['caption']) ?>" loading="lazy">
+                    </a>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <?php endif; ?>
 
     </div>
 </article>
