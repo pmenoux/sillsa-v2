@@ -30,6 +30,10 @@ $positions = [
     'falaises'                                  => ['x' => 455, 'y' => 256],
     'chemin-de-la-prairie-5a-et-5c'             => ['x' => 240, 'y' => 350],
     'bonne-esperance-32'                        => ['x' => 510, 'y' => 320],
+    // Acquisitions par préemption (DDP) — actifs dès le 1er avril 2026
+    'bethusy-86-88'                             => ['x' => 480, 'y' => 380],
+    'jomini-10-12-14'                           => ['x' => 500, 'y' => 248],
+    'egralets-1-3'                              => ['x' => 520, 'y' => 255],
 ];
 
 // Quartier label positions on the SVG (near their buildings, offset)
@@ -296,9 +300,8 @@ $quartierLabels = [
             <path class="carte-rail" d="M 0,370 C 100,355 200,345 300,340 C 370,337 420,340 500,350 C 580,360 660,375 800,400"/>
 
             <!-- Gare de Lausanne -->
-            <rect x="386" y="328" width="28" height="16" rx="3" class="carte-gare"/>
-            <text x="400" y="339" text-anchor="middle" fill="#FFF" style="font-family: Inter, sans-serif; font-size: 8px; font-weight: 700;">CFF</text>
-            <text class="carte-label-small" x="420" y="339">Gare</text>
+            <rect x="370" y="328" width="60" height="16" rx="3" fill="#FF0000"/>
+            <text x="400" y="339" text-anchor="middle" fill="#FFF" style="font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size: 8px; font-weight: 700; letter-spacing: 0.05em;">Gare CFF</text>
 
             <!-- ═══════════════════════════════════════════════
                  LAYER 7: Metro
@@ -352,6 +355,7 @@ $quartierLabels = [
             <text class="carte-label-quartier" x="496" y="237">La Sallaz</text>
             <text class="carte-label-quartier" x="472" y="270">Les Falaises</text>
             <text class="carte-label-quartier" x="310" y="400">Sous-Gare</text>
+            <text class="carte-label-quartier" x="500" y="395">Béthusy</text>
 
             <!-- Lake label -->
             <text class="carte-label-lac" x="380" y="540" text-anchor="middle">Lac Leman</text>
