@@ -52,7 +52,7 @@ if ($heroImage) {
 }
 
 // Carousel buildings
-$immeubles = query('SELECT nom, slug, image_id FROM sill_immeubles WHERE is_active = 1 AND image_id IS NOT NULL AND image_id > 0 ORDER BY annee_livraison DESC LIMIT 12');
+$immeubles = query('SELECT nom, slug FROM sill_immeubles WHERE is_active = 1 ORDER BY annee_livraison DESC LIMIT 12');
 ?>
 
 <section class="page-header">
@@ -130,7 +130,7 @@ $immeubles = query('SELECT nom, slug, image_id FROM sill_immeubles WHERE is_acti
           <div class="carousel-track">
             <?php foreach ($immeubles as $im): ?>
             <a href="<?= SITE_URL ?>/portefeuille/<?= e($im['slug']) ?>" class="carousel-slide">
-              <img src="<?= mediaUrl((int)$im['image_id']) ?>" alt="<?= e($im['nom']) ?>" loading="lazy">
+              <img src="<?= immeubleCoverUrl($im['slug']) ?>" alt="<?= e($im['nom']) ?>" loading="lazy">
               <span class="carousel-caption"><?= e($im['nom']) ?></span>
             </a>
             <?php endforeach; ?>

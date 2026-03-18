@@ -117,8 +117,7 @@ function immeubleMediaPath(string $slug): string {
     return SITE_ROOT . '/media/immeubles/' . $slug;
 }
 
-function immeubleCoverUrl(string $slug, ?int $imageId = null): string {
-    // 1. New system: media/immeubles/{slug}/cover.*
+function immeubleCoverUrl(string $slug): string {
     $dir = SITE_ROOT . '/media/immeubles/' . $slug;
     if (is_dir($dir)) {
         $covers = glob($dir . '/cover.{jpg,jpeg,png,webp}', GLOB_BRACE);
@@ -127,11 +126,6 @@ function immeubleCoverUrl(string $slug, ?int $imageId = null): string {
             return SITE_URL . '/media/immeubles/' . $slug . '/' . $filename . '?v=' . filemtime($covers[0]);
         }
     }
-    // 2. Fallback: legacy image_id
-    if ($imageId) {
-        return mediaUrl($imageId);
-    }
-    // 3. Placeholder
     return SITE_URL . '/assets/img/placeholder-immeuble.jpg';
 }
 

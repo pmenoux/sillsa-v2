@@ -10,11 +10,11 @@ $kpis = query(
 );
 
 $events = query(
-    'SELECT t.*, m.filepath
+    "SELECT t.*, REPLACE(m.filepath, '/wp-content/uploads/', '/uploads/') AS image_path
      FROM sill_timeline t
      LEFT JOIN sill_medias m ON t.image_id = m.id
      WHERE t.is_active = 1
-     ORDER BY t.event_date DESC'
+     ORDER BY t.event_date DESC"
 );
 
 // Category display labels (French)
@@ -53,11 +53,20 @@ foreach ($events as $ev) {
      1. HERO
      ════════════════════════════════════════════════════════════════ -->
 <?php
-    // Hero image: use first immeuble image as fallback if hero-accueil.jpg doesn't exist
-    $heroImg = SITE_URL . '/uploads/hero-accueil.jpg';
-    $firstImmeuble = queryOne('SELECT m.filepath FROM sill_immeubles i JOIN sill_medias m ON i.image_id = m.id WHERE i.is_active = 1 ORDER BY i.sort_order LIMIT 1');
-    if ($firstImmeuble) {
-        $heroImg = SITE_URL . str_replace('/wp-content/uploads/', '/uploads/', $firstImmeuble['filepath']);
+    // Hero image: dedicated hero or first immeuble cover as fallback
+    $heroFile = SITE_ROOT . '/media/hero-accueil.jpg';
+    if (file_exists($heroFile)) {
+        $heroImg = SITE_URL . '/media/hero-accueil.jpg?v=' . filemtime($heroFile);
+    } else {
+        // Fallback: legacy uploads or first immeuble cover
+        $heroImg = SITE_URL . '/uploads/hero-accueil.jpg';
+        $firstSlug = queryOne('SELECT slug FROM sill_immeubles WHERE is_active = 1 ORDER BY sort_order LIMIT 1');
+        if ($firstSlug) {
+            $cover = immeubleCoverUrl($firstSlug['slug']);
+            if (!str_contains($cover, 'placeholder')) {
+                $heroImg = $cover;
+            }
+        }
     }
 ?>
 <section class="hero" style="background-image: url('<?= $heroImg ?>');">
@@ -178,7 +187,7 @@ $marcheTeaser = query(
                     $year     = date('Y', strtotime($ev['event_date']));
                     $title    = $ev['title'] ?? '';
                     $desc     = $ev['description'] ?? '';
-                    $filepath = $ev['filepath'] ?? '';
+                    $filepath = $ev['image_path'] ?? '';
                 ?>
                 <div class="timeline-item reveal" data-category="<?= e($cat) ?>">
                     <div class="timeline-dot"></div>
@@ -191,10 +200,7 @@ $marcheTeaser = query(
                         <?php endif; ?>
 
                         <?php if ($filepath): ?>
-                            <?php
-                                $imgPath = str_replace('/wp-content/uploads/', '/uploads/', $filepath);
-                            ?>
-                            <img src="<?= SITE_URL . e($imgPath) ?>"
+                            <img src="<?= SITE_URL . e($filepath) ?>"
                                  alt="<?= e($title) ?>"
                                  loading="lazy"
                                  class="timeline-img">

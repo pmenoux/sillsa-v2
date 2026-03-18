@@ -66,7 +66,7 @@ if ($detailsRaw) {
 
         <!-- Hero image -->
         <?php
-        $coverUrl = immeubleCoverUrl($immeuble['slug'], (int) $immeuble['image_id'] ?: null);
+        $coverUrl = immeubleCoverUrl($immeuble['slug']);
         if (!str_contains($coverUrl, 'placeholder')):
         ?>
             <div class="immeuble-hero reveal">

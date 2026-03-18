@@ -209,7 +209,7 @@ if ($action === 'edit' && $id) {
         header('Location: ?page=immeubles');
         exit;
     }
-    $coverUrl = immeubleCoverUrl($item['slug'], (int) $item['image_id'] ?: null);
+    $coverUrl = immeubleCoverUrl($item['slug']);
     $galerie  = immeubleGalerie($item['slug']);
     ?>
     <div class="page-header">
@@ -490,7 +490,7 @@ $all_items = query("SELECT * FROM sill_immeubles ORDER BY sort_order, nom");
         <?php foreach ($all_items as $item): ?>
             <tr>
                 <td>
-                    <img src="<?= e(immeubleCoverUrl($item['slug'], (int) $item['image_id'] ?: null)) ?>"
+                    <img src="<?= e(immeubleCoverUrl($item['slug'])) ?>"
                          alt="" style="width:48px;height:36px;object-fit:cover;border-radius:3px;">
                 </td>
                 <td><strong><?= e($item['nom']) ?></strong></td>

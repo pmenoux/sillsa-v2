@@ -19,8 +19,11 @@ if ($page === 'api' && ($segments[1] ?? '') === 'immeuble' && ($segments[2] ?? '
     }
     ?>
     <button class="panel-close" aria-label="Fermer">&times;</button>
-    <?php if ($im['image_id']): ?>
-        <img src="<?= mediaUrl((int)$im['image_id']) ?>" alt="<?= e($im['nom']) ?>" loading="lazy">
+    <?php
+    $coverUrl = immeubleCoverUrl($im['slug']);
+    $isPlaceholder = str_contains($coverUrl, 'placeholder');
+    if (!$isPlaceholder): ?>
+        <img src="<?= $coverUrl ?>" alt="<?= e($im['nom']) ?>" loading="lazy">
     <?php endif; ?>
     <h2><?= e($im['nom']) ?></h2>
     <p class="panel-address"><?= e($im['adresse'] ?? '') ?></p>
@@ -34,8 +37,8 @@ if ($page === 'api' && ($segments[1] ?? '') === 'immeuble' && ($segments[2] ?? '
     <?php
     $loyerMix = json_decode($im['loyer_mix'] ?? 'null', true);
     if ($loyerMix):
-        $labels = ['LLM' => 'Sub.', 'LLA' => 'Contr.', 'LM' => 'Libre', 'ETU' => 'Étud.'];
-        $classes = ['LLM' => 'mix-llm', 'LLA' => 'mix-lla', 'LM' => 'mix-lm', 'ETU' => 'mix-etu'];
+        $labels = ['LLM' => 'Modéré', 'LLA' => 'Abordable', 'LM' => 'Libre', 'ETU' => 'Étudiants', 'ACT' => 'Activités'];
+        $classes = ['LLM' => 'mix-llm', 'LLA' => 'mix-lla', 'LM' => 'mix-lm', 'ETU' => 'mix-etu', 'ACT' => 'mix-act'];
     ?>
     <div class="loyer-mix" style="margin-top:8px">
         <div class="loyer-mix-bar">

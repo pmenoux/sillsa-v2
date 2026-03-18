@@ -384,7 +384,7 @@ $quartierLabels = [
           <div class="panel-mosaic-grid">
             <?php foreach ($immeubles as $im): ?>
                 <button class="mosaic-thumb" data-slug="<?= e($im['slug']) ?>" title="<?= e($im['nom']) ?>">
-                  <img src="<?= e(immeubleCoverUrl($im['slug'], (int) $im['image_id'] ?: null)) ?>" alt="<?= e($im['nom']) ?>" loading="lazy">
+                  <img src="<?= e(immeubleCoverUrl($im['slug'])) ?>" alt="<?= e($im['nom']) ?>" loading="lazy">
                 </button>
             <?php endforeach; ?>
           </div>
@@ -403,7 +403,7 @@ $quartierLabels = [
           <h3 class="quartier-label"><?= e($quartier) ?></h3>
           <?php foreach ($ims as $im): ?>
             <a href="<?= SITE_URL ?>/portefeuille/<?= e($im['slug']) ?>" class="immeuble-card">
-              <img src="<?= e(immeubleCoverUrl($im['slug'], (int) $im['image_id'] ?: null)) ?>" alt="<?= e($im['nom']) ?>" loading="lazy">
+              <img src="<?= e(immeubleCoverUrl($im['slug'])) ?>" alt="<?= e($im['nom']) ?>" loading="lazy">
               <div class="immeuble-card-info">
                 <h4><?= e($im['nom']) ?></h4>
                 <p><?= (int)$im['nb_logements'] ?> logements</p>
