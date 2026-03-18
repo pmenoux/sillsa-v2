@@ -360,9 +360,9 @@ foreach ($zones as $zoneName => $cats) {
                                 </label>
                             </form>
                         </td>
-                        <td class="cell-actions">
+                        <td class="cell-actions" style="white-space:nowrap">
                             <a href="?page=kpi&action=edit&id=<?= (int) $kpi['id'] ?>" class="btn btn-sm btn-secondary">Modifier</a>
-                            <form method="post" action="?page=kpi&action=delete" class="form-inline"
+                            <form method="post" action="?page=kpi&action=delete" class="form-inline" style="display:inline"
                                   onsubmit="return confirm('Supprimer ce KPI ?')">
                                 <?= csrfField() ?>
                                 <input type="hidden" name="id" value="<?= (int) $kpi['id'] ?>">
