@@ -1,7 +1,6 @@
 <?php
 // templates/location.php — Swiss Design layout with sidebar
-// All tenant contact redirected to gérances (PBVG + Gérance Ville de Lausanne)
-$page = getPage('location');
+// All tenant contact redirected to gérances (Gérance Ville + PBBG)
 ?>
 
 <section class="page-header">
@@ -20,27 +19,23 @@ $page = getPage('location');
 
         <div class="location-contact-card">
           <span class="location-rule"></span>
-          <h2>Gérance PBVG</h2>
-          <p class="location-gerance-scope">Plaines-du-Loup, Fiches-Nord, Cojonnex, Falaises</p>
-          <p class="location-address">Pilet &amp; Barras Vaud Gestion SA<br>Rue du Petit-Chêne 18<br>1003 Lausanne</p>
-          <p class="location-phone">
-            <a href="tel:+41213103030">021 310 30 30</a>
-          </p>
-          <p class="location-email">
-            <a href="mailto:lausanne@pbvg.ch">lausanne@pbvg.ch</a>
-          </p>
-        </div>
-
-        <div class="location-contact-card" style="margin-top: 32px;">
-          <span class="location-rule"></span>
           <h2>Gérance de la Ville</h2>
-          <p class="location-gerance-scope">Bonne-Espérance, Prairie, Sallaz, Béthusy, Jomini, Égralets</p>
-          <p class="location-address">Gérance de la Ville de Lausanne<br>Rue du Port-Franc 18<br>1003 Lausanne</p>
+          <p class="location-gerance-scope">Plaines-du-Loup, Fiches-Nord, Cojonnex, Falaises, Bonne-Espérance, Prairie, Béthusy, Jomini, Égralets</p>
+          <p class="location-address">Gérance de la Ville de Lausanne<br>Place Chauderon 9<br>1003 Lausanne</p>
           <p class="location-phone">
             <a href="tel:+41213157575">021 315 75 75</a>
           </p>
           <p class="location-email">
             <a href="mailto:gerance@lausanne.ch">gerance@lausanne.ch</a>
+          </p>
+        </div>
+
+        <div class="location-contact-card" style="margin-top: 32px;">
+          <span class="location-rule"></span>
+          <h2>PBBG</h2>
+          <p class="location-gerance-scope">Avenue de la Sallaz 1-3</p>
+          <p class="location-phone">
+            <a href="tel:+41213453636">021 345 36 36</a>
           </p>
         </div>
 
@@ -65,20 +60,23 @@ $page = getPage('location');
           </p>
         </div>
 
+        <!-- Places de parc -->
+        <div class="location-section reveal">
+          <h2>Places de parc</h2>
+          <p class="location-intro">Des places de stationnement sont disponibles aux Plaines-du-Loup. Pour connaître les disponibilités et les conditions, adressez-vous à la Gérance de la Ville.</p>
+        </div>
+
         <!-- Surfaces d'activités -->
         <div class="location-section reveal">
           <h2>Surfaces d'activités</h2>
-          <p class="location-intro">La SILL SA dispose de surfaces d'activités dans certains de ses immeubles. Pour toute information sur les disponibilités, adressez-vous à la gérance en charge de l'immeuble concerné.</p>
+          <p class="location-intro">La SILL SA propose des surfaces d'activités aux Plaines-du-Loup (133 et 158 m², divisibles et aménageables, route des Plaines-du-Loup 51a). Pour toute information sur les disponibilités, adressez-vous à la Gérance de la Ville.</p>
         </div>
 
-        <!-- Contenu CMS -->
-        <?php if ($page && $page['content']): ?>
+        <!-- Chercher un logement -->
         <div class="location-section reveal">
-          <div class="rich-text">
-            <?= $page['content'] ?>
-          </div>
+          <h2>Chercher un logement</h2>
+          <p class="location-intro">Vous cherchez un appartement dans un immeuble de la SILL ? Consultez la liste des objets disponibles auprès de la gérance concernée. La majorité de nos logements sont des loyers modérés ou abordables, attribués selon les critères en vigueur.</p>
         </div>
-        <?php endif; ?>
 
       </div>
 
