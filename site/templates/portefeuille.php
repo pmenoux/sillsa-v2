@@ -4,7 +4,7 @@
 // ─── Data query ────────────────────────────────────────────────────
 $immeubles = query(
     'SELECT * FROM sill_immeubles WHERE is_active = 1
-     ORDER BY quartier, sort_order'
+     ORDER BY sort_order'
 );
 
 // Group by quartier
@@ -49,7 +49,7 @@ $quartierLabels = [
 <section class="page-header">
   <div class="container">
     <h1>Portefeuille immobilier</h1>
-    <p class="page-chapeau">Notre patrimoine de 9 développements réalisés à Lausanne</p>
+    <p class="page-chapeau">Notre patrimoine de <?= count($immeubles) ?> développements réalisés à Lausanne</p>
   </div>
 </section>
 
