@@ -30,10 +30,10 @@ $positions = [
     'falaises'                                  => ['x' => 455, 'y' => 256],
     'chemin-de-la-prairie-5a-et-5c'             => ['x' => 240, 'y' => 350],
     'bonne-esperance-32'                        => ['x' => 510, 'y' => 320],
-    // Acquisitions par préemption (DDP) — actifs dès le 1er avril 2026
-    'bethusy-86-88'                             => ['x' => 480, 'y' => 380],
-    'jomini-10-12-14'                           => ['x' => 500, 'y' => 248],
-    'egralets-1-3'                              => ['x' => 520, 'y' => 255],
+    // Acquisitions par préemption (DDP) — positions à calibrer lors de l'activation 1er avril
+    // 'bethusy-86-88'    => ['x' => ???, 'y' => ???],  // Pont de Chailly
+    // 'jomini-10-12-14'  => ['x' => 500, 'y' => 248],  // La Sallaz
+    // 'egralets-1-3'     => ['x' => 520, 'y' => 255],  // La Sallaz
 ];
 
 // Quartier label positions on the SVG (near their buildings, offset)
@@ -355,7 +355,7 @@ $quartierLabels = [
             <text class="carte-label-quartier" x="496" y="237">La Sallaz</text>
             <text class="carte-label-quartier" x="472" y="270">Les Falaises</text>
             <text class="carte-label-quartier" x="310" y="400">Sous-Gare</text>
-            <text class="carte-label-quartier" x="500" y="395">Béthusy</text>
+            <!-- Béthusy label — à ajouter au 1er avril avec la bonne position -->
 
             <!-- Lake label -->
             <text class="carte-label-lac" x="380" y="540" text-anchor="middle">Lac Leman</text>
