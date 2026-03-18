@@ -1432,13 +1432,33 @@ abbr[title] {
   margin-bottom: 1.4em;
 }
 
-.about-body .rich-text h3,
-.about-body .rich-text h4 {
+/* Golden Ratio hierarchy inside rich-text:
+   h1 = 62.1px (page header, outside rich-text)
+   h2 = 23.7px (section titles — fs-h3 scale)
+   h3 = 18px   (sub-titles — fs-h4 scale)
+   p  = 14.67px (body — fs-base)
+   chapeau = 23.7px (intro — fs-chapeau)           */
+.about-body .rich-text h2 {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-top: 2em;
   margin-bottom: 0.6em;
+}
+
+.about-body .rich-text h3,
+.about-body .rich-text h4 {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h4);
+  line-height: var(--lh-h4);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 1.6em;
+  margin-bottom: 0.5em;
 }
 
 .about-body .rich-text img {
