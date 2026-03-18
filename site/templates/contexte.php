@@ -58,8 +58,10 @@ function renderMarcheDatum($k, $haussePrefixKeys = []) {
 <!-- Page header -->
 <section class="page-header">
     <div class="container">
+        <nav class="breadcrumb"><a href="/">Accueil</a> / Contexte économique</nav>
         <h1>Contexte économique</h1>
-        <p class="page-chapeau">Indicateurs clés du marché immobilier — Suisse romande, mars 2026</p>
+        <p class="page-chapeau">Indicateurs clés du marché immobilier — Suisse romande</p>
+        <p class="page-update">Données au 31 décembre 2025 — Mise à jour mars 2026</p>
     </div>
 </section>
 
@@ -97,6 +99,7 @@ function renderMarcheDatum($k, $haussePrefixKeys = []) {
                 endforeach; ?>
             </div>
         </div>
+        <p class="marche-sources">Sources : Comparis, BNS, OFL, Services industriels de Lausanne (SiL)</p>
     </div>
 </section>
 
@@ -122,6 +125,7 @@ function renderMarcheDatum($k, $haussePrefixKeys = []) {
                 </div>
             </div>
         </div>
+        <p class="marche-sources">Sources : Office fédéral du logement (OFL) — Office fédéral de la statistique (OFS)</p>
     </div>
 </section>
 
@@ -181,7 +185,7 @@ function renderMarcheDatum($k, $haussePrefixKeys = []) {
             <div class="loyer-charts-grid">
                 <div class="loyer-chart-donut">
                     <canvas id="chartLoyerDonut"></canvas>
-                    <p class="loyer-types-note">LUP (LLM + LLA) : 608 lots — 73 % du parc</p>
+                    <p class="loyer-types-note"><abbr title="Logements d'utilité publique">LUP</abbr> (<abbr title="Loyer libre modéré">LLM</abbr> + <abbr title="Loyer libre abordable">LLA</abbr>) : 608 lots — 73 % du parc</p>
                 </div>
                 <div class="loyer-chart-bars">
                     <canvas id="chartLoyerProjets"></canvas>
@@ -331,11 +335,11 @@ function initMarcheCharts() {
      SECTION 2 : Camembert global + Barres par projet
      ══════════════════════════════════════════════════════════════ */
 
-  var colorLLM  = '#FFD700';      // jaune Swiss
-  var colorLLA  = '#B0B0B0';      // gris moyen
-  var colorLM   = '#707070';      // gris foncé
-  var colorEtud = '#D4D4D4';      // gris clair
-  var colorAct  = '#404040';      // gris anthracite
+  var colorLLM  = '#FFD700';      // jaune Swiss — LLM
+  var colorLLA  = '#999999';      // gris moyen — LLA
+  var colorLM   = '#333333';      // gris très foncé — LM
+  var colorEtud = '#CCCCCC';      // gris clair — Étudiants
+  var colorAct  = '#1A1A1A';      // quasi-noir — Activités
 
   /* ── Camembert (donut) — répartition globale ── */
   var donutCtx = document.getElementById('chartLoyerDonut');
@@ -343,7 +347,7 @@ function initMarcheCharts() {
     new Chart(donutCtx, {
       type: 'doughnut',
       data: {
-        labels: ['LLM (Modéré)', 'LLA (Abordable)', 'LM (Libre)', 'Étudiants', 'Activités'],
+        labels: ['LLM — Loyer modéré', 'LLA — Loyer abordable', 'LM — Loyer libre', 'Étudiants', 'Activités'],
         datasets: [{
           data: [303, 305, 58, 141, 27],
           backgroundColor: [colorLLM, colorLLA, colorLM, colorEtud, colorAct],
