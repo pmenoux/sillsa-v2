@@ -20,7 +20,7 @@ foreach ($immeubles as $im) {
 // Projection non-linéaire : nord comprimé pour inclure Cojonnex
 // Ref: Gare CFF (46.517°N, 6.629°E) ≈ SVG(400, 340)
 $positions = [
-    'en-cojonnex'                                => ['x' => 600, 'y' => 30],
+    'en-cojonnex'                                => ['x' => 740, 'y' => 30],
     'fiches-nord-lots-8-9'                      => ['x' => 475, 'y' => 185],
     'fiches-nord-lot-11'                        => ['x' => 500, 'y' => 177],
     'rue-elisabeth-jeanne-de-cerjat-2-4'        => ['x' => 310, 'y' => 198],
@@ -38,7 +38,7 @@ $positions = [
 
 // Quartier label positions on the SVG (near their buildings, offset)
 $quartierLabels = [
-    'En Cojonnex'         => ['x' => 620, 'y' => 25],
+    'En Cojonnex'         => ['x' => 660, 'y' => 25],
     'Les Fiches-Nord'     => ['x' => 515, 'y' => 172],
     'Les Plaines-du-Loup' => ['x' => 210, 'y' => 185],
     'La Sallaz'           => ['x' => 496, 'y' => 237],
