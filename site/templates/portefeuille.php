@@ -60,7 +60,7 @@ $quartierLabels = [
 <!-- ════════════════════════════════════════════════════════════════
      DESKTOP: Interactive SVG Map + Info Panel
      ════════════════════════════════════════════════════════════════ -->
-<section class="section-portefeuille reveal">
+<section class="section-portefeuille">
   <div class="container">
 
     <div class="portefeuille-layout">

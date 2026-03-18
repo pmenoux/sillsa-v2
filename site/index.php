@@ -75,6 +75,7 @@ $routes = [
     'portefeuille'           => 'templates/portefeuille.php',
     'chronologie'            => 'templates/chronologie.php',
     'location'               => 'templates/location.php',
+    'bonnes-pratiques'       => 'templates/bonnes-pratiques.php',
     'publications'           => 'templates/publications.php',
 ];
 
