@@ -148,6 +148,77 @@ function immeubleGalerie(string $slug): array {
     return $galerie;
 }
 
+// ---------------------------------------------------------------------------
+// Swiss Design typographic cleanup for rich text content
+// ---------------------------------------------------------------------------
+
+/**
+ * Clean raw HTML (typically from WordPress) into proper Swiss Design typography.
+ * - Decodes HTML entities (rsquo, laquo, raquo, ndash, mdash, hellip, nbsp)
+ * - Converts <br><br> sequences into paragraph breaks
+ * - Wraps orphan text in <p> tags
+ * - Removes empty paragraphs
+ * - Normalizes whitespace
+ * - Strips Word/WP cruft (inline styles, empty spans, class attributes)
+ */
+function cleanSwissTypography(string $html): string {
+    $html = trim($html);
+    if ($html === '') return '';
+
+    // 1. Decode HTML entities → proper UTF-8 characters
+    $html = html_entity_decode($html, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+
+    // 2. Normalize common named entities that html_entity_decode may miss
+    $html = str_replace(
+        ['&rsquo;', '&lsquo;', '&rdquo;', '&ldquo;', '&laquo;', '&raquo;', '&ndash;', '&mdash;', '&hellip;', '&nbsp;', '&amp;'],
+        ["'",       "'",       "\u{201D}", "\u{201C}", '«',       '»',       '–',       '—',       '…',        ' ',      '&'],
+        $html
+    );
+
+    // 3. Strip inline styles, class attributes, and empty spans (WP cruft)
+    $html = preg_replace('/\s+style="[^"]*"/i', '', $html);
+    $html = preg_replace('/\s+class="[^"]*"/i', '', $html);
+    $html = preg_replace('/<span\s*>\s*(.*?)\s*<\/span>/is', '$1', $html);
+
+    // 4. Convert <br><br> (with optional whitespace/tags between) into paragraph breaks
+    //    This handles: <br><br>, <br /><br />, <br>\n<br>, etc.
+    $html = preg_replace('#(<br\s*/?\s*>[\s]*){2,}#i', '</p><p>', $html);
+
+    // 5. If content has no <p> tags at all, wrap in <p>
+    if (stripos($html, '<p>') === false && stripos($html, '<p ') === false) {
+        $html = '<p>' . $html . '</p>';
+    }
+
+    // 6. Ensure content starts with <p> and ends with </p>
+    $html = preg_replace('#^\s*(?!<p[\s>])#i', '<p>', $html, 1);
+    if (!preg_match('#</p>\s*$#i', $html)) {
+        $html .= '</p>';
+    }
+
+    // 7. Convert remaining single <br> inside paragraphs to proper sentence flow
+    //    (remove <br> that are just WordPress line wrapping, not intentional breaks)
+    $html = preg_replace('#<br\s*/?\s*>\s*#i', ' ', $html);
+
+    // 8. Collapse multiple spaces into one
+    $html = preg_replace('/[ \t]+/', ' ', $html);
+
+    // 9. Remove empty paragraphs
+    $html = preg_replace('#<p>\s*</p>#i', '', $html);
+
+    // 10. Trim whitespace inside <p> tags
+    $html = preg_replace('#<p>\s+#i', '<p>', $html);
+    $html = preg_replace('#\s+</p>#i', '</p>', $html);
+
+    // 11. Ensure proper spacing between paragraphs (newline for readability)
+    $html = preg_replace('#</p>\s*<p>#i', "</p>\n<p>", $html);
+
+    // 12. French typography: space before ; : ! ? » and after «
+    $html = preg_replace('/\s+([;:!?»])/u', "\u{00A0}$1", $html);
+    $html = preg_replace('/(«)\s+/u', "$1\u{00A0}", $html);
+
+    return trim($html);
+}
+
 function uploadImmeubleImage(array $file, string $slug, string $targetName): string|false {
     $allowed = ['image/jpeg', 'image/png', 'image/webp'];
     $maxSize = 20 * 1024 * 1024; // 20 Mo

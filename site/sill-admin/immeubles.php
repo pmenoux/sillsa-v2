@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $label_energie   = trim($_POST['label_energie'] ?? '');
     $chapeau         = trim($_POST['chapeau'] ?? '');
     $description     = trim($_POST['description'] ?? '');
-    $details         = trim($_POST['details'] ?? '');
+    $details         = cleanSwissTypography(trim($_POST['details'] ?? ''));
     $sort_order      = (int) ($_POST['sort_order'] ?? 0);
     $is_active       = isset($_POST['is_active']) ? 1 : 0;
 

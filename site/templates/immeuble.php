@@ -39,8 +39,9 @@ if ($detailsRaw) {
             $detailsHtml .= '<p>' . nl2br(e($block)) . '</p>' . "\n";
         }
     } else {
-        // Already HTML — extract signature from last <p>
-        $detailsHtml = $detailsRaw;
+        // Already HTML — clean WordPress cruft into proper Swiss typography
+        $detailsHtml = cleanSwissTypography($detailsRaw);
+        // Extract architect signature from last <p> (starts with "Pour ")
         if (preg_match('#<p>\s*Pour\s+.+?</p>\s*$#si', $detailsHtml, $m)) {
             $architectSignature = strip_tags($m[0]);
             $detailsHtml = str_replace($m[0], '', $detailsHtml);
