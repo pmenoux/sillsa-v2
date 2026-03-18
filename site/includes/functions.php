@@ -180,9 +180,9 @@ function cleanSwissTypography(string $html): string {
     $html = preg_replace('/\s+class="[^"]*"/i', '', $html);
     $html = preg_replace('/<span\s*>\s*(.*?)\s*<\/span>/is', '$1', $html);
 
-    // 4. Convert <br><br> (with optional whitespace/tags between) into paragraph breaks
-    //    This handles: <br><br>, <br /><br />, <br>\n<br>, etc.
-    $html = preg_replace('#(<br\s*/?\s*>[\s]*){2,}#i', '</p><p>', $html);
+    // 4. Convert ALL <br> tags into paragraph breaks
+    //    WordPress uses <br /> as paragraph separators in its content
+    $html = preg_replace('#(<br\s*/?\s*>[\s]*)+#i', '</p><p>', $html);
 
     // 5. If content has no <p> tags at all, wrap in <p>
     if (stripos($html, '<p>') === false && stripos($html, '<p ') === false) {
@@ -194,10 +194,6 @@ function cleanSwissTypography(string $html): string {
     if (!preg_match('#</p>\s*$#i', $html)) {
         $html .= '</p>';
     }
-
-    // 7. Convert remaining single <br> inside paragraphs to proper sentence flow
-    //    (remove <br> that are just WordPress line wrapping, not intentional breaks)
-    $html = preg_replace('#<br\s*/?\s*>\s*#i', ' ', $html);
 
     // 8. Collapse multiple spaces into one
     $html = preg_replace('/[ \t]+/', ' ', $html);
