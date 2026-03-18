@@ -10,6 +10,9 @@ $categories = [
     'social'         => 'Social',
     'environnement'  => 'Environnement',
     'gouvernance'    => 'Gouvernance',
+    'marche'         => 'Marché',
+    'energie'        => 'Énergie',
+    'sill'           => 'SILL (loyers)',
 ];
 
 // ---------------------------------------------------------------------------
@@ -264,11 +267,43 @@ if ($action === 'create') {
 }
 
 // ---------------------------------------------------------------------------
-// VIEW: List (default)
+// VIEW: List (default) — grouped by display zone then category
 // ---------------------------------------------------------------------------
 $kpis = query("SELECT * FROM sill_kpi ORDER BY sort_order, id");
 $public_count = 0;
 foreach ($kpis as $k) { if ($k['is_public']) $public_count++; }
+
+// Map categories to display zones
+$zones = [
+    'Accueil — Bandeau chiffres clés' => ['patrimoine'],
+    'Accueil — Teaser contexte'       => ['marche'],
+    'Page Contexte — Indicateurs'     => ['energie', 'sill'],
+    'Autres'                          => [],
+];
+
+// Assign zone labels to categories
+$categoryToZone = [];
+foreach ($zones as $zoneName => $cats) {
+    foreach ($cats as $cat) {
+        $categoryToZone[$cat] = $zoneName;
+    }
+}
+
+// Group KPIs by zone then category
+$grouped = [];
+foreach ($kpis as $kpi) {
+    $cat = $kpi['category'] ?? '';
+    $zone = $categoryToZone[$cat] ?? 'Autres';
+    $grouped[$zone][$cat][] = $kpi;
+}
+
+// Ensure zones appear in defined order
+$orderedZones = [];
+foreach ($zones as $zoneName => $cats) {
+    if (isset($grouped[$zoneName])) {
+        $orderedZones[$zoneName] = $grouped[$zoneName];
+    }
+}
 ?>
 
 <div class="page-header">
@@ -284,50 +319,62 @@ foreach ($kpis as $k) { if ($k['is_public']) $public_count++; }
 <?php if (empty($kpis)): ?>
     <p class="admin-empty">Aucun KPI trouvé.</p>
 <?php else: ?>
-<div class="table-wrapper">
-    <table class="admin-table">
-        <thead>
-            <tr>
-                <th>Label</th>
-                <th>Valeur</th>
-                <th>Unité</th>
-                <th>Catégorie</th>
-                <th>Visible</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php foreach ($kpis as $kpi): ?>
-            <tr>
-                <td><strong><?= e($kpi['label']) ?></strong></td>
-                <td class="cell-readonly"><?= e($kpi['value_text'] ?: number_format((float)$kpi['value_num'], 2, '.', "'")) ?></td>
-                <td><?= e($kpi['unit'] ?? '') ?></td>
-                <td><?= e($categories[$kpi['category']] ?? $kpi['category']) ?></td>
-                <td>
-                    <form method="post" action="?page=kpi&action=toggle" class="form-inline">
-                        <?= csrfField() ?>
-                        <input type="hidden" name="kpi_id" value="<?= (int) $kpi['id'] ?>">
-                        <input type="hidden" name="is_public" value="<?= $kpi['is_public'] ? 0 : 1 ?>">
-                        <label class="toggle">
-                            <input type="checkbox"
-                                   <?= $kpi['is_public'] ? 'checked' : '' ?>
-                                   onchange="this.form.submit()">
-                            <span class="toggle-slider"></span>
-                        </label>
-                    </form>
-                </td>
-                <td class="cell-actions">
-                    <a href="?page=kpi&action=edit&id=<?= (int) $kpi['id'] ?>" class="btn btn-sm btn-secondary">Modifier</a>
-                    <form method="post" action="?page=kpi&action=delete" class="form-inline"
-                          onsubmit="return confirm('Supprimer ce KPI ?')">
-                        <?= csrfField() ?>
-                        <input type="hidden" name="id" value="<?= (int) $kpi['id'] ?>">
-                        <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
-                    </form>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-        </tbody>
-    </table>
-</div>
+
+<?php foreach ($orderedZones as $zoneName => $catGroups): ?>
+    <h2 class="form-section-title" style="margin-top:32px;"><?= e($zoneName) ?></h2>
+
+    <?php foreach ($catGroups as $cat => $items): ?>
+        <p style="margin:12px 0 8px; font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:#999;">
+            <?= e($categories[$cat] ?? ucfirst($cat)) ?>
+        </p>
+
+        <div class="table-wrapper" style="margin-bottom:24px;">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Label</th>
+                        <th>Valeur</th>
+                        <th>Unité</th>
+                        <th>Ordre</th>
+                        <th>Visible</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($items as $kpi): ?>
+                    <tr<?= $kpi['is_public'] ? '' : ' style="opacity:0.5"' ?>>
+                        <td><strong><?= e($kpi['label']) ?></strong></td>
+                        <td class="cell-readonly"><?= e($kpi['value_text'] ?: number_format((float)$kpi['value_num'], 2, '.', "'")) ?></td>
+                        <td><?= e($kpi['unit'] ?? '') ?></td>
+                        <td style="text-align:center"><?= (int) $kpi['sort_order'] ?></td>
+                        <td>
+                            <form method="post" action="?page=kpi&action=toggle" class="form-inline">
+                                <?= csrfField() ?>
+                                <input type="hidden" name="kpi_id" value="<?= (int) $kpi['id'] ?>">
+                                <input type="hidden" name="is_public" value="<?= $kpi['is_public'] ? 0 : 1 ?>">
+                                <label class="toggle">
+                                    <input type="checkbox"
+                                           <?= $kpi['is_public'] ? 'checked' : '' ?>
+                                           onchange="this.form.submit()">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </form>
+                        </td>
+                        <td class="cell-actions">
+                            <a href="?page=kpi&action=edit&id=<?= (int) $kpi['id'] ?>" class="btn btn-sm btn-secondary">Modifier</a>
+                            <form method="post" action="?page=kpi&action=delete" class="form-inline"
+                                  onsubmit="return confirm('Supprimer ce KPI ?')">
+                                <?= csrfField() ?>
+                                <input type="hidden" name="id" value="<?= (int) $kpi['id'] ?>">
+                                <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php endforeach; ?>
+<?php endforeach; ?>
+
 <?php endif; ?>
