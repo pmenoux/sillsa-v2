@@ -897,6 +897,16 @@ abbr[title] {
   font-size: 13px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.timeline-fulldate {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  color: var(--color-muted);
+  font-size: 10px;
+  letter-spacing: 0.06em;
   margin-bottom: var(--space-sm);
 }
 

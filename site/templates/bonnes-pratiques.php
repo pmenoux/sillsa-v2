@@ -7,7 +7,7 @@
   <div class="container">
     <nav class="breadcrumb"><a href="<?= SITE_URL ?>/">Accueil</a> / <a href="<?= SITE_URL ?>/location">Location</a> / Bonnes pratiques</nav>
     <h1>Bonnes pratiques</h1>
-    <p class="page-chapeau">Gestes simples pour économiser l'énergie et améliorer votre confort au quotidien.</p>
+    <p class="page-chapeau">Économiser l'énergie, améliorer le confort au quotidien.</p>
   </div>
 </section>
 

@@ -185,6 +185,7 @@ $marcheTeaser = query(
                 <?php
                     $cat      = $ev['category'] ?? '';
                     $year     = date('Y', strtotime($ev['event_date']));
+                    $fullDate = date('d.m.Y', strtotime($ev['event_date']));
                     $title    = $ev['title'] ?? '';
                     $desc     = $ev['description'] ?? '';
                     $filepath = $ev['image_path'] ?? '';
@@ -193,6 +194,7 @@ $marcheTeaser = query(
                     <div class="timeline-dot"></div>
                     <div class="timeline-card">
                         <span class="timeline-date"><?= e($year) ?></span>
+                        <span class="timeline-fulldate"><?= e($fullDate) ?></span>
                         <h3><?= e($title) ?></h3>
 
                         <?php if ($desc): ?>
