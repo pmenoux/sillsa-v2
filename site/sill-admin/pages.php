@@ -4,17 +4,6 @@
 // Has access to: db(), query(), queryOne(), e(), csrfField(), csrfCheck(), flash(), $action, $id
 
 // ---------------------------------------------------------------------------
-// Helper: generate slug from title
-// ---------------------------------------------------------------------------
-function make_slug(string $title): string {
-    $slug = strtolower(trim($title));
-    $slug = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $slug);
-    $slug = preg_replace('/[^a-z0-9]+/', '-', $slug);
-    $slug = trim($slug, '-');
-    return $slug;
-}
-
-// ---------------------------------------------------------------------------
 // POST handling
 // ---------------------------------------------------------------------------
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -151,35 +140,7 @@ if ($action === 'edit' && $id) {
             <a href="?page=pages" class="btn btn-secondary">Retour</a>
         </div>
     </form>
-    <script>
-    (function() {
-        try {
-            if (typeof CKEDITOR === 'undefined') {
-                console.error('SILL: CKEDITOR is undefined — CDN did not load');
-                return;
-            }
-            console.log('SILL: CKEDITOR version', CKEDITOR.version);
-            var ta = document.getElementById('content');
-            if (!ta) { console.error('SILL: textarea#content not found'); return; }
-            CKEDITOR.replace('content', {
-                language: 'fr',
-                height: 350,
-                removePlugins: 'elementspath',
-                toolbar: [
-                    { name: 'basic',   items: ['Bold', 'Italic', 'Underline', 'Strike', '-', 'RemoveFormat'] },
-                    { name: 'para',    items: ['NumberedList', 'BulletedList', '-', 'Blockquote'] },
-                    { name: 'links',   items: ['Link', 'Unlink'] },
-                    { name: 'insert',  items: ['Image', 'Table', 'HorizontalRule'] },
-                    { name: 'styles',  items: ['Format'] },
-                    { name: 'tools',   items: ['Maximize', 'Source'] }
-                ]
-            });
-            console.log('SILL: CKEDITOR.replace() called OK');
-        } catch(e) {
-            console.error('SILL: CKEditor init error:', e);
-        }
-    })();
-    </script>
+    <script>initTinyMCE('#content', 350);</script>
     <?php
     return;
 }
@@ -247,31 +208,7 @@ if ($action === 'create') {
             <a href="?page=pages" class="btn btn-secondary">Retour</a>
         </div>
     </form>
-    <script>
-    (function() {
-        try {
-            if (typeof CKEDITOR === 'undefined') {
-                console.error('SILL: CKEDITOR is undefined — CDN did not load');
-                return;
-            }
-            CKEDITOR.replace('content', {
-                language: 'fr',
-                height: 350,
-                removePlugins: 'elementspath',
-                toolbar: [
-                    { name: 'basic',   items: ['Bold', 'Italic', 'Underline', 'Strike', '-', 'RemoveFormat'] },
-                    { name: 'para',    items: ['NumberedList', 'BulletedList', '-', 'Blockquote'] },
-                    { name: 'links',   items: ['Link', 'Unlink'] },
-                    { name: 'insert',  items: ['Image', 'Table', 'HorizontalRule'] },
-                    { name: 'styles',  items: ['Format'] },
-                    { name: 'tools',   items: ['Maximize', 'Source'] }
-                ]
-            });
-        } catch(e) {
-            console.error('SILL: CKEditor init error:', e);
-        }
-    })();
-    </script>
+    <script>initTinyMCE('#content', 350);</script>
     <?php
     return;
 }

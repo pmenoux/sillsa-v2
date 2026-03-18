@@ -23,15 +23,6 @@ $categories = [
     'communication_transparence' => 'Communication / Transparence',
 ];
 
-if (!function_exists('make_slug')) {
-    function make_slug(string $title): string {
-        $slug = strtolower(trim($title));
-        $slug = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $slug);
-        $slug = preg_replace('/[^a-z0-9]+/', '-', $slug);
-        return trim($slug, '-');
-    }
-}
-
 // ---------------------------------------------------------------------------
 // POST handling
 // ---------------------------------------------------------------------------
@@ -178,18 +169,7 @@ if ($action === 'edit' && $id) {
         </div>
     </form>
     <script>
-    CKEDITOR.replace('description', {
-        language: 'fr',
-        height: 300,
-        removePlugins: 'elementspath',
-        toolbar: [
-            { name: 'basic',   items: ['Bold', 'Italic', 'Underline', '-', 'RemoveFormat'] },
-            { name: 'para',    items: ['NumberedList', 'BulletedList', '-', 'Blockquote'] },
-            { name: 'links',   items: ['Link', 'Unlink'] },
-            { name: 'styles',  items: ['Format'] },
-            { name: 'tools',   items: ['Maximize', 'Source'] }
-        ]
-    });
+    initTinyMCE('#description', 300);
     </script>
     <?php
     return;
@@ -264,18 +244,7 @@ if ($action === 'create') {
         </div>
     </form>
     <script>
-    CKEDITOR.replace('description', {
-        language: 'fr',
-        height: 300,
-        removePlugins: 'elementspath',
-        toolbar: [
-            { name: 'basic',   items: ['Bold', 'Italic', 'Underline', '-', 'RemoveFormat'] },
-            { name: 'para',    items: ['NumberedList', 'BulletedList', '-', 'Blockquote'] },
-            { name: 'links',   items: ['Link', 'Unlink'] },
-            { name: 'styles',  items: ['Format'] },
-            { name: 'tools',   items: ['Maximize', 'Source'] }
-        ]
-    });
+    initTinyMCE('#description', 300);
     </script>
     <?php
     return;

@@ -98,3 +98,13 @@ function kpiFormat($value): array {
     }
     return ['formatted' => $str, 'decimals' => $decimals];
 }
+
+// ---------------------------------------------------------------------------
+// Slug generation
+// ---------------------------------------------------------------------------
+function make_slug(string $title): string {
+    $slug = strtolower(trim($title));
+    $slug = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $slug);
+    $slug = preg_replace('/[^a-z0-9]+/', '-', $slug);
+    return trim($slug, '-');
+}
