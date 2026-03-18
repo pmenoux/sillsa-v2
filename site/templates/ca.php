@@ -19,7 +19,7 @@ $membres = query('SELECT ca.*, m.filepath FROM sill_membres_ca ca LEFT JOIN sill
           <?php
           $navItems = [
               'la-societe'             => 'La Société',
-              'conseil-administration' => 'Le CA',
+              'conseil-administration' => 'Conseil d\'administration',
               'organisation'           => 'L\'organisation',
               'aspects-societaux'      => 'Aspects sociétaux',
               'environnement'          => 'Environnement',

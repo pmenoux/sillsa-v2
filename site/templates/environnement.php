@@ -48,7 +48,7 @@ if ($chartImage) {
 // Sidebar navigation items
 $navItems = [
     'la-societe'             => 'La Société',
-    'conseil-administration' => 'Le CA',
+    'conseil-administration' => 'Conseil d\'administration',
     'organisation'           => 'L\'organisation',
     'aspects-societaux'      => 'Aspects sociétaux',
     'environnement'          => 'Environnement',

@@ -37,7 +37,7 @@ $content = preg_replace('/<h2[^>]*>.*?<\/h2>/is', '', $content, 1);
           <?php
           $navItems = [
               'la-societe'             => 'La Société',
-              'conseil-administration' => 'Le CA',
+              'conseil-administration' => 'Conseil d\'administration',
               'organisation'           => 'L\'organisation',
               'aspects-societaux'      => 'Aspects sociétaux',
               'environnement'          => 'Environnement',
