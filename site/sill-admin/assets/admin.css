@@ -682,3 +682,58 @@ body {
     padding: 20px 16px;
   }
 }
+
+/* --- Form section titles --- */
+.form-section-title {
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid #E0E0E0;
+    padding-bottom: 6px;
+    margin: 24px 0 16px;
+    color: #333;
+}
+
+/* --- Readonly input --- */
+.input-readonly {
+    background: #F0F0F0;
+    cursor: not-allowed;
+    color: #666;
+}
+
+/* --- Admin gallery grid (edit form) --- */
+.admin-galerie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 12px;
+}
+.admin-galerie-item {
+    border: 1px solid #E0E0E0;
+    border-radius: 4px;
+    overflow: hidden;
+    text-align: center;
+}
+.admin-galerie-item img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+}
+.admin-galerie-caption {
+    display: block;
+    font-size: 11px;
+    color: #666;
+    padding: 4px;
+}
+.admin-galerie-item .btn-sm {
+    margin: 4px;
+}
+
+/* --- Image preview --- */
+.image-preview {
+    margin-bottom: 8px;
+}
+.image-preview img {
+    border: 1px solid #E0E0E0;
+}
