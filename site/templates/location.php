@@ -1,36 +1,69 @@
 <?php
-// templates/location.php
+// templates/location.php — Swiss Design layout with sidebar
 $page = getPage('location');
+
+$address = setting('contact_address') ?? '';
+$email   = setting('contact_email') ?? '';
+$phone   = setting('contact_phone') ?? '';
 ?>
 
 <section class="page-header">
   <div class="container">
+    <nav class="breadcrumb"><a href="<?= SITE_URL ?>/">Accueil</a> / Location</nav>
     <h1>Location</h1>
-    <p class="chapeau">Premières locations et surfaces d'activités</p>
   </div>
 </section>
 
 <section class="section-location">
   <div class="container">
-    <div class="content-narrow">
+    <div class="location-layout">
 
-      <h2 class="reveal">Premières locations</h2>
-      <p class="reveal">Lors de la mise en service de nos développements neufs, les logements sont proposés en première location. Pour toute demande, merci de nous contacter directement.</p>
-
-      <div class="location-contact reveal" style="margin: 2em 0; padding: 2em; background: var(--color-bg-warm); border-radius: var(--radius);">
-        <p><strong>Contact location</strong></p>
-        <p><?= e(setting('contact_address') ?? '') ?></p>
-        <p>Email : <a href="mailto:<?= e(setting('contact_email') ?? '') ?>"><?= e(setting('contact_email') ?? '') ?></a></p>
-      </div>
-
-      <h2 class="reveal">Surfaces d'activités</h2>
-      <p class="reveal">La SILL SA dispose également de surfaces d'activités dans certains de ses immeubles. Pour toute information, n'hésitez pas à prendre contact avec nous.</p>
-
-      <?php if ($page && $page['content']): ?>
-        <div class="rich-text reveal">
-          <?= $page['content'] ?>
+      <!-- Left: sidebar contact -->
+      <aside class="location-sidebar">
+        <div class="location-contact-card">
+          <span class="location-rule"></span>
+          <h2>Contact</h2>
+          <?php if ($address): ?>
+            <p class="location-address"><?= nl2br(e($address)) ?></p>
+          <?php endif; ?>
+          <?php if ($email): ?>
+            <p class="location-email">
+              <a href="mailto:<?= e($email) ?>"><?= e($email) ?></a>
+            </p>
+          <?php endif; ?>
+          <?php if ($phone): ?>
+            <p class="location-phone">
+              <a href="tel:<?= e(preg_replace('/\s+/', '', $phone)) ?>"><?= e($phone) ?></a>
+            </p>
+          <?php endif; ?>
         </div>
-      <?php endif; ?>
+      </aside>
+
+      <!-- Right: content -->
+      <div class="location-body">
+
+        <!-- Être locataire -->
+        <div class="location-section reveal">
+          <h2>Être locataire</h2>
+          <p class="location-intro">La SILL SA gère directement ses immeubles et privilégie une relation de proximité avec ses locataires. Pour toute demande relative à votre logement ou pour déposer un dossier de candidature, merci de nous contacter.</p>
+        </div>
+
+        <!-- Surfaces d'activités -->
+        <div class="location-section reveal">
+          <h2>Surfaces d'activités</h2>
+          <p class="location-intro">La SILL SA dispose de surfaces d'activités dans certains de ses immeubles. Pour toute information, n'hésitez pas à prendre contact avec nous.</p>
+        </div>
+
+        <!-- Contenu CMS -->
+        <?php if ($page && $page['content']): ?>
+        <div class="location-section reveal">
+          <div class="rich-text">
+            <?= $page['content'] ?>
+          </div>
+        </div>
+        <?php endif; ?>
+
+      </div>
 
     </div>
   </div>

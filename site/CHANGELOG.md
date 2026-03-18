@@ -1,5 +1,20 @@
 # CHANGELOG — SILL SA Refonte 2026
 
+## [2026-03-18] — Environnement + Location redesign
+### Page Environnement — template dédié
+- Nouveau template `environnement.php` (sortie du template générique `page.php`)
+- Image principale en en-tête 16:9 (`aspect-ratio: 16/9`, `object-fit: cover`)
+- Graphique scatter affiché en taille complète (plus de troncature `max-height: 360px`)
+- Override CSS `.env-chart img` : `max-height: none`, `object-fit: contain`
+
+### Page Location — restructuration
+- Suppression de la section "Premières locations" (plus nécessaire)
+- Nouvelle section "Être locataire" (relation de proximité, candidatures)
+- Section "Surfaces d'activités" conservée
+- Layout 2 colonnes Swiss Design : sidebar contact + body
+- CSS location complet : mobile-first, grid 1/3 + 2/3 sur desktop
+- Sidebar sticky avec filet rouge, typographie Swiss
+
 ## [2026-03-17] — Audit graphique Swiss Design + fix carte mobile
 ### Analyse complète du site 26.sillsa.ch
 - Audit graphique Frontend Designer : 8 pages analysées (captures dans `analysis/`)
