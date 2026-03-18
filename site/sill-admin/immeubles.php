@@ -264,7 +264,7 @@ if ($action === 'edit' && $id) {
                 <input type="number" id="annee_livraison" name="annee_livraison" value="<?= e($item['annee_livraison'] ?? '') ?>" min="1900" max="2100" style="width:100px">
             </div>
             <div class="form-group">
-                <label for="label_energie">Label énergie</label>
+                <label for="label_energie">Labellisation</label>
                 <input type="text" id="label_energie" name="label_energie" value="<?= e($item['label_energie'] ?? '') ?>" placeholder="Minergie-P">
             </div>
             <div class="form-group">
@@ -402,7 +402,7 @@ if ($action === 'create') {
                 <input type="number" id="annee_livraison" name="annee_livraison" value="" min="1900" max="2100" style="width:100px">
             </div>
             <div class="form-group">
-                <label for="label_energie">Label énergie</label>
+                <label for="label_energie">Labellisation</label>
                 <input type="text" id="label_energie" name="label_energie" value="" placeholder="Minergie-P">
             </div>
             <div class="form-group">

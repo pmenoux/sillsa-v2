@@ -117,7 +117,7 @@ if ($detailsRaw) {
 
                 <?php if ($immeuble['label_energie']): ?>
                     <div class="meta-item">
-                        <span class="meta-label">Label énergie</span>
+                        <span class="meta-label">Labellisation</span>
                         <span class="meta-value"><span class="label-energie"><?= e($immeuble['label_energie']) ?></span></span>
                     </div>
                 <?php endif; ?>
