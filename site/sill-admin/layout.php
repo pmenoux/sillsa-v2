@@ -6,6 +6,7 @@ $pageTitles = [
     'dashboard'    => 'Tableau de bord',
     'kpi'          => 'KPIs',
     'pages'        => 'Pages',
+    'immeubles'    => 'Immeubles',
     'timeline'     => 'Actualités',
     'publications' => 'Publications',
     'settings'     => 'Paramètres',
@@ -22,26 +23,39 @@ $flash = getFlash();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SILL Admin — <?= e($pageTitle) ?></title>
     <link rel="stylesheet" href="assets/admin.css">
-    <script src="https://cdn.ckeditor.com/4.25.1-lts/standard/ckeditor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.6.1/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
-    // Fallback: if CKEditor CDN blocked, try jsDelivr mirror
-    if (typeof CKEDITOR === 'undefined') {
-        document.write('<scr'+'ipt src="https://cdn.jsdelivr.net/npm/ckeditor4@4.25.1/ckeditor.js"><\/scr'+'ipt>');
+    // Fallback: if cdnjs blocked, try jsDelivr mirror
+    if (typeof tinymce === 'undefined') {
+        document.write('<scr'+'ipt src="https://cdn.jsdelivr.net/npm/tinymce@7.6.1/tinymce.min.js"><\/scr'+'ipt>');
     }
     </script>
     <script>
-    // Final fallback: warn if still not loaded
-    window.addEventListener('DOMContentLoaded', function() {
-        if (typeof CKEDITOR === 'undefined') {
-            document.querySelectorAll('textarea[id="content"]').forEach(function(ta) {
+    // Reusable TinyMCE init helper
+    function initTinyMCE(selector, height) {
+        if (typeof tinymce === 'undefined') {
+            document.querySelectorAll(selector).forEach(function(ta) {
                 var warn = document.createElement('div');
                 warn.style.cssText = 'background:#FFF3CD;border:1px solid #FFD700;padding:8px 12px;margin-bottom:8px;font-size:13px;border-radius:4px;';
-                warn.innerHTML = '<strong>Editeur visuel non disponible</strong> — Le CDN CKEditor est bloque par votre navigateur. Desactivez le bloqueur de pub sur cette page.';
+                warn.innerHTML = '<strong>Editeur visuel non disponible</strong> — Le CDN TinyMCE est bloqué par votre navigateur. Désactivez le bloqueur de pub sur cette page.';
                 ta.parentNode.insertBefore(warn, ta);
                 ta.rows = 20;
             });
+            return;
         }
-    });
+        tinymce.init({
+            selector: selector,
+            language: 'fr_FR',
+            height: height || 350,
+            menubar: false,
+            plugins: 'lists link image table code fullscreen',
+            toolbar: 'bold italic underline strikethrough | removeformat | bullist numlist blockquote | link unlink | image table hr | blocks | fullscreen code',
+            content_css: false,
+            promotion: false,
+            branding: false,
+            license_key: 'gpl'
+        });
+    }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
 </head>
@@ -55,6 +69,7 @@ $flash = getFlash();
         <a href="?page=dashboard"<?= $page === 'dashboard' ? ' class="active"' : '' ?>>Tableau de bord</a>
         <a href="?page=kpi"<?= $page === 'kpi' ? ' class="active"' : '' ?>>KPIs</a>
         <a href="?page=pages"<?= $page === 'pages' ? ' class="active"' : '' ?>>Pages</a>
+        <a href="?page=immeubles"<?= $page === 'immeubles' ? ' class="active"' : '' ?>>Immeubles</a>
         <a href="?page=timeline"<?= $page === 'timeline' ? ' class="active"' : '' ?>>Actualités</a>
         <a href="?page=publications"<?= $page === 'publications' ? ' class="active"' : '' ?>>Publications</a>
         <a href="?page=settings"<?= $page === 'settings' ? ' class="active"' : '' ?>>Paramètres</a>

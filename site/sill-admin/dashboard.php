@@ -8,6 +8,8 @@ $kpi_public = (int) queryOne("SELECT COUNT(*) AS c FROM sill_kpi WHERE is_public
 $pages_active = (int) queryOne("SELECT COUNT(*) AS c FROM sill_pages WHERE is_active = 1")['c'];
 $publications_active = (int) queryOne("SELECT COUNT(*) AS c FROM sill_publications WHERE is_active = 1")['c'];
 $menu_active = (int) queryOne("SELECT COUNT(*) AS c FROM sill_menu WHERE is_active = 1")['c'];
+$immeubles_total  = (int) queryOne("SELECT COUNT(*) AS c FROM sill_immeubles")['c'];
+$immeubles_active = (int) queryOne("SELECT COUNT(*) AS c FROM sill_immeubles WHERE is_active = 1")['c'];
 ?>
 
 <div class="page-header">
@@ -34,5 +36,9 @@ $menu_active = (int) queryOne("SELECT COUNT(*) AS c FROM sill_menu WHERE is_acti
     <div class="stat-card">
         <div class="stat-value"><?= $menu_active ?></div>
         <div class="stat-label">Éléments de menu actifs</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value"><?= $immeubles_active ?>/<?= $immeubles_total ?></div>
+        <div class="stat-label">Immeubles actifs</div>
     </div>
 </div>

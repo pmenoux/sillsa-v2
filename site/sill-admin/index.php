@@ -15,7 +15,7 @@ $action = preg_replace('/[^a-z_-]/', '', strtolower($_GET['action'] ?? 'list'));
 $id     = isset($_GET['id']) ? (int) $_GET['id'] : null;
 
 $publicPages = ['login'];
-$validPages  = ['login', 'dashboard', 'kpi', 'pages', 'timeline', 'publications', 'settings', 'menu'];
+$validPages  = ['login', 'dashboard', 'kpi', 'pages', 'immeubles', 'timeline', 'publications', 'settings', 'menu'];
 
 // Reject unknown pages
 if (!in_array($page, $validPages, true)) {
