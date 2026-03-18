@@ -108,3 +108,88 @@ function make_slug(string $title): string {
     $slug = preg_replace('/[^a-z0-9]+/', '-', $slug);
     return trim($slug, '-');
 }
+
+// ---------------------------------------------------------------------------
+// Immeuble media helpers (filesystem-based)
+// ---------------------------------------------------------------------------
+
+function immeubleMediaPath(string $slug): string {
+    return SITE_ROOT . '/media/immeubles/' . $slug;
+}
+
+function immeubleCoverUrl(string $slug, ?int $imageId = null): string {
+    // 1. New system: media/immeubles/{slug}/cover.*
+    $dir = SITE_ROOT . '/media/immeubles/' . $slug;
+    if (is_dir($dir)) {
+        $covers = glob($dir . '/cover.{jpg,jpeg,png,webp}', GLOB_BRACE);
+        if ($covers) {
+            $filename = basename($covers[0]);
+            return SITE_URL . '/media/immeubles/' . $slug . '/' . $filename . '?v=' . filemtime($covers[0]);
+        }
+    }
+    // 2. Fallback: legacy image_id
+    if ($imageId) {
+        return mediaUrl($imageId);
+    }
+    // 3. Placeholder
+    return SITE_URL . '/assets/img/placeholder-immeuble.jpg';
+}
+
+function immeubleGalerie(string $slug): array {
+    $dir = SITE_ROOT . '/media/immeubles/' . $slug;
+    if (!is_dir($dir)) return [];
+    $files = glob($dir . '/[0-9][0-9]-*.{jpg,jpeg,png,webp}', GLOB_BRACE);
+    sort($files);
+    $galerie = [];
+    foreach ($files as $f) {
+        $filename = basename($f);
+        $caption = preg_replace('/^\d{2}-/', '', pathinfo($filename, PATHINFO_FILENAME));
+        $caption = ucfirst(str_replace('-', ' ', $caption));
+        $galerie[] = [
+            'url'      => SITE_URL . '/media/immeubles/' . $slug . '/' . $filename . '?v=' . filemtime($f),
+            'caption'  => $caption,
+            'filename' => $filename,
+        ];
+    }
+    return $galerie;
+}
+
+function uploadImmeubleImage(array $file, string $slug, string $targetName): string|false {
+    $allowed = ['image/jpeg', 'image/png', 'image/webp'];
+    $maxSize = 5 * 1024 * 1024; // 5 Mo
+
+    if ($file['error'] !== UPLOAD_ERR_OK) {
+        flash('error', 'Erreur upload pour ' . e($file['name'] ?? $targetName) . '.');
+        return false;
+    }
+    if ($file['size'] > $maxSize) {
+        flash('error', 'Image trop lourde (max 5 Mo) : ' . e($file['name'] ?? $targetName));
+        return false;
+    }
+
+    $mime = mime_content_type($file['tmp_name']);
+    if (!in_array($mime, $allowed, true)) {
+        flash('error', 'Format non accepté (JPG, PNG ou WebP uniquement) : ' . e($file['name'] ?? $targetName));
+        return false;
+    }
+
+    $ext = match($mime) {
+        'image/jpeg' => 'jpg',
+        'image/png'  => 'png',
+        'image/webp' => 'webp',
+        default      => false,
+    };
+    if (!$ext) return false;
+
+    $dir = immeubleMediaPath($slug);
+    if (!is_dir($dir)) {
+        mkdir($dir, 0755, true);
+    }
+
+    $dest = $dir . '/' . $targetName . '.' . $ext;
+    if (move_uploaded_file($file['tmp_name'], $dest)) {
+        return $targetName . '.' . $ext;
+    }
+    flash('error', 'Impossible de sauvegarder l\'image : ' . e($targetName));
+    return false;
+}
