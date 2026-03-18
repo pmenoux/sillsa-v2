@@ -195,5 +195,34 @@ if ($detailsRaw) {
         </div>
         <?php endif; ?>
 
+        <?php
+        // ── Prev / Next navigation ──────────────────────────────────
+        $allSlugs = query('SELECT slug, nom FROM sill_immeubles WHERE is_active = 1 ORDER BY sort_order');
+        $currentIdx = null;
+        foreach ($allSlugs as $i => $row) {
+            if ($row['slug'] === $immeuble['slug']) { $currentIdx = $i; break; }
+        }
+        $prev = ($currentIdx !== null && $currentIdx > 0) ? $allSlugs[$currentIdx - 1] : null;
+        $next = ($currentIdx !== null && $currentIdx < count($allSlugs) - 1) ? $allSlugs[$currentIdx + 1] : null;
+        ?>
+        <?php if ($prev || $next): ?>
+        <nav class="immeuble-nav reveal" aria-label="Navigation portefeuille">
+            <?php if ($prev): ?>
+                <a href="<?= SITE_URL ?>/portefeuille/<?= e($prev['slug']) ?>" class="immeuble-nav-link immeuble-nav-prev">
+                    <svg class="immeuble-nav-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                    <span class="immeuble-nav-label"><?= e($prev['nom']) ?></span>
+                </a>
+            <?php else: ?>
+                <span></span>
+            <?php endif; ?>
+            <?php if ($next): ?>
+                <a href="<?= SITE_URL ?>/portefeuille/<?= e($next['slug']) ?>" class="immeuble-nav-link immeuble-nav-next">
+                    <span class="immeuble-nav-label"><?= e($next['nom']) ?></span>
+                    <svg class="immeuble-nav-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+            <?php endif; ?>
+        </nav>
+        <?php endif; ?>
+
     </div>
 </article>

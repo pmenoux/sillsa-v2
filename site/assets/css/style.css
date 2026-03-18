@@ -2456,6 +2456,41 @@ main {
 .galerie-item:hover img { opacity: 0.85; }
 @media (min-width: 768px) { .galerie-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
 
+/* --- Immeuble prev/next navigation --- */
+.immeuble-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--space-xl, 64px);
+    padding-top: var(--space-md, 32px);
+    border-top: 1px solid var(--color-border);
+}
+.immeuble-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--color-muted);
+    font-family: var(--font-heading);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: color var(--transition);
+    max-width: 45%;
+}
+.immeuble-nav-link:hover { color: var(--color-accent); }
+.immeuble-nav-next { text-align: right; margin-left: auto; }
+.immeuble-nav-arrow {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+}
+.immeuble-nav-label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /* --- Lightbox --- */
 .lightbox-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
 .lightbox-overlay.is-open { opacity: 1; pointer-events: auto; }
