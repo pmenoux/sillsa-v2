@@ -12,9 +12,6 @@ $content = $page['content'];
 $content = str_replace('https://sillsa.ch/wp-content/uploads/', SITE_URL . '/uploads/', $content);
 $content = str_replace('/wp-content/uploads/', '/uploads/', $content);
 
-// Remove leading h2 (duplicate of page h1)
-$content = preg_replace('/<h2[^>]*>.*?<\/h2>/is', '', $content, 1);
-
 // Extract all images
 preg_match_all('/<img[^>]+\/?>/i', $content, $imgMatches);
 $images = $imgMatches[0] ?? [];
