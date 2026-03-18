@@ -94,12 +94,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // --- EDIT ---
     if ($action === 'edit') {
         $kpi_id = (int) ($_POST['id'] ?? $id);
+        // Only check limit if visibility is being turned ON (was off, now on)
         if ($is_public) {
-            $count = (int) queryOne("SELECT COUNT(*) AS c FROM sill_kpi WHERE is_public = 1 AND id != ?", [$kpi_id])['c'];
-            if ($count >= $MAX_PUBLIC) {
-                flash('error', "Maximum $MAX_PUBLIC KPIs visibles atteint.");
-                header('Location: ?page=kpi&action=edit&id=' . $kpi_id);
-                exit;
+            $wasPublic = (int) queryOne("SELECT is_public FROM sill_kpi WHERE id = ?", [$kpi_id])['is_public'];
+            if (!$wasPublic) {
+                $count = (int) queryOne("SELECT COUNT(*) AS c FROM sill_kpi WHERE is_public = 1")['c'];
+                if ($count >= $MAX_PUBLIC) {
+                    flash('error', "Maximum $MAX_PUBLIC KPIs visibles atteint.");
+                    header('Location: ?page=kpi&action=edit&id=' . $kpi_id);
+                    exit;
+                }
             }
         }
         $stmt = db()->prepare(
