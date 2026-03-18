@@ -366,7 +366,7 @@ foreach ($zones as $zoneName => $cats) {
                                   onsubmit="return confirm('Supprimer ce KPI ?')">
                                 <?= csrfField() ?>
                                 <input type="hidden" name="id" value="<?= (int) $kpi['id'] ?>">
-                                <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
+                                <button type="submit" class="btn btn-sm" style="color:#999;background:none;border:none;font-size:11px;padding:4px 8px">&times;</button>
                             </form>
                         </td>
                     </tr>
