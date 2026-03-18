@@ -3,11 +3,8 @@
 
 // ─── Data query ────────────────────────────────────────────────────
 $immeubles = query(
-    'SELECT i.*, m.filepath
-     FROM sill_immeubles i
-     LEFT JOIN sill_medias m ON i.image_id = m.id
-     WHERE i.is_active = 1
-     ORDER BY i.quartier, i.sort_order'
+    'SELECT * FROM sill_immeubles WHERE is_active = 1
+     ORDER BY quartier, sort_order'
 );
 
 // Group by quartier
@@ -386,12 +383,9 @@ $quartierLabels = [
           <p class="panel-mosaic-title">Notre portefeuille</p>
           <div class="panel-mosaic-grid">
             <?php foreach ($immeubles as $im): ?>
-              <?php if (!empty($im['filepath'])): ?>
-                <?php $imgPath = str_replace('/wp-content/uploads/', '/uploads/', $im['filepath']); ?>
                 <button class="mosaic-thumb" data-slug="<?= e($im['slug']) ?>" title="<?= e($im['nom']) ?>">
-                  <img src="<?= SITE_URL . e($imgPath) ?>" alt="<?= e($im['nom']) ?>" loading="lazy">
+                  <img src="<?= e(immeubleCoverUrl($im['slug'], (int) $im['image_id'] ?: null)) ?>" alt="<?= e($im['nom']) ?>" loading="lazy">
                 </button>
-              <?php endif; ?>
             <?php endforeach; ?>
           </div>
           <p class="panel-mosaic-hint">Cliquez sur une vignette ou un point sur la carte</p>
@@ -409,12 +403,7 @@ $quartierLabels = [
           <h3 class="quartier-label"><?= e($quartier) ?></h3>
           <?php foreach ($ims as $im): ?>
             <a href="<?= SITE_URL ?>/portefeuille/<?= e($im['slug']) ?>" class="immeuble-card">
-              <?php if (!empty($im['filepath'])): ?>
-                <?php $imgPath = str_replace('/wp-content/uploads/', '/uploads/', $im['filepath']); ?>
-                <img src="<?= SITE_URL . e($imgPath) ?>"
-                     alt="<?= e($im['nom']) ?>"
-                     loading="lazy">
-              <?php endif; ?>
+              <img src="<?= e(immeubleCoverUrl($im['slug'], (int) $im['image_id'] ?: null)) ?>" alt="<?= e($im['nom']) ?>" loading="lazy">
               <div class="immeuble-card-info">
                 <h4><?= e($im['nom']) ?></h4>
                 <p><?= (int)$im['nb_logements'] ?> logements</p>
