@@ -336,10 +336,10 @@ function initMarcheCharts() {
      ══════════════════════════════════════════════════════════════ */
 
   var colorLLM  = '#FFD700';      // jaune Swiss — LLM
-  var colorLLA  = '#999999';      // gris moyen — LLA
-  var colorLM   = '#333333';      // gris très foncé — LM
-  var colorEtud = '#CCCCCC';      // gris clair — Étudiants
-  var colorAct  = '#1A1A1A';      // quasi-noir — Activités
+  var colorLLA  = '#AAAAAA';      // gris moyen — LLA
+  var colorLM   = '#555555';      // gris foncé — LM
+  var colorEtud = '#D8D8D8';      // gris clair — Étudiants
+  var colorAct  = '#1A1A1A';      // noir — Activités
 
   /* ── Camembert (donut) — répartition globale ── */
   var donutCtx = document.getElementById('chartLoyerDonut');
