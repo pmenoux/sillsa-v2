@@ -156,7 +156,7 @@ function immeubleGalerie(string $slug): array {
 
 function uploadImmeubleImage(array $file, string $slug, string $targetName): string|false {
     $allowed = ['image/jpeg', 'image/png', 'image/webp'];
-    $maxSize = 5 * 1024 * 1024; // 5 Mo
+    $maxSize = 20 * 1024 * 1024; // 20 Mo
 
     if ($file['error'] !== UPLOAD_ERR_OK) {
         flash('error', 'Erreur upload pour ' . e($file['name'] ?? $targetName) . '.');
