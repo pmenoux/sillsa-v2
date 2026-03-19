@@ -61,6 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $event_date  = trim($_POST['event_date'] ?? '');
     $category    = trim($_POST['category'] ?? '');
     $description = trim($_POST['description'] ?? '');
+    $description = html_entity_decode(strip_tags($description), ENT_QUOTES | ENT_HTML5, 'UTF-8');
     $link_url    = trim($_POST['link_url'] ?? '');
     $sort_order  = (int) ($_POST['sort_order'] ?? 0);
     $is_active   = isset($_POST['is_active']) ? 1 : 0;
@@ -169,9 +170,6 @@ if ($action === 'edit' && $id) {
             <a href="?page=timeline" class="btn btn-secondary">Retour</a>
         </div>
     </form>
-    <script>
-    initTinyMCE('#description', 300);
-    </script>
     <?php
     return;
 }
@@ -244,9 +242,6 @@ if ($action === 'create') {
             <a href="?page=timeline" class="btn btn-secondary">Retour</a>
         </div>
     </form>
-    <script>
-    initTinyMCE('#description', 300);
-    </script>
     <?php
     return;
 }
