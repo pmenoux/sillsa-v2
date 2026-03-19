@@ -12,6 +12,11 @@
 
 <section class="section-location">
   <div class="container">
+    <div class="location-hero-img reveal" style="margin-bottom: 48px;">
+      <img src="<?= SITE_URL ?>/media/interieur-appartement-pdl.jpg"
+           alt="Intérieur lumineux d'un appartement aux Plaines-du-Loup"
+           style="width: 100%; height: auto; display: block;">
+    </div>
     <div class="location-layout">
 
       <!-- Left: sidebar gérances -->
