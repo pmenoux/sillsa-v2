@@ -9,11 +9,19 @@ try {
         page_path VARCHAR(255) NOT NULL,
         visitor_hash CHAR(16) NOT NULL,
         is_mobile TINYINT(1) DEFAULT 0,
+        geo VARCHAR(10) DEFAULT '',
         created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         INDEX idx_date (created_at),
         INDEX idx_page (page_path),
-        INDEX idx_visitor (visitor_hash, created_at)
+        INDEX idx_visitor (visitor_hash, created_at),
+        INDEX idx_geo (geo)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+    // Add geo column if table existed before this update
+    $cols = array_column(db()->query("SHOW COLUMNS FROM sill_analytics")->fetchAll(), 'Field');
+    if (!in_array('geo', $cols)) {
+        db()->exec("ALTER TABLE sill_analytics ADD COLUMN geo VARCHAR(10) DEFAULT '' AFTER is_mobile");
+        db()->exec("ALTER TABLE sill_analytics ADD INDEX idx_geo (geo)");
+    }
 } catch (\Throwable $e) {}
 
 // ── Period selection ──
@@ -42,6 +50,14 @@ $topPages = query(
     "SELECT page_path, COUNT(*) AS views, COUNT(DISTINCT visitor_hash) AS visitors
      FROM sill_analytics WHERE created_at >= ?
      GROUP BY page_path ORDER BY views DESC LIMIT 15",
+    [$since]
+);
+
+// Geo breakdown
+$geoData = query(
+    "SELECT geo, COUNT(*) AS views, COUNT(DISTINCT visitor_hash) AS visitors
+     FROM sill_analytics WHERE created_at >= ? AND geo != ''
+     GROUP BY geo ORDER BY views DESC LIMIT 20",
     [$since]
 );
 
@@ -106,6 +122,52 @@ foreach ($dailyViews as $d) {
     </div>
 </div>
 
+<!-- Geo + Top Pages side by side -->
+<div style="display: grid; grid-template-columns: 1fr 2fr; gap: 20px; align-items: start;">
+
+<!-- Geo -->
+<div class="stats-table-card">
+    <h3>Origine géographique</h3>
+    <?php if (empty($geoData)): ?>
+        <p style="color:#999; font-size:13px;">Aucune donnée géographique pour cette période.</p>
+    <?php else: ?>
+        <?php
+        // Map region codes to readable names
+        $regionNames = [
+            'CH-VD' => 'Vaud', 'CH-GE' => 'Genève', 'CH-VS' => 'Valais',
+            'CH-FR' => 'Fribourg', 'CH-NE' => 'Neuchâtel', 'CH-JU' => 'Jura',
+            'CH-BE' => 'Berne', 'CH-ZH' => 'Zurich', 'CH-BS' => 'Bâle-Ville',
+            'CH-BL' => 'Bâle-Campagne', 'CH-AG' => 'Argovie', 'CH-SO' => 'Soleure',
+            'CH-LU' => 'Lucerne', 'CH-TI' => 'Tessin', 'CH-SG' => 'Saint-Gall',
+            'CH-GR' => 'Grisons', 'CH-TG' => 'Thurgovie', 'CH-ZG' => 'Zoug',
+            'CH-SZ' => 'Schwyz', 'CH-SH' => 'Schaffhouse',
+        ];
+        ?>
+        <table class="admin-table">
+            <thead>
+                <tr><th>Région</th><th style="text-align:right">Visiteurs</th></tr>
+            </thead>
+            <tbody>
+                <?php foreach ($geoData as $g):
+                    $code = $g['geo'];
+                    $label = $regionNames[$code] ?? $code;
+                    // For non-CH, show just country code
+                    if (!str_starts_with($code, 'CH-')) {
+                        $countryNames = ['FR' => 'France', 'DE' => 'Allemagne', 'IT' => 'Italie', 'US' => 'États-Unis', 'GB' => 'Royaume-Uni'];
+                        $cc = explode('-', $code)[0];
+                        $label = $countryNames[$cc] ?? strtoupper($cc);
+                    }
+                ?>
+                    <tr>
+                        <td><?= e($label) ?></td>
+                        <td style="text-align:right"><?= number_format($g['visitors'], 0, '.', ' ') ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
+</div>
+
 <!-- Top Pages -->
 <div class="stats-table-card">
     <h3>Pages les plus visitées</h3>
@@ -132,6 +194,8 @@ foreach ($dailyViews as $d) {
         </table>
     <?php endif; ?>
 </div>
+
+</div><!-- /grid geo+pages -->
 
 <!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>

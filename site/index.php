@@ -113,10 +113,25 @@ if (http_response_code() !== 404) {
         $viewPage = $slug ? $page . '/' . $slug : $page;
         // Anonymous visitor hash (no IP stored, rotates daily)
         $visitorHash = substr(hash('sha256', $ua . date('Y-m-d') . ($_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? '')), 0, 16);
+        // Geo lookup (country + region, IP never stored)
+        $geo = '';
+        $ip = $_SERVER['REMOTE_ADDR'] ?? '';
+        if ($ip && $ip !== '127.0.0.1') {
+            try {
+                $ctx = stream_context_create(['http' => ['timeout' => 1]]);
+                $geoJson = @file_get_contents("http://ip-api.com/json/{$ip}?fields=countryCode,region", false, $ctx);
+                if ($geoJson) {
+                    $geoData = json_decode($geoJson, true);
+                    if (!empty($geoData['countryCode'])) {
+                        $geo = $geoData['countryCode'] . (!empty($geoData['region']) ? '-' . $geoData['region'] : '');
+                    }
+                }
+            } catch (\Throwable $e) {}
+        }
         try {
             query(
-                'INSERT INTO sill_analytics (page_path, visitor_hash, is_mobile, created_at) VALUES (?, ?, ?, NOW())',
-                [$viewPage ?: 'accueil', $visitorHash, $isMobile ? 1 : 0]
+                'INSERT INTO sill_analytics (page_path, visitor_hash, is_mobile, geo, created_at) VALUES (?, ?, ?, ?, NOW())',
+                [$viewPage ?: 'accueil', $visitorHash, $isMobile ? 1 : 0, $geo]
             );
         } catch (\Throwable $e) {
             // Table may not exist yet — silently ignore
