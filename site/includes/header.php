@@ -48,7 +48,7 @@ if (!empty($pageData['slug']) && ($pageData['route'] ?? '') === 'portefeuille') 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $metaTitle ?></title>
     <meta name="description" content="<?= $metaDesc ?>">
-    <meta name="robots" content="noindex, nofollow">
+    <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#FF0000">
     <meta name="author" content="SILL SA">
     <link rel="canonical" href="<?= $canonicalUrl ?>">
