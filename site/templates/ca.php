@@ -37,7 +37,7 @@ $membres = query('SELECT ca.*, m.filepath FROM sill_membres_ca ca LEFT JOIN sill
       <div class="about-body">
         <!-- Photo de groupe -->
         <div class="ca-group-photo reveal">
-          <img src="<?= SITE_URL ?>/uploads/2025/10/ca-groupe-sill.jpg"
+          <img src="<?= SITE_URL ?>/media/conseiladminSILL.jpg"
                alt="Conseil d'administration SILL SA" loading="lazy">
         </div>
 
