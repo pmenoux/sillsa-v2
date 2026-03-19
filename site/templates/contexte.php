@@ -384,6 +384,20 @@ function initMarcheCharts() {
                 return ctx.label + ' : ' + v + ' lots (' + pct + ' %)';
               }
             }
+          },
+          datalabels: {
+            color: function (ctx) {
+              var idx = ctx.dataIndex;
+              return (idx === 3 || idx === 1) ? colorDark : '#fff';
+            },
+            font: { family: fontHeading, size: 12, weight: 600 },
+            formatter: function (value) {
+              var pct = ((value / 834) * 100).toFixed(0);
+              return pct + '%';
+            },
+            display: function (ctx) {
+              return ctx.dataset.data[ctx.dataIndex] > 20;
+            }
           }
         }
       }
@@ -461,7 +475,8 @@ function initMarcheCharts() {
                 return ctx.dataset.label + ' : ' + ctx.parsed.x + ' lots';
               }
             }
-          }
+          },
+          datalabels: { display: false }
         }
       }
     });
@@ -470,17 +485,27 @@ function initMarcheCharts() {
 
 (function loadChartJS() {
   var src = 'https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js';
+  var dlSrc = 'https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2/dist/chartjs-plugin-datalabels.min.js';
+
+  function loadDatalabels() {
+    var dl = document.createElement('script');
+    dl.src = dlSrc;
+    dl.onload = function () {
+      Chart.register(ChartDataLabels);
+      initMarcheCharts();
+    };
+    dl.onerror = function () { initMarcheCharts(); };
+    document.head.appendChild(dl);
+  }
+
   var s = document.createElement('script');
   s.src = src;
-  s.onload = initMarcheCharts;
+  s.onload = loadDatalabels;
   s.onerror = function () {
-    console.warn('Chart.js CDN failed, trying fallback…');
     var fb = document.createElement('script');
     fb.src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.7/chart.umd.min.js';
-    fb.onload = initMarcheCharts;
-    fb.onerror = function () {
-      console.error('Chart.js could not be loaded');
-    };
+    fb.onload = loadDatalabels;
+    fb.onerror = function () {};
     document.head.appendChild(fb);
   };
   document.head.appendChild(s);
