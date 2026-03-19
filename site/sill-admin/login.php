@@ -44,16 +44,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="login-box">
         <h1>SILL Admin</h1>
 
+        <?php $flash = getFlash(); if ($flash): ?>
+        <p class="login-<?= e($flash['type']) ?>" style="color:<?= $flash['type']==='success'?'#2E7D32':'#CC0000' ?>; font-size:13px; text-align:center; margin-bottom:16px;">
+            <?= e($flash['message']) ?>
+        </p>
+        <?php endif; ?>
+
         <?php if ($timeout): ?>
         <p class="login-error">Votre session a expiré. Veuillez vous reconnecter.</p>
         <?php endif; ?>
 
         <?php if ($error !== null): ?>
         <p class="login-error"><?= e($error) ?></p>
-        <?php endif; ?>
-
-        <?php if (!empty($_GET['azure_error'])): ?>
-        <p class="login-error"><?= e($_GET['azure_error']) ?></p>
         <?php endif; ?>
 
         <?php if (defined('AZURE_CLIENT_ID')): ?>

@@ -238,10 +238,21 @@ function azureRedirect(): void
  */
 function azureCallback(): void
 {
+    // Debug log (temporary)
+    $logfile = __DIR__ . '/azure-debug.log';
+    $log = function(string $msg) use ($logfile) {
+        file_put_contents($logfile, date('H:i:s') . ' ' . $msg . "\n", FILE_APPEND);
+    };
+    $log('=== CALLBACK START ===');
+    $log('GET params: ' . json_encode($_GET));
+    $log('Session ID: ' . session_id());
+    $log('Session azure_state: ' . ($_SESSION['azure_state'] ?? 'EMPTY'));
+
     // Validate state
     $state = $_GET['state'] ?? '';
     if (empty($state) || $state !== ($_SESSION['azure_state'] ?? '')) {
-        flash('error', 'Erreur de sécurité (state invalide). Réessayez.');
+        $log('STATE MISMATCH — expected: ' . ($_SESSION['azure_state'] ?? 'EMPTY') . ' got: ' . $state);
+        flash('error', 'Erreur de sécurité (state invalide). Session ID: ' . session_id());
         header('Location: ?page=login');
         exit;
     }
@@ -274,25 +285,30 @@ function azureCallback(): void
     ];
 
     $tokenResponse = azurePost($tokenUrl, $tokenData);
+    $log('Token response keys: ' . json_encode(array_keys($tokenResponse ?? [])));
     if (!$tokenResponse || empty($tokenResponse['access_token'])) {
-        $err = $tokenResponse['error_description'] ?? 'Échec de l\'échange du token.';
-        flash('error', 'Erreur Azure : ' . $err);
+        $err = $tokenResponse['error_description'] ?? $tokenResponse['error'] ?? 'Échec de l\'échange du token.';
+        $log('TOKEN FAIL: ' . $err);
+        flash('error', 'Erreur Azure token : ' . $err);
         header('Location: ?page=login');
         exit;
     }
 
     $accessToken = $tokenResponse['access_token'];
+    $log('Token OK');
 
     // Fetch user profile
     $profile = azureGraphGet('https://graph.microsoft.com/v1.0/me', $accessToken);
-    if (!$profile || empty($profile['mail'])) {
-        flash('error', 'Impossible de récupérer le profil Microsoft.');
+    $log('Profile: ' . json_encode($profile));
+    if (!$profile || (empty($profile['mail']) && empty($profile['userPrincipalName']))) {
+        flash('error', 'Impossible de récupérer le profil Microsoft. Réponse: ' . json_encode($profile));
         header('Location: ?page=login');
         exit;
     }
 
     // Fetch group memberships
     $groups = azureGraphGet('https://graph.microsoft.com/v1.0/me/memberOf?$select=id,displayName', $accessToken);
+    $log('Groups: ' . json_encode($groups));
     $groupIds = [];
     if (!empty($groups['value'])) {
         foreach ($groups['value'] as $g) {
@@ -308,14 +324,16 @@ function azureCallback(): void
         $role = 'editor';
     }
 
+    $log('Group IDs found: ' . json_encode($groupIds) . ' → role: ' . ($role ?? 'NULL'));
+
     if ($role === null) {
-        flash('error', 'Accès refusé. Votre compte Microsoft n\'est membre d\'aucun groupe autorisé (SILL-Backend-Admin ou SILL-Backend-Editeur).');
+        flash('error', 'Accès refusé. Votre compte n\'est dans aucun groupe autorisé. Groupes trouvés: ' . json_encode($groupIds));
         header('Location: ?page=login');
         exit;
     }
 
     // Auto-provision or update user in sill_users
-    $email       = strtolower($profile['mail']);
+    $email       = strtolower($profile['mail'] ?? $profile['userPrincipalName'] ?? '');
     $displayName = $profile['displayName'] ?? $email;
     $username    = explode('@', $email)[0]; // e.g. sylvie.traimond
 
