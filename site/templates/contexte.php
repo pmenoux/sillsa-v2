@@ -138,7 +138,7 @@ function renderMarcheDatum($k, $haussePrefixKeys = []) {
         <div class="sill-position-header">
             <span class="marche-rule"></span>
             <h2>Positionnement SILL SA</h2>
-            <p class="page-chapeau">Notre parc face au marché — Données 31.12.2025 / Signa-Terre 2024</p>
+            <p class="page-chapeau">Notre portefeuille face au marché — Données 31.12.2025 / Signa-Terre 2024</p>
         </div>
 
         <div class="marche-grid">

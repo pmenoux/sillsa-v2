@@ -307,7 +307,7 @@ $quartierLabels = [
                  LAYER 7: Metro
                  ═══════════════════════════════════════════════ -->
             <!-- Metro M1 (TSOL: Flon → Renens) -->
-            <path class="carte-metro carte-metro-m1" d="M 370,345 C 340,355 300,368 260,378 C 220,388 180,395 140,400"/>
+            <path class="carte-metro carte-metro-m1" d="M 370,345 C 350,343 320,340 280,339 C 240,339 200,348 140,365"/>
             <rect x="358" y="350" width="18" height="11" rx="3" fill="#009FE3"/>
             <text x="367" y="358" text-anchor="middle" class="carte-label-transport" fill="#FFF">M1</text>
 
