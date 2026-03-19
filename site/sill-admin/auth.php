@@ -306,15 +306,21 @@ function azureCallback(): void
         exit;
     }
 
-    // Fetch group memberships
-    $groups = azureGraphGet('https://graph.microsoft.com/v1.0/me/memberOf?$select=id,displayName', $accessToken);
-    $log('Groups: ' . json_encode($groups));
+    // Fetch group memberships (with pagination)
     $groupIds = [];
-    if (!empty($groups['value'])) {
-        foreach ($groups['value'] as $g) {
-            $groupIds[] = $g['id'] ?? '';
+    $groupUrl = 'https://graph.microsoft.com/v1.0/me/memberOf?$select=id,displayName';
+    $pageCount = 0;
+    while ($groupUrl && $pageCount < 10) {
+        $groups = azureGraphGet($groupUrl, $accessToken);
+        if (!empty($groups['value'])) {
+            foreach ($groups['value'] as $g) {
+                $groupIds[] = $g['id'] ?? '';
+            }
         }
+        $groupUrl = $groups['@odata.nextLink'] ?? null;
+        $pageCount++;
     }
+    $log('Total groups fetched: ' . count($groupIds) . ' (pages: ' . $pageCount . ')');
 
     // Determine role from groups
     $role = null;
