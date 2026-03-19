@@ -806,6 +806,71 @@ body {
 }
 
 /* ============================================================
+   STATISTIQUES — Dashboard Analytics
+   ============================================================ */
+
+.stats-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.stats-kpi-card {
+  background: #FFF;
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius);
+  padding: 20px 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stats-kpi-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1A1A1A;
+  line-height: 1.1;
+}
+
+.stats-kpi-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #999;
+}
+
+.stats-chart-card,
+.stats-table-card {
+  background: #FFF;
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius);
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.stats-chart-card h3,
+.stats-table-card h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1A1A1A;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 900px) {
+  .stats-kpi-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .stats-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ============================================================
    GUIDE D'UTILISATION — Swiss Design
    ============================================================ */
 

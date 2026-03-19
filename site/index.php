@@ -104,6 +104,26 @@ $pageData = [
     'segments' => $segments,
 ];
 
+// ── Analytics: log page view (public pages only, skip bots) ──
+if (http_response_code() !== 404) {
+    $ua = $_SERVER['HTTP_USER_AGENT'] ?? '';
+    $isBot = preg_match('/bot|crawl|spider|slurp|feed|fetch|index/i', $ua);
+    if (!$isBot && $ua !== '') {
+        $isMobile = preg_match('/Mobile|Android|iPhone|iPad/i', $ua);
+        $viewPage = $slug ? $page . '/' . $slug : $page;
+        // Anonymous visitor hash (no IP stored, rotates daily)
+        $visitorHash = substr(hash('sha256', $ua . date('Y-m-d') . ($_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? '')), 0, 16);
+        try {
+            query(
+                'INSERT INTO sill_analytics (page_path, visitor_hash, is_mobile, created_at) VALUES (?, ?, ?, NOW())',
+                [$viewPage ?: 'accueil', $visitorHash, $isMobile ? 1 : 0]
+            );
+        } catch (\Throwable $e) {
+            // Table may not exist yet — silently ignore
+        }
+    }
+}
+
 require __DIR__ . '/includes/header.php';
 require __DIR__ . '/' . $template;
 require __DIR__ . '/includes/footer.php';
