@@ -877,9 +877,9 @@ abbr[title] {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: #FFD700;
+  background: #E8C547;
   border: 2px solid var(--color-bg);
-  box-shadow: 0 0 0 2px #FFD700;
+  box-shadow: 0 0 0 2px #E8C547;
   z-index: 1;
 }
 
@@ -1827,7 +1827,7 @@ main {
 
 .loyer-mix-bar .mix-llm { background: var(--color-accent); }
 .loyer-mix-bar .mix-lla { background: #999; }
-.loyer-mix-bar .mix-lm  { background: #FFD700; }
+.loyer-mix-bar .mix-lm  { background: #E8C547; }
 .loyer-mix-bar .mix-etu { background: var(--color-heading); }
 
 .loyer-mix-legend {
@@ -1855,7 +1855,7 @@ main {
 
 .loyer-mix-legend .mix-llm::before { background: var(--color-accent); }
 .loyer-mix-legend .mix-lla::before { background: #999; }
-.loyer-mix-legend .mix-lm::before  { background: #FFD700; }
+.loyer-mix-legend .mix-lm::before  { background: #E8C547; }
 .loyer-mix-legend .mix-etu::before { background: var(--color-heading); }
 
 /* Architect signature — last element, detached */

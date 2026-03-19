@@ -335,7 +335,7 @@ function initMarcheCharts() {
      SECTION 2 : Camembert global + Barres par projet
      ══════════════════════════════════════════════════════════════ */
 
-  var colorLLM  = '#FFD700';      // jaune Swiss — LLM
+  var colorLLM  = '#E8C547';      // jaune Swiss doux — LLM
   var colorLLA  = '#AAAAAA';      // gris moyen — LLA
   var colorLM   = '#555555';      // gris foncé — LM
   var colorEtud = '#D8D8D8';      // gris clair — Étudiants
