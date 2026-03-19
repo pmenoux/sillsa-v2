@@ -76,6 +76,12 @@
         <div class="location-section reveal">
           <h2>Chercher un logement</h2>
           <p class="location-intro">Vous cherchez un appartement dans un immeuble de la SILL ? Consultez la liste des objets disponibles auprès de la gérance concernée. La majorité de nos logements sont des loyers modérés ou abordables, attribués selon les critères en vigueur.</p>
+          <p style="margin-top: 16px;">
+            <a href="https://www.lausanne.ch/vie-pratique/logement/logements-utilite-publique/logements-modere/conditions-octroi-inscription.html" class="location-link-arrow" target="_blank" rel="noopener">Conditions d'octroi et inscription — Ville de Lausanne</a>
+          </p>
+          <p style="margin-top: 8px;">
+            <a href="https://www.lausanne.ch/prestations/architecture-et-logement/preinscription-pour-logement-subventionne.html" class="location-link-arrow" target="_blank" rel="noopener">Préinscription pour un logement à loyer modéré</a>
+          </p>
         </div>
 
       </div>
