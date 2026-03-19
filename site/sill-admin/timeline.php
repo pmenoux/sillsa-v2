@@ -44,6 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // --- DELETE ---
     if ($action === 'delete') {
+        if (!canDelete()) { flash('error', 'Suppression réservée aux administrateurs.'); header('Location: ?page=timeline'); exit; }
         $item_id = (int) ($_POST['id'] ?? 0);
         if ($item_id > 0) {
             $stmt = db()->prepare("DELETE FROM sill_timeline WHERE id = ?");
@@ -298,12 +299,14 @@ $all_items = query("SELECT * FROM sill_timeline ORDER BY event_date DESC, sort_o
                 </td>
                 <td class="cell-actions">
                     <a href="?page=timeline&action=edit&id=<?= (int) $item['id'] ?>" class="btn btn-sm btn-secondary">Modifier</a>
+                    <?php if (canDelete()): ?>
                     <form method="post" action="?page=timeline&action=delete" class="form-inline"
                           onsubmit="return confirm('Supprimer définitivement cet événement ?')">
                         <?= csrfField() ?>
                         <input type="hidden" name="id" value="<?= (int) $item['id'] ?>">
                         <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
                     </form>
+                    <?php endif; ?>
                 </td>
             </tr>
         <?php endforeach; ?>

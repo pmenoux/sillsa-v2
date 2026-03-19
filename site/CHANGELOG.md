@@ -1,5 +1,44 @@
 # CHANGELOG — SILL SA Refonte 2026
 
+## [2026-03-19] — Authentification Azure AD + fix backend URLs
+
+### Authentification Microsoft Azure AD (Entra ID)
+- Connexion SSO via Microsoft pour tous les collaborateurs SILL SA
+- Deux groupes de sécurité : `SILL-Backend-Admin` (CRUD + suppression) / `SILL-Backend-Editeur` (CRUD sans suppression)
+- Auto-provisioning des utilisateurs au premier login Microsoft
+- Login mot de passe conservé en fallback (compte pmenoux)
+- Bouton "Se connecter avec Microsoft" sur la page login
+- Badge rôle (admin/editor) affiché dans la topbar
+- Boutons de suppression masqués + guards serveur pour le rôle editor
+- Fichiers impactés : auth.php, login.php, index.php, layout.php, azure-config.php (NEW)
+- Protection canDelete() ajoutée dans : immeubles, pages, publications, timeline, menu, kpi
+
+### Fix backend URLs
+- settings.php : `?section=settings` corrigé en `?page=settings`
+- menu.php : 18 URLs corrigées — slash manquant + `?section=menu` → `?page=menu`
+- `.gitignore` : ajout `site/sill-admin/azure-config.php`
+
+## [2026-03-18] — Acquisitions par préemption + Timeline harmonisée
+
+### 3 immeubles acquis par préemption (préavis N° 2025/41)
+- Béthusy 86-88 (22 logements), Jomini 10-12-14 (60 logements), Égralets 1-3 (30 logements)
+- Insérés en BDD avec `is_active = 0` — activation prévue le 1er avril 2026
+- Colonne `type_projet` ajoutée à `sill_immeubles` (construction / renovation)
+- Table `sill_journal` créée pour le futur journal de rénovation
+- Positions SVG ajoutées sur la carte du portefeuille
+- Label quartier « Béthusy » ajouté sur la carte
+- Répertoires media créés sur le serveur
+
+### Carte portefeuille
+- Label « Gare CFF » sur fond rouge suisse (#FF0000) en remplacement de l'ancien label gris
+
+### Timeline
+- Événement ID 20 mis à jour : approbation du préavis N° 2025/41 (17 mars 2026)
+- 22 textes de description harmonisés (~180-200 caractères, ton institutionnel uniforme)
+
+### Script d'activation 1er avril
+- `_activate_april1.php` prêt : active les 3 immeubles + met à jour les KPI (847 logements, 13 immeubles)
+
 ## [2026-03-18] — Environnement + Location redesign
 ### Page Environnement — template dédié
 - Nouveau template `environnement.php` (sortie du template générique `page.php`)

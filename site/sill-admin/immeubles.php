@@ -33,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // --- DELETE ---
     if ($action === 'delete') {
+        if (!canDelete()) { flash('error', 'Suppression réservée aux administrateurs.'); header('Location: ?page=immeubles'); exit; }
         $item_id = (int) ($_POST['id'] ?? 0);
         if ($item_id > 0) {
             $row = queryOne("SELECT slug FROM sill_immeubles WHERE id = ?", [$item_id]);
@@ -53,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // --- DELETE GALLERY IMAGE ---
     if ($action === 'delete-image') {
+        if (!canDelete()) { flash('error', 'Suppression réservée aux administrateurs.'); header('Location: ?page=immeubles'); exit; }
         $item_id  = (int) ($_POST['id'] ?? 0);
         $filename = basename($_POST['filename'] ?? '');
         $row = queryOne("SELECT slug FROM sill_immeubles WHERE id = ?", [$item_id]);
@@ -311,12 +313,14 @@ if ($action === 'edit' && $id) {
                         <div class="admin-galerie-item">
                             <img src="<?= e($img['url']) ?>" alt="<?= e($img['caption']) ?>">
                             <span class="admin-galerie-caption"><?= e($img['caption']) ?></span>
+                            <?php if (canDelete()): ?>
                             <form method="post" action="?page=immeubles&action=delete-image" class="form-inline">
                                 <?= csrfField() ?>
                                 <input type="hidden" name="id" value="<?= (int) $item['id'] ?>">
                                 <input type="hidden" name="filename" value="<?= e($img['filename']) ?>">
                                 <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Supprimer cette image ?')">Supprimer</button>
                             </form>
+                            <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -512,12 +516,14 @@ $all_items = query("SELECT * FROM sill_immeubles ORDER BY sort_order, nom");
                 </td>
                 <td class="cell-actions">
                     <a href="?page=immeubles&action=edit&id=<?= (int) $item['id'] ?>" class="btn btn-sm btn-secondary">Modifier</a>
+                    <?php if (canDelete()): ?>
                     <form method="post" action="?page=immeubles&action=delete" class="form-inline"
                           onsubmit="return confirm('Supprimer définitivement cet immeuble ?')">
                         <?= csrfField() ?>
                         <input type="hidden" name="id" value="<?= (int) $item['id'] ?>">
                         <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
                     </form>
+                    <?php endif; ?>
                 </td>
             </tr>
         <?php endforeach; ?>

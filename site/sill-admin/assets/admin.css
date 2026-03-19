@@ -489,6 +489,73 @@ body {
   margin-bottom: 16px;
 }
 
+/* Microsoft login button */
+.btn-microsoft {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 16px;
+  background: #FFF;
+  border: 2px solid #DDD;
+  border-radius: var(--admin-radius);
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.btn-microsoft:hover {
+  border-color: var(--admin-accent);
+  box-shadow: 0 2px 8px rgba(0,71,187,0.12);
+}
+
+.login-separator {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  color: #999;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.login-separator::before,
+.login-separator::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #DDD;
+}
+
+.login-separator span {
+  padding: 0 12px;
+}
+
+/* Role badge in topbar */
+.topbar-role {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin-left: 6px;
+}
+
+.role-admin {
+  background: var(--admin-accent);
+  color: #FFF;
+}
+
+.role-editor {
+  background: #E0E0E0;
+  color: #555;
+}
+
 /* ============================================================
    ACTION LINKS
    ============================================================ */

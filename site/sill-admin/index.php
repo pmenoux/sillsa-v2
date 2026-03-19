@@ -14,8 +14,8 @@ $page   = preg_replace('/[^a-z_-]/', '', strtolower($_GET['page']   ?? 'dashboar
 $action = preg_replace('/[^a-z_-]/', '', strtolower($_GET['action'] ?? 'list'));
 $id     = isset($_GET['id']) ? (int) $_GET['id'] : null;
 
-$publicPages = ['login'];
-$validPages  = ['login', 'dashboard', 'kpi', 'pages', 'immeubles', 'timeline', 'publications', 'settings', 'menu'];
+$publicPages = ['login', 'auth-callback', 'azure-login'];
+$validPages  = ['login', 'auth-callback', 'azure-login', 'dashboard', 'kpi', 'pages', 'immeubles', 'timeline', 'publications', 'settings', 'menu'];
 
 // Reject unknown pages
 if (!in_array($page, $validPages, true)) {
@@ -28,6 +28,17 @@ if (!in_array($page, $validPages, true)) {
 
 if ($page === 'logout') {
     logout(); // redirects internally
+    exit;
+}
+
+// Azure AD OAuth2 flow
+if ($page === 'azure-login') {
+    azureRedirect();
+    exit;
+}
+
+if ($page === 'auth-callback') {
+    azureCallback();
     exit;
 }
 

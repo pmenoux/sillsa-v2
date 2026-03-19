@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($label === '') {
             flash('error', 'Le libellé est obligatoire.');
-            header('Location: ' . SITE_URL . 'sill-admin/?section=menu&action=create');
+            header('Location: ?page=menu&action=create');
             exit;
         }
 
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             [$label, $target_value, $parent_id, $sort_order, $is_active]
         );
         flash('success', 'Élément de menu créé.');
-        header('Location: ' . SITE_URL . 'sill-admin/?section=menu');
+        header('Location: ?page=menu');
         exit;
     }
 
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($label === '' || $edit_id === 0) {
             flash('error', 'Données invalides.');
-            header('Location: ' . SITE_URL . 'sill-admin/?section=menu&action=edit&id=' . $edit_id);
+            header('Location: ?page=menu&action=edit&id=' . $edit_id);
             exit;
         }
 
@@ -57,18 +57,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             [$label, $target_value, $parent_id, $sort_order, $is_active, $edit_id]
         );
         flash('success', 'Élément de menu mis à jour.');
-        header('Location: ' . SITE_URL . 'sill-admin/?section=menu');
+        header('Location: ?page=menu');
         exit;
     }
 
     // ── DELETE (soft) ─────────────────────────────────────────────────────────
     if ($post_action === 'delete') {
+        if (!canDelete()) { flash('error', 'Suppression réservée aux administrateurs.'); header('Location: ?page=menu'); exit; }
         $del_id = (int)($_POST['id'] ?? 0);
         if ($del_id > 0) {
             query('UPDATE sill_menu SET is_active=0 WHERE id=?', [$del_id]);
             flash('success', 'Élément de menu désactivé.');
         }
-        header('Location: ' . SITE_URL . 'sill-admin/?section=menu');
+        header('Location: ?page=menu');
         exit;
     }
 
@@ -102,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        header('Location: ' . SITE_URL . 'sill-admin/?section=menu');
+        header('Location: ?page=menu');
         exit;
     }
 }
@@ -120,16 +121,16 @@ if ($action === 'edit' && $id > 0) {
     $item = queryOne('SELECT * FROM sill_menu WHERE id=?', [$id]);
     if (!$item) {
         flash('error', 'Élément de menu introuvable.');
-        header('Location: ' . SITE_URL . 'sill-admin/?section=menu');
+        header('Location: ?page=menu');
         exit;
     }
     ?>
     <div class="admin-section-header">
         <h2>Modifier l'élément de menu</h2>
-        <a href="<?= SITE_URL ?>sill-admin/?section=menu" class="btn btn-secondary">← Retour</a>
+        <a href="?page=menu" class="btn btn-secondary">← Retour</a>
     </div>
 
-    <form method="post" action="<?= SITE_URL ?>sill-admin/?section=menu" class="admin-form">
+    <form method="post" action="?page=menu" class="admin-form">
         <?= csrfField() ?>
         <input type="hidden" name="action" value="edit">
         <input type="hidden" name="id" value="<?= (int)$item['id'] ?>">
@@ -178,7 +179,7 @@ if ($action === 'edit' && $id > 0) {
 
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">Enregistrer</button>
-            <a href="<?= SITE_URL ?>sill-admin/?section=menu" class="btn btn-secondary">Annuler</a>
+            <a href="?page=menu" class="btn btn-secondary">Annuler</a>
         </div>
     </form>
     <?php
@@ -193,10 +194,10 @@ if ($action === 'create') {
     ?>
     <div class="admin-section-header">
         <h2>Nouvel élément de menu</h2>
-        <a href="<?= SITE_URL ?>sill-admin/?section=menu" class="btn btn-secondary">← Retour</a>
+        <a href="?page=menu" class="btn btn-secondary">← Retour</a>
     </div>
 
-    <form method="post" action="<?= SITE_URL ?>sill-admin/?section=menu" class="admin-form">
+    <form method="post" action="?page=menu" class="admin-form">
         <?= csrfField() ?>
         <input type="hidden" name="action" value="create">
 
@@ -241,7 +242,7 @@ if ($action === 'create') {
 
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">Créer l'élément</button>
-            <a href="<?= SITE_URL ?>sill-admin/?section=menu" class="btn btn-secondary">Annuler</a>
+            <a href="?page=menu" class="btn btn-secondary">Annuler</a>
         </div>
     </form>
     <?php
@@ -259,7 +260,7 @@ $menu_items = query(
 ?>
 <div class="admin-section-header">
     <h2>Menu de navigation</h2>
-    <a href="<?= SITE_URL ?>sill-admin/?section=menu&action=create" class="btn btn-primary">+ Nouvel élément</a>
+    <a href="?page=menu&action=create" class="btn btn-primary">+ Nouvel élément</a>
 </div>
 
 <?php if (empty($menu_items)): ?>
@@ -280,7 +281,7 @@ $menu_items = query(
             <?php foreach ($menu_items as $item): ?>
                 <tr class="<?= $item['is_active'] ? '' : 'row-inactive' ?>">
                     <td class="order-cell">
-                        <form method="post" action="<?= SITE_URL ?>sill-admin/?section=menu" class="inline-form order-form">
+                        <form method="post" action="?page=menu" class="inline-form order-form">
                             <?= csrfField() ?>
                             <input type="hidden" name="action" value="move">
                             <input type="hidden" name="id" value="<?= (int)$item['id'] ?>">
@@ -288,7 +289,7 @@ $menu_items = query(
                             <button type="submit" class="btn btn-xs btn-icon" title="Monter">▲</button>
                         </form>
                         <span class="sort-order-value"><?= (int)$item['sort_order'] ?></span>
-                        <form method="post" action="<?= SITE_URL ?>sill-admin/?section=menu" class="inline-form order-form">
+                        <form method="post" action="?page=menu" class="inline-form order-form">
                             <?= csrfField() ?>
                             <input type="hidden" name="action" value="move">
                             <input type="hidden" name="id" value="<?= (int)$item['id'] ?>">
@@ -315,9 +316,9 @@ $menu_items = query(
                             : '<span class="badge badge-inactive">Non</span>' ?>
                     </td>
                     <td class="actions-cell">
-                        <a href="<?= SITE_URL ?>sill-admin/?section=menu&action=edit&id=<?= (int)$item['id'] ?>" class="btn btn-sm btn-secondary">Modifier</a>
-                        <?php if ($item['is_active']): ?>
-                            <form method="post" action="<?= SITE_URL ?>sill-admin/?section=menu" class="inline-form" onsubmit="return confirm('Désactiver cet élément ?')">
+                        <a href="?page=menu&action=edit&id=<?= (int)$item['id'] ?>" class="btn btn-sm btn-secondary">Modifier</a>
+                        <?php if ($item['is_active'] && canDelete()): ?>
+                            <form method="post" action="?page=menu" class="inline-form" onsubmit="return confirm('Désactiver cet élément ?')">
                                 <?= csrfField() ?>
                                 <input type="hidden" name="action" value="delete">
                                 <input type="hidden" name="id" value="<?= (int)$item['id'] ?>">

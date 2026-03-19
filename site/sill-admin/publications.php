@@ -105,6 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // --- DELETE ---
     if ($action === 'delete') {
+        if (!canDelete()) { flash('error', 'Suppression réservée aux administrateurs.'); header('Location: ?page=publications'); exit; }
         $item_id = (int) ($_POST['id'] ?? 0);
         if ($item_id > 0) {
             $stmt = db()->prepare("DELETE FROM sill_publications WHERE id = ?");
@@ -404,12 +405,14 @@ $all_items = query("SELECT * FROM sill_publications ORDER BY annee DESC, sort_or
                 </td>
                 <td class="cell-actions">
                     <a href="?page=publications&action=edit&id=<?= (int) $item['id'] ?>" class="btn btn-sm btn-secondary">Modifier</a>
+                    <?php if (canDelete()): ?>
                     <form method="post" action="?page=publications&action=delete" class="form-inline"
                           onsubmit="return confirm('Supprimer définitivement cette publication ?')">
                         <?= csrfField() ?>
                         <input type="hidden" name="id" value="<?= (int) $item['id'] ?>">
                         <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
                     </form>
+                    <?php endif; ?>
                 </td>
             </tr>
         <?php endforeach; ?>

@@ -44,7 +44,7 @@ $settings = query('SELECT * FROM sill_settings ORDER BY setting_key');
 <?php if (empty($settings)): ?>
     <p class="empty-state">Aucun paramètre trouvé dans la base de données.</p>
 <?php else: ?>
-    <form method="post" action="<?= SITE_URL ?>sill-admin/?section=settings" class="admin-form settings-form">
+    <form method="post" action="?page=settings" class="admin-form settings-form">
         <?= csrfField() ?>
 
         <div class="settings-grid">

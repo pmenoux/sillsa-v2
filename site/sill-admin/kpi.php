@@ -45,6 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // --- DELETE ---
     if ($action === 'delete') {
+        if (!canDelete()) { flash('error', 'Suppression réservée aux administrateurs.'); header('Location: ?page=kpi'); exit; }
         $kpi_id = (int) ($_POST['id'] ?? 0);
         if ($kpi_id > 0) {
             $stmt = db()->prepare("DELETE FROM sill_kpi WHERE id = ?");
@@ -366,12 +367,14 @@ foreach ($zones as $zoneName => $cats) {
                         </td>
                         <td class="cell-actions" style="white-space:nowrap">
                             <a href="?page=kpi&action=edit&id=<?= (int) $kpi['id'] ?>" class="btn btn-sm btn-secondary">Modifier</a>
+                            <?php if (canDelete()): ?>
                             <form method="post" action="?page=kpi&action=delete" class="form-inline" style="display:inline"
                                   onsubmit="return confirm('Supprimer ce KPI ?')">
                                 <?= csrfField() ?>
                                 <input type="hidden" name="id" value="<?= (int) $kpi['id'] ?>">
                                 <button type="submit" class="btn btn-sm" style="color:#999;background:none;border:none;font-size:11px;padding:4px 8px">&times;</button>
                             </form>
+                            <?php endif; ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

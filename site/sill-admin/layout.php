@@ -77,6 +77,7 @@ $flash = getFlash();
     </nav>
     <div class="topbar-user">
         <span class="topbar-username"><?= e($_SESSION['admin_username'] ?? '') ?></span>
+        <span class="topbar-role role-<?= e($_SESSION['admin_role'] ?? 'editor') ?>"><?= e($_SESSION['admin_role'] ?? 'editor') ?></span>
         <a href="?page=logout" class="topbar-logout">Déconnexion</a>
     </div>
 </header>

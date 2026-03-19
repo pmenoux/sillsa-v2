@@ -60,6 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // --- DELETE (permanent) ---
     if ($action === 'delete') {
+        if (!canDelete()) { flash('error', 'Suppression réservée aux administrateurs.'); header('Location: ?page=pages'); exit; }
         $page_id = (int) ($_POST['id'] ?? 0);
         if ($page_id > 0) {
             $stmt = db()->prepare("DELETE FROM sill_pages WHERE id = ?");
@@ -291,12 +292,14 @@ foreach ($children as $pid => $kids) {
                 </td>
                 <td class="cell-actions">
                     <a href="?page=pages&action=edit&id=<?= (int) $page['id'] ?>" class="btn btn-sm btn-secondary">Modifier</a>
+                    <?php if (canDelete()): ?>
                     <form method="post" action="?page=pages&action=delete" class="form-inline"
                           onsubmit="return confirm('Supprimer définitivement cette page ?')">
                         <?= csrfField() ?>
                         <input type="hidden" name="id" value="<?= (int) $page['id'] ?>">
                         <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
                     </form>
+                    <?php endif; ?>
                 </td>
             </tr>
         <?php endforeach; ?>

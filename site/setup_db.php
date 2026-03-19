@@ -29,13 +29,13 @@ $hash = '$2y$10$pasREnsKEIRZwaPdsGEYmOiP73PZ2O7gL/DCKQ/AKNhdmxO4oy8jW';
 $ex = $pdo->prepare("SELECT id FROM sill_users WHERE username = ?");
 $ex->execute(['pmenoux']);
 if ($ex->fetch()) {
-    $pdo->prepare("UPDATE sill_users SET password_hash = ?, is_active = 1 WHERE username = ?")
+    $pdo->prepare("UPDATE sill_users SET password_hash = ?, is_active = 1, role = 'admin' WHERE username = ?")
         ->execute([$hash, 'pmenoux']);
-    echo "User pmenoux mis a jour\n";
+    echo "User pmenoux mis a jour (role=admin)\n";
 } else {
-    $pdo->prepare("INSERT INTO sill_users (username, password_hash, is_active) VALUES (?, ?, 1)")
+    $pdo->prepare("INSERT INTO sill_users (username, password_hash, is_active, role) VALUES (?, ?, 1, 'admin')")
         ->execute(['pmenoux', $hash]);
-    echo "User pmenoux cree\n";
+    echo "User pmenoux cree (role=admin)\n";
 }
 
 echo "\nDone! Supprimez ce fichier.\n";

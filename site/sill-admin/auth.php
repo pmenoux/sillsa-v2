@@ -4,6 +4,11 @@
 
 session_start();
 
+// Load Azure AD config if available
+if (file_exists(__DIR__ . '/azure-config.php')) {
+    require_once __DIR__ . '/azure-config.php';
+}
+
 const AUTH_TIMEOUT    = 1800; // 30 minutes
 const RATE_MAX        = 5;    // max attempts
 const RATE_WINDOW     = 900;  // 15 minutes in seconds
@@ -43,7 +48,7 @@ function attemptLogin(string $username, string $password): bool
     }
 
     $user = queryOne(
-        'SELECT id, username, password_hash FROM sill_users WHERE username = ? AND is_active = 1',
+        'SELECT id, username, password_hash, role FROM sill_users WHERE username = ? AND is_active = 1',
         [$username]
     );
 
@@ -58,6 +63,7 @@ function attemptLogin(string $username, string $password): bool
 
     $_SESSION['admin_user_id']    = $user['id'];
     $_SESSION['admin_username']   = $user['username'];
+    $_SESSION['admin_role']       = $user['role'] ?? 'editor';
     $_SESSION['admin_last_active'] = time();
 
     return true;
@@ -181,4 +187,209 @@ function getFlash(): ?array
         return $flash;
     }
     return null;
+}
+
+// ---------------------------------------------------------------------------
+// Role helpers
+// ---------------------------------------------------------------------------
+
+/**
+ * Check if current user can delete (admin role only).
+ */
+function canDelete(): bool
+{
+    return ($_SESSION['admin_role'] ?? 'editor') === 'admin';
+}
+
+// ---------------------------------------------------------------------------
+// Azure AD (Entra ID) OAuth2
+// ---------------------------------------------------------------------------
+
+/**
+ * Build the Azure AD authorization URL and redirect.
+ */
+function azureRedirect(): void
+{
+    if (!defined('AZURE_CLIENT_ID')) {
+        flash('error', 'Azure AD non configuré.');
+        header('Location: ?page=login');
+        exit;
+    }
+
+    $state = bin2hex(random_bytes(16));
+    $_SESSION['azure_state'] = $state;
+
+    $params = http_build_query([
+        'client_id'     => AZURE_CLIENT_ID,
+        'response_type' => 'code',
+        'redirect_uri'  => AZURE_REDIRECT_URI,
+        'response_mode' => 'query',
+        'scope'         => 'openid profile email User.Read GroupMember.Read.All',
+        'state'         => $state,
+    ]);
+
+    $url = 'https://login.microsoftonline.com/' . AZURE_TENANT_ID . '/oauth2/v2.0/authorize?' . $params;
+    header('Location: ' . $url);
+    exit;
+}
+
+/**
+ * Handle the Azure AD callback: exchange code for token, fetch profile + groups, create session.
+ */
+function azureCallback(): void
+{
+    // Validate state
+    $state = $_GET['state'] ?? '';
+    if (empty($state) || $state !== ($_SESSION['azure_state'] ?? '')) {
+        flash('error', 'Erreur de sécurité (state invalide). Réessayez.');
+        header('Location: ?page=login');
+        exit;
+    }
+    unset($_SESSION['azure_state']);
+
+    // Check for errors from Azure
+    if (!empty($_GET['error'])) {
+        $desc = $_GET['error_description'] ?? $_GET['error'];
+        flash('error', 'Erreur Microsoft : ' . $desc);
+        header('Location: ?page=login');
+        exit;
+    }
+
+    $code = $_GET['code'] ?? '';
+    if ($code === '') {
+        flash('error', 'Code d\'autorisation manquant.');
+        header('Location: ?page=login');
+        exit;
+    }
+
+    // Exchange code for token
+    $tokenUrl = 'https://login.microsoftonline.com/' . AZURE_TENANT_ID . '/oauth2/v2.0/token';
+    $tokenData = [
+        'client_id'     => AZURE_CLIENT_ID,
+        'client_secret' => AZURE_CLIENT_SECRET,
+        'code'          => $code,
+        'redirect_uri'  => AZURE_REDIRECT_URI,
+        'grant_type'    => 'authorization_code',
+        'scope'         => 'openid profile email User.Read GroupMember.Read.All',
+    ];
+
+    $tokenResponse = azurePost($tokenUrl, $tokenData);
+    if (!$tokenResponse || empty($tokenResponse['access_token'])) {
+        $err = $tokenResponse['error_description'] ?? 'Échec de l\'échange du token.';
+        flash('error', 'Erreur Azure : ' . $err);
+        header('Location: ?page=login');
+        exit;
+    }
+
+    $accessToken = $tokenResponse['access_token'];
+
+    // Fetch user profile
+    $profile = azureGraphGet('https://graph.microsoft.com/v1.0/me', $accessToken);
+    if (!$profile || empty($profile['mail'])) {
+        flash('error', 'Impossible de récupérer le profil Microsoft.');
+        header('Location: ?page=login');
+        exit;
+    }
+
+    // Fetch group memberships
+    $groups = azureGraphGet('https://graph.microsoft.com/v1.0/me/memberOf?$select=id,displayName', $accessToken);
+    $groupIds = [];
+    if (!empty($groups['value'])) {
+        foreach ($groups['value'] as $g) {
+            $groupIds[] = $g['id'] ?? '';
+        }
+    }
+
+    // Determine role from groups
+    $role = null;
+    if (in_array(AZURE_GROUP_ADMIN, $groupIds, true)) {
+        $role = 'admin';
+    } elseif (in_array(AZURE_GROUP_EDITOR, $groupIds, true)) {
+        $role = 'editor';
+    }
+
+    if ($role === null) {
+        flash('error', 'Accès refusé. Votre compte Microsoft n\'est membre d\'aucun groupe autorisé (SILL-Backend-Admin ou SILL-Backend-Editeur).');
+        header('Location: ?page=login');
+        exit;
+    }
+
+    // Auto-provision or update user in sill_users
+    $email       = strtolower($profile['mail']);
+    $displayName = $profile['displayName'] ?? $email;
+    $username    = explode('@', $email)[0]; // e.g. sylvie.traimond
+
+    $existing = queryOne('SELECT id, role FROM sill_users WHERE email = ?', [$email]);
+
+    if ($existing) {
+        query(
+            'UPDATE sill_users SET display_name = ?, role = ?, last_login = NOW() WHERE id = ?',
+            [$displayName, $role, $existing['id']]
+        );
+        $userId = $existing['id'];
+    } else {
+        query(
+            'INSERT INTO sill_users (username, password_hash, display_name, email, role, last_login, is_active)
+             VALUES (?, ?, ?, ?, ?, NOW(), 1)',
+            [$username, '', $displayName, $email, $role]
+        );
+        $userId = db()->lastInsertId();
+    }
+
+    // Create session
+    session_regenerate_id(true);
+    $_SESSION['admin_user_id']    = $userId;
+    $_SESSION['admin_username']   = $displayName;
+    $_SESSION['admin_role']       = $role;
+    $_SESSION['admin_last_active'] = time();
+
+    flash('success', 'Bienvenue, ' . $displayName . ' (' . $role . ').');
+    header('Location: ?page=dashboard');
+    exit;
+}
+
+/**
+ * POST request to Azure endpoint. Returns decoded JSON or null.
+ */
+function azurePost(string $url, array $data): ?array
+{
+    $ch = curl_init($url);
+    curl_setopt_array($ch, [
+        CURLOPT_POST           => true,
+        CURLOPT_POSTFIELDS     => http_build_query($data),
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT        => 15,
+        CURLOPT_HTTPHEADER     => ['Content-Type: application/x-www-form-urlencoded'],
+    ]);
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    if ($response === false || $httpCode >= 500) {
+        return null;
+    }
+    return json_decode($response, true);
+}
+
+/**
+ * GET request to Microsoft Graph API. Returns decoded JSON or null.
+ */
+function azureGraphGet(string $url, string $accessToken): ?array
+{
+    $ch = curl_init($url);
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT        => 15,
+        CURLOPT_HTTPHEADER     => [
+            'Authorization: Bearer ' . $accessToken,
+            'Content-Type: application/json',
+        ],
+    ]);
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    if ($response === false) {
+        return null;
+    }
+    return json_decode($response, true);
 }

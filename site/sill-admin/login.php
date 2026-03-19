@@ -52,6 +52,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p class="login-error"><?= e($error) ?></p>
         <?php endif; ?>
 
+        <?php if (!empty($_GET['azure_error'])): ?>
+        <p class="login-error"><?= e($_GET['azure_error']) ?></p>
+        <?php endif; ?>
+
+        <?php if (defined('AZURE_CLIENT_ID')): ?>
+        <a href="?page=azure-login" class="btn-microsoft">
+            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21">
+                <rect x="1" y="1" width="9" height="9" fill="#f25022"/>
+                <rect x="11" y="1" width="9" height="9" fill="#7fba00"/>
+                <rect x="1" y="11" width="9" height="9" fill="#00a4ef"/>
+                <rect x="11" y="11" width="9" height="9" fill="#ffb900"/>
+            </svg>
+            Se connecter avec Microsoft
+        </a>
+
+        <div class="login-separator">
+            <span>ou</span>
+        </div>
+        <?php endif; ?>
+
         <form method="post" action="?page=login">
             <?= csrfField() ?>
 
@@ -59,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="username">Identifiant</label>
                 <input type="text" id="username" name="username"
                        value="<?= e($_POST['username'] ?? '') ?>"
-                       autocomplete="username" autofocus required>
+                       autocomplete="username" required>
             </div>
 
             <div class="form-group">
