@@ -2918,3 +2918,150 @@ main {
 .lightbox-prev, .lightbox-next { position: absolute; top: 50%; transform: translateY(-50%); color: #fff; font-size: 48px; cursor: pointer; background: none; border: none; line-height: 1; padding: 16px; }
 .lightbox-prev { left: 16px; }
 .lightbox-next { right: 16px; }
+
+/* --------------------------------------------------------------------------
+   ORGANISATION — Page dédiée
+   -------------------------------------------------------------------------- */
+
+.org-photo {
+  margin-bottom: 48px;
+}
+
+.org-photo img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
+
+.org-section {
+  margin-bottom: 48px;
+}
+
+.org-section-title {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-heading);
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--color-heading);
+}
+
+/* Grille membres */
+.org-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.org-card {
+  padding: 24px;
+  background: var(--color-bg-warm);
+  border-left: 3px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.org-card--lead {
+  border-left-color: var(--color-accent);
+}
+
+.org-name {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-heading);
+}
+
+.org-card--lead .org-name {
+  color: var(--color-accent);
+}
+
+.org-fonction {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  color: var(--color-muted);
+  line-height: 1.4;
+}
+
+/* Organigramme gouvernance */
+.org-governance {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.org-gov-block {
+  width: 100%;
+  max-width: 480px;
+  padding: 20px 24px;
+  background: var(--color-bg-warm);
+  border: 1px solid var(--color-border);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.org-gov-block--active {
+  border: 2px solid var(--color-accent);
+  background: #FFF;
+}
+
+.org-gov-label {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-heading);
+}
+
+.org-gov-block--active .org-gov-label {
+  color: var(--color-accent);
+}
+
+.org-gov-sub {
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.org-gov-sub a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.org-gov-sub a:hover {
+  text-decoration: underline;
+}
+
+.org-gov-arrow {
+  width: 2px;
+  height: 24px;
+  background: var(--color-heading);
+  position: relative;
+}
+
+.org-gov-arrow::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid var(--color-heading);
+}
+
+@media (max-width: 767px) {
+  .org-grid {
+    grid-template-columns: 1fr;
+  }
+}
