@@ -476,7 +476,19 @@ function initMarcheCharts() {
               }
             }
           },
-          datalabels: { display: false }
+          datalabels: {
+            color: function (ctx) {
+              var dsIndex = ctx.datasetIndex;
+              return (dsIndex === 3 || dsIndex === 1) ? colorDark : '#fff';
+            },
+            font: { family: fontHeading, size: 10, weight: 600 },
+            formatter: function (value) {
+              return value > 0 ? value : '';
+            },
+            display: function (ctx) {
+              return ctx.dataset.data[ctx.dataIndex] >= 15;
+            }
+          }
         }
       }
     });
