@@ -4,15 +4,41 @@ $menuItems = getMenu();
 $currentRoute = $pageData['route'] ?? '';
 
 // Page-specific meta
-$metaTitle = 'SILL SA — Société Immobilière Lausannoise pour le Logement';
-$metaDesc = setting('meta_description') ?? '';
+$siteName = 'SILL SA — Société Immobilière Lausannoise pour le Logement';
+$metaTitle = $siteName;
+$metaDesc = setting('meta_description') ?? 'La SILL SA gère un portefeuille de logements d\'utilité publique à Lausanne. Société anonyme de droit privé, actionnaire unique : Ville de Lausanne.';
+$ogImage = SITE_URL . '/media/hero-accueil.jpg';
 
+// Per-page meta from DB
 if ($currentRoute && $currentRoute !== 'accueil') {
     $pageInfo = getPage($currentRoute);
     if ($pageInfo) {
         $metaTitle = e($pageInfo['meta_title'] ?? $pageInfo['title']) . ' — SILL SA';
-        $metaDesc = e($pageInfo['meta_desc'] ?? '');
+        $metaDesc = e($pageInfo['meta_desc'] ?? $metaDesc);
     }
+}
+
+// Building detail page: override meta from immeuble data
+if (!empty($pageData['slug']) && ($pageData['route'] ?? '') === 'portefeuille') {
+    $immSeo = queryOne('SELECT nom, adresse, nb_logements, quartier FROM sill_immeubles WHERE slug = ? AND is_active = 1', [$pageData['slug']]);
+    if ($immSeo) {
+        $metaTitle = e($immSeo['nom']) . ' — Portefeuille SILL SA';
+        $metaDesc = e($immSeo['nom']) . ', ' . e($immSeo['adresse']) . ' — ' . (int)$immSeo['nb_logements'] . ' logements. Portefeuille immobilier SILL SA, Lausanne.';
+        // Try building cover as og:image
+        $immCover = immeubleCoverUrl($pageData['slug']);
+        if (!str_contains($immCover, 'placeholder')) {
+            $ogImage = $immCover;
+        }
+    }
+}
+
+// Canonical URL
+$canonicalUrl = SITE_URL . '/';
+if ($currentRoute && $currentRoute !== 'accueil') {
+    $canonicalUrl = SITE_URL . '/' . $currentRoute;
+}
+if (!empty($pageData['slug']) && ($pageData['route'] ?? '') === 'portefeuille') {
+    $canonicalUrl = SITE_URL . '/portefeuille/' . $pageData['slug'];
 }
 ?>
 <!DOCTYPE html>
@@ -24,14 +50,30 @@ if ($currentRoute && $currentRoute !== 'accueil') {
     <meta name="description" content="<?= $metaDesc ?>">
     <meta name="robots" content="noindex, nofollow">
     <meta name="theme-color" content="#FF0000">
+    <meta name="author" content="SILL SA">
+    <link rel="canonical" href="<?= $canonicalUrl ?>">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="<?= SITE_URL ?>/assets/img/logo_sill.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?= SITE_URL ?>/assets/img/logo_sill.png">
+    <link rel="apple-touch-icon" href="<?= SITE_URL ?>/assets/img/logo_sill.png">
 
     <!-- Open Graph -->
     <meta property="og:title" content="<?= $metaTitle ?>">
     <meta property="og:description" content="<?= $metaDesc ?>">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="<?= SITE_URL . '/' . $currentRoute ?>">
+    <meta property="og:url" content="<?= $canonicalUrl ?>">
+    <meta property="og:image" content="<?= $ogImage ?>">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="SILL SA">
+    <meta property="og:locale" content="fr_CH">
 
-    <!-- Fonts: Helvetica Neue system stack (no Google Fonts) -->
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<?= $metaTitle ?>">
+    <meta name="twitter:description" content="<?= $metaDesc ?>">
+    <meta name="twitter:image" content="<?= $ogImage ?>">
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="<?= SITE_URL ?>/assets/css/style.css?v=<?= filemtime(__DIR__ . '/../assets/css/style.css') ?>">

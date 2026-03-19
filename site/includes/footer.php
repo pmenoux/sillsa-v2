@@ -33,6 +33,34 @@
     </div>
 </footer>
 
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "SILL SA",
+  "legalName": "Société Immobilière Lausanne-Littoral SA",
+  "url": "<?= SITE_URL ?>",
+  "logo": "<?= SITE_URL ?>/assets/img/logo_sill_2026.svg",
+  "description": "<?= e(setting('meta_description') ?? '') ?>",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Avenue d'Ouchy 4",
+    "addressLocality": "Lausanne",
+    "postalCode": "1006",
+    "addressCountry": "CH"
+  },
+  "email": "<?= e(setting('contact_email') ?? 'info@sillsa.ch') ?>",
+  "telephone": "<?= e(setting('contact_phone') ?? '') ?>",
+  "foundingDate": "2009",
+  "areaServed": {
+    "@type": "City",
+    "name": "Lausanne"
+  },
+  "sameAs": []
+}
+</script>
+
 <script src="<?= SITE_URL ?>/assets/js/main.js?v=<?= filemtime(__DIR__ . '/../assets/js/main.js') ?>" defer></script>
 </body>
 </html>

@@ -1,2 +1,6 @@
 User-agent: *
-Disallow: /
+Allow: /
+Disallow: /sill-admin/
+Disallow: /api/
+
+Sitemap: https://sillsa.ch/sitemap.xml

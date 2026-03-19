@@ -30,6 +30,8 @@ $staticPages = [
     ['slug' => 'portefeuille',           'priority' => '0.9', 'freq' => 'weekly'],
     ['slug' => 'publications',           'priority' => '0.7', 'freq' => 'monthly'],
     ['slug' => 'location',              'priority' => '0.7', 'freq' => 'weekly'],
+    ['slug' => 'contexte',             'priority' => '0.7', 'freq' => 'quarterly'],
+    ['slug' => 'bonnes-pratiques',     'priority' => '0.5', 'freq' => 'yearly'],
 ];
 foreach ($staticPages as $p): ?>
   <url>
