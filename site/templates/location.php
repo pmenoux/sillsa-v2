@@ -23,7 +23,7 @@
           <p class="location-gerance-scope">Plaines-du-Loup, Fiches-Nord, Cojonnex, Falaises, Bonne-Espérance, Prairie</p>
           <p class="location-address">Gérance de la Ville de Lausanne<br>Place Chauderon 9<br>1003 Lausanne</p>
           <p class="location-phone">
-            <a href="tel:+41213157575">021 315 75 75</a>
+            <a href="tel:+41213154949">021 315 49 49</a>
           </p>
           <p class="location-email">
             <a href="mailto:gerance@lausanne.ch">gerance@lausanne.ch</a>
