@@ -11,6 +11,7 @@ $pageTitles = [
     'publications' => 'Publications',
     'settings'     => 'Paramètres',
     'menu'         => 'Menu',
+    'guide'        => 'Guide',
 ];
 
 $pageTitle = $pageTitles[$page] ?? ucfirst($page);
@@ -74,6 +75,7 @@ $flash = getFlash();
         <a href="?page=publications"<?= $page === 'publications' ? ' class="active"' : '' ?>>Publications</a>
         <a href="?page=settings"<?= $page === 'settings' ? ' class="active"' : '' ?>>Paramètres</a>
         <a href="?page=menu"<?= $page === 'menu' ? ' class="active"' : '' ?>>Menu</a>
+        <a href="?page=guide"<?= $page === 'guide' ? ' class="active"' : '' ?> style="color: var(--admin-accent)">Guide</a>
     </nav>
     <div class="topbar-user">
         <span class="topbar-username"><?= e($_SESSION['admin_username'] ?? '') ?></span>
