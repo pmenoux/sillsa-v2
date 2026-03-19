@@ -56,6 +56,92 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
+    // --- CSV IMPORT ---
+    if ($action === 'import-csv') {
+        if (!isset($_FILES['csv_file']) || $_FILES['csv_file']['error'] !== UPLOAD_ERR_OK) {
+            flash('error', 'Fichier CSV manquant ou erreur d\'upload.');
+            header('Location: ?page=kpi');
+            exit;
+        }
+
+        $file = $_FILES['csv_file']['tmp_name'];
+        $content = file_get_contents($file);
+        // Detect separator: semicolon or comma
+        $sep = (substr_count($content, ';') > substr_count($content, ',')) ? ';' : ',';
+
+        $lines = array_filter(array_map('trim', explode("\n", $content)));
+        if (count($lines) < 2) {
+            flash('error', 'Le fichier CSV est vide ou ne contient qu\'un en-tête.');
+            header('Location: ?page=kpi');
+            exit;
+        }
+
+        // Parse header
+        $header = str_getcsv(array_shift($lines), $sep);
+        $header = array_map(function($h) { return strtolower(trim($h)); }, $header);
+
+        // Required: kpi_key
+        $keyCol = array_search('kpi_key', $header);
+        if ($keyCol === false) {
+            flash('error', 'Colonne <code>kpi_key</code> introuvable dans l\'en-tête CSV. Colonnes trouvées : ' . implode(', ', $header));
+            header('Location: ?page=kpi');
+            exit;
+        }
+
+        $updated = 0;
+        $skipped = 0;
+
+        foreach ($lines as $line) {
+            $row = str_getcsv($line, $sep);
+            if (count($row) <= $keyCol) { $skipped++; continue; }
+
+            $key = trim($row[$keyCol]);
+            if ($key === '') { $skipped++; continue; }
+
+            // Check if KPI exists
+            $existing = queryOne('SELECT id FROM sill_kpi WHERE kpi_key = ?', [$key]);
+            if (!$existing) { $skipped++; continue; }
+
+            // Build update fields
+            $updates = [];
+            $params  = [];
+
+            $colMap = [
+                'value_num'  => 'value_num',
+                'value_text' => 'value_text',
+                'unit'       => 'unit',
+                'label'      => 'label',
+                'category'   => 'category',
+                'sort_order' => 'sort_order',
+            ];
+
+            foreach ($colMap as $csvCol => $dbCol) {
+                $idx = array_search($csvCol, $header);
+                if ($idx !== false && isset($row[$idx]) && trim($row[$idx]) !== '') {
+                    $val = trim($row[$idx]);
+                    if ($dbCol === 'value_num') {
+                        $val = (float) str_replace([' ', "'", ','], ['', '', '.'], $val);
+                    } elseif ($dbCol === 'sort_order') {
+                        $val = (int) $val;
+                    }
+                    $updates[] = "$dbCol = ?";
+                    $params[]  = $val;
+                }
+            }
+
+            if (!empty($updates)) {
+                $params[] = $existing['id'];
+                $sql = 'UPDATE sill_kpi SET ' . implode(', ', $updates) . ' WHERE id = ?';
+                query($sql, $params);
+                $updated++;
+            }
+        }
+
+        flash('success', "Import CSV terminé : $updated KPI(s) mis à jour, $skipped ligne(s) ignorées.");
+        header('Location: ?page=kpi');
+        exit;
+    }
+
     // Common fields
     $label      = trim($_POST['label'] ?? '');
     $kpi_key    = trim($_POST['kpi_key'] ?? '');
@@ -313,8 +399,31 @@ foreach ($zones as $zoneName => $cats) {
 
 <div class="page-header">
     <h1>KPIs</h1>
-    <a href="?page=kpi&action=create" class="btn btn-primary">Nouveau KPI</a>
+    <div style="display:flex; gap:8px; align-items:center;">
+        <button type="button" class="btn btn-secondary" onclick="document.getElementById('csv-import-panel').classList.toggle('hidden')" title="Importer depuis fichier CSV">Importer CSV</button>
+        <a href="?page=kpi&action=create" class="btn btn-primary">Nouveau KPI</a>
+    </div>
 </div>
+
+<!-- CSV Import Panel -->
+<div id="csv-import-panel" class="hidden" style="background:#F0F4FF; border:1px solid var(--admin-accent); padding:20px 24px; margin-bottom:20px;">
+    <h3 style="margin:0 0 8px; font-size:14px; font-weight:600;">Importer des KPIs depuis un fichier CSV</h3>
+    <p style="font-size:13px; color:#666; margin-bottom:12px;">
+        Le fichier doit contenir une colonne <code>kpi_key</code> pour identifier les KPIs existants.
+        Colonnes reconnues : <code>kpi_key</code>, <code>value_num</code>, <code>value_text</code>, <code>unit</code>, <code>label</code>, <code>category</code>, <code>sort_order</code>.
+        Séparateur : point-virgule ou virgule (auto-détecté). Seuls les KPIs existants seront mis à jour.
+    </p>
+    <form method="post" action="?page=kpi&action=import-csv" enctype="multipart/form-data" style="display:flex; gap:12px; align-items:end;">
+        <?= csrfField() ?>
+        <div>
+            <label style="font-size:12px; font-weight:600; display:block; margin-bottom:4px;">Fichier CSV</label>
+            <input type="file" name="csv_file" accept=".csv,.txt" required style="font-size:13px;">
+        </div>
+        <button type="submit" class="btn btn-primary" onclick="return confirm('Mettre à jour les KPIs depuis ce fichier CSV ?')">Lancer l'import</button>
+    </form>
+</div>
+
+<style>.hidden { display: none !important; }</style>
 
 <p class="admin-info">
     <?= $public_count ?> / <?= $MAX_PUBLIC ?> KPIs visibles sur la homepage.

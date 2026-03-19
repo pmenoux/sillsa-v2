@@ -123,6 +123,70 @@ $role = $_SESSION['admin_role'] ?? 'editor';
                 <strong>Attention :</strong> La homepage affiche au maximum 8 KPIs visibles. Si vous en activez plus de 8, seuls les 8 premiers (par ordre) seront affichés.
             </div>
 
+            <div class="guide-card guide-card--highlight">
+                <h3>Origine des données — Qui met à jour quoi ?</h3>
+                <table>
+                    <thead><tr><th>Catégorie</th><th>Source</th><th>Responsable</th><th>Fréquence</th></tr></thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Patrimoine</strong><br><small>Immeubles, lots, surfaces, valeurs</small></td>
+                            <td>Fichier Excel <code>Dashboard KPI SILL SA.xlsx</code><br>Onglet « Patrimoine »</td>
+                            <td>Samuel Varone</td>
+                            <td>Annuel (mars, après clôture)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Finance</strong><br><small>État locatif, rendements, dette</small></td>
+                            <td>Fichier Excel <code>Dashboard KPI SILL SA.xlsx</code><br>Onglet « Rendement / Finance »</td>
+                            <td>Samuel Varone</td>
+                            <td>Annuel (mars)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Marché locatif</strong><br><small>Vacance, loyers, hausse</small></td>
+                            <td>Comparis, Homegate, État de Vaud<br>Notion « KPI PMx — Tableau de bord stratégique »</td>
+                            <td>Pierre Menoux</td>
+                            <td>Semestriel (mars / septembre)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Taux et financement</strong><br><small>Taux réf., BNS, inflation</small></td>
+                            <td>OFL, BNS, OFS<br>Notion « KPI PMx — Tableau de bord stratégique »</td>
+                            <td>Pierre Menoux</td>
+                            <td>Trimestriel (après décision BNS)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Énergie (tarifs)</strong><br><small>Électricité, CAD, gaz SiL</small></td>
+                            <td>Services industriels de Lausanne (SiL)<br>Tarifs annuels publiés en octobre</td>
+                            <td>Pierre Menoux</td>
+                            <td>Annuel (janvier, nouveaux tarifs)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Énergie (SILL)</strong><br><small>IDC, CO2, consommation</small></td>
+                            <td>Rapport Signa-Terre SA / PwC (ISAE 3000)<br>Fichier Excel <code>Dashboard KPI SILL SA.xlsx</code></td>
+                            <td>Samuel Varone</td>
+                            <td>Annuel (mars, après rapport)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Social</strong><br><small>Loyer net moyen, types LUP</small></td>
+                            <td>États locatifs SILL SA 2026<br>Fichier Excel <code>Dashboard KPI SILL SA.xlsx</code></td>
+                            <td>Samuel Varone</td>
+                            <td>Annuel (mars)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="guide-card">
+                <h3>Mise à jour rapide depuis le fichier Excel</h3>
+                <p>Pour les KPIs issus du fichier <code>Dashboard KPI SILL SA.xlsx</code>, un outil de synchronisation est disponible dans la section <strong>KPIs</strong> du backend :</p>
+                <ol>
+                    <li>Samuel exporte l'onglet KPI au format <strong>CSV</strong> (point-virgule, UTF-8)</li>
+                    <li>Dans le backend, section KPIs, cliquer sur <strong>« Importer CSV »</strong></li>
+                    <li>Sélectionner le fichier CSV</li>
+                    <li>Prévisualiser les changements (valeurs actuelles vs nouvelles)</li>
+                    <li>Confirmer la mise à jour</li>
+                </ol>
+                <p>Le format CSV attendu : <code>kpi_key;value_num;value_text;unit;label</code></p>
+            </div>
+
             <div class="guide-fields">
                 <h3>Champs disponibles</h3>
                 <table>
