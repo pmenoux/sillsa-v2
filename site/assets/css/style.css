@@ -2781,6 +2781,287 @@ main {
 }
 
 /* --------------------------------------------------------------------------
+   19d. En bref — Fiche signalétique AMAS
+   -------------------------------------------------------------------------- */
+
+/* Print-only header (hidden on screen) */
+.enbref-print-header {
+  display: none;
+}
+
+/* ── Hero KPI strip ── */
+.enbref-hero {
+  padding: 48px 0 40px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.enbref-hero-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+  text-align: center;
+}
+
+.enbref-hero-kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.enbref-hero-value {
+  font-family: var(--font-heading);
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 200;
+  line-height: 1.1;
+  color: var(--color-heading);
+  letter-spacing: -0.02em;
+}
+
+.enbref-hero-kpi--accent .enbref-hero-value {
+  color: var(--color-accent);
+}
+
+.enbref-hero-label {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-muted);
+}
+
+/* ── Sections ── */
+.section-enbref {
+  padding: 48px 0 56px;
+}
+
+.section-enbref--alt {
+  background: var(--color-bg-warm, #F5F0EB);
+}
+
+/* ── Charts grid ── */
+.enbref-charts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+
+.enbref-chart-block {
+  min-height: 300px;
+}
+
+.enbref-chart-block canvas {
+  max-height: 260px;
+}
+
+/* ── Répartition layout (table + doughnut) ── */
+.enbref-repart-layout {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 40px;
+  align-items: start;
+}
+
+.enbref-repart-chart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.enbref-repart-chart canvas {
+  max-height: 220px;
+}
+
+/* ── Value accent ── */
+.enbref-value--accent {
+  font-weight: 700;
+  color: var(--color-accent) !important;
+}
+
+/* ── Actions row ── */
+.enbref-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+/* ── Disclaimer (en bas) ── */
+.enbref-disclaimer {
+  background: transparent;
+  border-left: 4px solid var(--color-accent);
+  padding: 16px 24px;
+  margin-top: 40px;
+  margin-bottom: 0;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--color-muted);
+}
+
+.enbref-disclaimer a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.enbref-disclaimer a:hover {
+  text-decoration: underline;
+}
+
+/* ── Blocks ── */
+.enbref-block {
+  margin-bottom: 40px;
+  page-break-inside: avoid;
+}
+
+.enbref-section-title {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-heading);
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--color-heading);
+  margin-bottom: 20px;
+}
+
+/* ── Tables ── */
+.enbref-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.enbref-table td,
+.enbref-table th {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--fs-base);
+  line-height: 1.5;
+}
+
+.enbref-label {
+  width: 50%;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.enbref-value {
+  text-align: right;
+  color: var(--color-body);
+}
+
+/* Répartition table */
+.enbref-table--repartition th {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-muted);
+  padding: 8px 16px;
+  border-bottom: 2px solid var(--color-heading);
+  text-align: right;
+}
+
+.enbref-table--repartition th:first-child {
+  text-align: left;
+}
+
+.enbref-table--repartition td {
+  text-align: right;
+}
+
+.enbref-table--repartition td:first-child {
+  text-align: left;
+}
+
+.enbref-table--repartition tfoot td {
+  border-top: 2px solid var(--color-heading);
+  border-bottom: none;
+  font-weight: 700;
+}
+
+/* Sources */
+.enbref-sources-block {
+  margin-top: 40px;
+  padding: 16px 20px;
+  background: var(--color-bg-warm, #F5F0EB);
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--color-muted);
+}
+
+.enbref-sources {
+  font-size: 12px;
+  color: var(--color-muted);
+}
+
+/* Bouton export PDF */
+.btn-print {
+  display: inline-block;
+  margin-top: 32px;
+  padding: 10px 24px;
+  font-family: var(--font-heading);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-heading);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: border-color var(--transition), color var(--transition);
+}
+
+.btn-print:hover {
+  border-color: var(--color-heading);
+  color: var(--color-accent);
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .enbref-hero-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 16px;
+  }
+  .enbref-hero-grid > :last-child {
+    grid-column: 1 / -1;
+  }
+  .enbref-hero-value {
+    font-size: 36px;
+  }
+  .enbref-charts-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .enbref-repart-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .enbref-table td,
+  .enbref-table th {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+  .enbref-label {
+    width: 45%;
+  }
+  .enbref-actions {
+    flex-direction: column;
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .enbref-hero-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .enbref-charts-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+/* --------------------------------------------------------------------------
    20. Print
    -------------------------------------------------------------------------- */
 @media print {
@@ -2860,6 +3141,71 @@ main {
   img {
     max-width: 100% !important;
     page-break-inside: avoid;
+  }
+
+  /* En bref — A4 portrait */
+  .enbref-print-header {
+    display: flex !important;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #000;
+  }
+  .enbref-print-header img {
+    height: 40px !important;
+  }
+  .enbref-print-header div {
+    font-size: 10pt;
+    line-height: 1.4;
+  }
+  .btn-print {
+    display: none !important;
+  }
+  .enbref-disclaimer {
+    border-left: 3px solid #000 !important;
+    background: #f5f5f5 !important;
+    font-size: 9pt;
+    padding: 12px 16px;
+  }
+  .enbref-block {
+    page-break-inside: avoid;
+  }
+  .enbref-section-title {
+    color: #000 !important;
+    border-bottom: 1px solid #000 !important;
+    font-size: 12pt;
+  }
+  .enbref-table td,
+  .enbref-table th {
+    padding: 6px 12px;
+    font-size: 10pt;
+  }
+  .enbref-table--repartition th {
+    font-size: 8pt;
+  }
+  .enbref-sources-block {
+    background: #f5f5f5 !important;
+    font-size: 8pt;
+  }
+  .breadcrumb {
+    display: none !important;
+  }
+  .page-update {
+    display: none !important;
+  }
+  .page-header {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+  .section-enbref {
+    padding-top: 0 !important;
+  }
+  .enbref-disclaimer a::after {
+    content: none !important;
+  }
+  .enbref-sources-block a::after {
+    content: none !important;
   }
 }
 

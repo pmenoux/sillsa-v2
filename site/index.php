@@ -85,8 +85,12 @@ if ($page === 'chronologie') {
     exit;
 }
 
+// En bref — fiche signalétique AMAS (sous-page contexte)
+if ($page === 'contexte' && $slug === 'en-bref') {
+    $template = 'templates/en-bref.php';
+}
 // Portefeuille detail route
-if ($page === 'portefeuille' && $slug) {
+elseif ($page === 'portefeuille' && $slug) {
     $template = 'templates/immeuble.php';
 } else {
     $template = $routes[$page] ?? null;

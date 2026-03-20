@@ -1,5 +1,24 @@
 # CHANGELOG — SILL SA Refonte 2026
 
+## [2026-03-20] — Page frontend « En bref » + bascule sillsa.ch
+
+### Page publique En bref — Fiche signalétique AMAS
+- Nouvelle page `/contexte/en-bref` — fiche signalétique publique Swiss Design
+- Route ajoutée dans `index.php` (sous-page de contexte)
+- Template `templates/en-bref.php` avec données BDD (KPIs + répartition locative)
+- **Benchmark fonds résidentiels suisses** : layout inspiré FIR, La Foncière, Patrimonium
+- Hero KPI strip : 5 gros chiffres animés en bandeau (développements, logements, surface, LUP %, état locatif)
+- 3 graphiques Chart.js : benchmark SILL vs marché lausannois (horizontal bar), évolution du parc (bar cumulé), doughnut répartition par affectation
+- Sections alternées (fond blanc / gris perlé) pour rythme visuel
+- Disclaimer déplacé en bas de page (pattern standard fonds cotés)
+- Choix éditorial : pas de rendements bruts/nets (SA non cotée), segment "Résidentiel"
+- CSS `.enbref-*` complet : hero grid, charts grid, répartition layout table+doughnut, responsive mobile/tablette
+- Export PDF A4 via `window.print()` — en-tête print avec logo SILL
+- Lien "Rapports annuels" vers publications
+
+### Bascule SITE_URL 26.sillsa.ch → sillsa.ch
+- `config.php` : SITE_URL mis à jour vers `https://sillsa.ch`
+
 ## [2026-03-20] — Répartition locative admin + correction Dashboard KPI
 
 ### Page admin Répartition locative
