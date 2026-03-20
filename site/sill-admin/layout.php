@@ -5,6 +5,7 @@
 $pageTitles = [
     'dashboard'    => 'Tableau de bord',
     'kpi'          => 'KPIs',
+    'repartition'  => 'Répartition locative',
     'pages'        => 'Pages',
     'immeubles'    => 'Immeubles',
     'timeline'     => 'Actualités',
@@ -70,6 +71,7 @@ $flash = getFlash();
     <nav class="topbar-nav">
         <a href="?page=dashboard"<?= $page === 'dashboard' ? ' class="active"' : '' ?>>Tableau de bord</a>
         <a href="?page=kpi"<?= $page === 'kpi' ? ' class="active"' : '' ?>>KPIs</a>
+        <a href="?page=repartition"<?= $page === 'repartition' ? ' class="active"' : '' ?>>Répartition</a>
         <a href="?page=pages"<?= $page === 'pages' ? ' class="active"' : '' ?>>Pages</a>
         <a href="?page=immeubles"<?= $page === 'immeubles' ? ' class="active"' : '' ?>>Immeubles</a>
         <a href="?page=timeline"<?= $page === 'timeline' ? ' class="active"' : '' ?>>Actualités</a>

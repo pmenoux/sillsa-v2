@@ -1,5 +1,20 @@
 # CHANGELOG — SILL SA Refonte 2026
 
+## [2026-03-20] — Répartition locative admin + correction Dashboard KPI
+
+### Page admin Répartition locative
+- Nouvelle page `sill-admin/repartition.php` — tableau de contrôle par affectation
+- Table `sill_repartition_locative` (auto-créée) : affectation, nb_logements, surface, loyer
+- Parts calculées automatiquement sur le nombre de logements (pas le loyer)
+- Import CSV + édition manuelle + ajout de lignes
+- Navigation ajoutée dans la topbar admin (entre KPIs et Pages)
+- Script SQL `004_repartition_locative.sql` avec données initiales (6 affectations, 834 logements)
+
+### Correction Dashboard KPI SILL SA.xlsx
+- Etudiants : 42 → 141 logements (Berne 309/311/313 comptés comme 1 lot au lieu de 38/37/27)
+- Fusion « activités » (6 lots) dans « Activité » (21 → 27 lots) — erreur de casse
+- Colonne « Part du loyer » recalculée en « Part (logements) » — base = nb logements
+
 ## [2026-03-19] — Authentification Azure AD + fix backend URLs
 
 ### Authentification Microsoft Azure AD (Entra ID)

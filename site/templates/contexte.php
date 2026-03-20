@@ -10,6 +10,27 @@ $kpiSill = query(
     "SELECT * FROM sill_kpi WHERE category = 'sill' AND is_public = 1 ORDER BY sort_order"
 );
 
+// Répartition locative — depuis BDD (fusionné pour affichage graphique)
+$repartRaw = query("SELECT * FROM sill_repartition_locative ORDER BY nb_logements DESC");
+$repartChart = [
+    'LLM'       => 0,
+    'LLA'       => 0,  // inclut LLA-protégé
+    'LM'        => 0,  // = LML
+    'Etudiants' => 0,
+    'Activite'  => 0,
+];
+foreach ($repartRaw as $r) {
+    $a = $r['affectation'];
+    if ($a === 'LLM')                          $repartChart['LLM']       += (int) $r['nb_logements'];
+    elseif ($a === 'LLA' || $a === 'LLA - protégé') $repartChart['LLA'] += (int) $r['nb_logements'];
+    elseif ($a === 'LML')                      $repartChart['LM']        += (int) $r['nb_logements'];
+    elseif ($a === 'Etudiants')                $repartChart['Etudiants'] += (int) $r['nb_logements'];
+    elseif ($a === 'Activité')                 $repartChart['Activite']  += (int) $r['nb_logements'];
+}
+$repartTotal = array_sum($repartChart);
+$repartLUP   = $repartChart['LLM'] + $repartChart['LLA'];
+$repartLUPpct = $repartTotal > 0 ? round($repartLUP / $repartTotal * 100) : 0;
+
 // Regrouper marché par catégorie
 $marcheItems = $energieItems = [];
 foreach ($kpiMarche as $k) {
@@ -179,13 +200,13 @@ function renderMarcheDatum($k, $haussePrefixKeys = []) {
              ────────────────────────────────────────────────────────── -->
         <div class="loyer-types reveal">
             <h3 class="loyer-types-title">Répartition des types de loyers</h3>
-            <p class="loyer-types-subtitle">834 lots — État locatif 2026</p>
+            <p class="loyer-types-subtitle"><?= number_format($repartTotal - $repartChart['Activite'], 0, '.', "'") ?> logements + <?= $repartChart['Activite'] ?> lots d'activités — État locatif 2026</p>
 
             <!-- Camembert global + Barres par projet -->
             <div class="loyer-charts-grid">
                 <div class="loyer-chart-donut">
                     <canvas id="chartLoyerDonut"></canvas>
-                    <p class="loyer-types-note"><abbr title="Logements d'utilité publique">LUP</abbr> (<abbr title="Loyer libre modéré">LLM</abbr> + <abbr title="Loyer libre abordable">LLA</abbr>) : 608 lots — 73 % du parc</p>
+                    <p class="loyer-types-note"><abbr title="Logements d'utilité publique">LUP</abbr> (<abbr title="Loyer libre modéré">LLM</abbr> + <abbr title="Loyer libre abordable">LLA</abbr>) : <?= number_format($repartLUP, 0, '.', "'") ?> logements — <?= $repartLUPpct ?> % du parc</p>
                 </div>
                 <div class="loyer-chart-bars">
                     <canvas id="chartLoyerProjets"></canvas>
@@ -341,7 +362,9 @@ function initMarcheCharts() {
   var colorEtud = '#D8D8D8';      // gris clair — Étudiants
   var colorAct  = '#1A1A1A';      // noir — Activités
 
-  /* ── Camembert (donut) — répartition globale ── */
+  /* ── Camembert (donut) — répartition globale (données BDD) ── */
+  var donutData = <?= json_encode(array_values($repartChart)) ?>;
+  var donutTotal = <?= $repartTotal ?>;
   var donutCtx = document.getElementById('chartLoyerDonut');
   if (donutCtx) {
     new Chart(donutCtx, {
@@ -349,7 +372,7 @@ function initMarcheCharts() {
       data: {
         labels: ['LLM — Loyer modéré', 'LLA — Loyer abordable', 'LM — Loyer libre', 'Étudiants', 'Activités'],
         datasets: [{
-          data: [303, 305, 58, 141, 27],
+          data: donutData,
           backgroundColor: [colorLLM, colorLLA, colorLM, colorEtud, colorAct],
           borderWidth: 2,
           borderColor: '#fff',
@@ -380,8 +403,9 @@ function initMarcheCharts() {
             callbacks: {
               label: function (ctx) {
                 var v = ctx.parsed;
-                var pct = ((v / 834) * 100).toFixed(1);
-                return ctx.label + ' : ' + v + ' lots (' + pct + ' %)';
+                var pct = ((v / donutTotal) * 100).toFixed(1);
+                var unit = (ctx.dataIndex === 4) ? ' lots' : ' logements';
+                return ctx.label + ' : ' + v + unit + ' (' + pct + ' %)';
               }
             }
           },
@@ -392,7 +416,7 @@ function initMarcheCharts() {
             },
             font: { family: fontHeading, size: 12, weight: 600 },
             formatter: function (value) {
-              var pct = ((value / 834) * 100).toFixed(0);
+              var pct = ((value / donutTotal) * 100).toFixed(0);
               return pct + '%';
             },
             display: function (ctx) {
@@ -472,7 +496,8 @@ function initMarcheCharts() {
             callbacks: {
               label: function (ctx) {
                 if (ctx.parsed.x === 0) return null;
-                return ctx.dataset.label + ' : ' + ctx.parsed.x + ' lots';
+                var unit = (ctx.dataset.label === 'Activités') ? ' lots' : ' logements';
+                return ctx.dataset.label + ' : ' + ctx.parsed.x + unit;
               }
             }
           },
