@@ -10,6 +10,13 @@
 - Navigation ajoutée dans la topbar admin (entre KPIs et Pages)
 - Script SQL `004_repartition_locative.sql` avec données initiales (6 affectations, 834 logements)
 
+### Page admin « En bref — AMAS »
+- Fiche signalétique conforme aux directives de publication AMAS (ex-SFAMA)
+- 7 sections : informations générales, portefeuille, évaluation/rendements, financement, charges, répartition, ESG
+- Données calculées depuis BDD (KPIs + répartition locative)
+- Contrôles de cohérence automatiques (écarts état locatif, logements, surface)
+- KPIs manquants signalés en rouge — liens directs vers les pages de gestion
+
 ### Correction Dashboard KPI SILL SA.xlsx
 - Etudiants : 42 → 141 logements (Berne 309/311/313 comptés comme 1 lot au lieu de 38/37/27)
 - Fusion « activités » (6 lots) dans « Activité » (21 → 27 lots) — erreur de casse
