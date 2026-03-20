@@ -11,24 +11,31 @@ $kpiSill = query(
 );
 
 // Répartition locative — depuis BDD (fusionné pour affichage graphique)
-$repartRaw = query("SELECT * FROM sill_repartition_locative ORDER BY nb_logements DESC");
-$repartChart = [
+// Proportions calculées sur le loyer annuel net (directives fonds immobiliers CH)
+$repartRaw = query("SELECT * FROM sill_repartition_locative ORDER BY loyer_annuel_net DESC");
+$repartLoyer = [
     'LLM'       => 0,
     'LLA'       => 0,  // inclut LLA-protégé
     'LM'        => 0,  // = LML
     'Etudiants' => 0,
     'Activite'  => 0,
 ];
+$repartLogements = 0;
+$repartLotsActivite = 0;
 foreach ($repartRaw as $r) {
     $a = $r['affectation'];
-    if ($a === 'LLM')                          $repartChart['LLM']       += (int) $r['nb_logements'];
-    elseif ($a === 'LLA' || $a === 'LLA - protégé') $repartChart['LLA'] += (int) $r['nb_logements'];
-    elseif ($a === 'LML')                      $repartChart['LM']        += (int) $r['nb_logements'];
-    elseif ($a === 'Etudiants')                $repartChart['Etudiants'] += (int) $r['nb_logements'];
-    elseif ($a === 'Activité')                 $repartChart['Activite']  += (int) $r['nb_logements'];
+    $loyer = (float) $r['loyer_annuel_net'];
+    $nb    = (int) $r['nb_logements'];
+    if ($a === 'LLM')                                $repartLoyer['LLM']       += $loyer;
+    elseif ($a === 'LLA' || $a === 'LLA - protégé') $repartLoyer['LLA']       += $loyer;
+    elseif ($a === 'LML')                            $repartLoyer['LM']        += $loyer;
+    elseif ($a === 'Etudiants')                      $repartLoyer['Etudiants'] += $loyer;
+    elseif ($a === 'Activité')                       { $repartLoyer['Activite'] += $loyer; $repartLotsActivite += $nb; }
+    if ($a !== 'Activité') $repartLogements += $nb;
+    else $repartLotsActivite = $nb;
 }
-$repartTotal = array_sum($repartChart);
-$repartLUP   = $repartChart['LLM'] + $repartChart['LLA'];
+$repartTotal = array_sum($repartLoyer);
+$repartLUP   = $repartLoyer['LLM'] + $repartLoyer['LLA'];
 $repartLUPpct = $repartTotal > 0 ? round($repartLUP / $repartTotal * 100) : 0;
 
 // Regrouper marché par catégorie
@@ -200,13 +207,13 @@ function renderMarcheDatum($k, $haussePrefixKeys = []) {
              ────────────────────────────────────────────────────────── -->
         <div class="loyer-types reveal">
             <h3 class="loyer-types-title">Répartition des types de loyers</h3>
-            <p class="loyer-types-subtitle"><?= number_format($repartTotal - $repartChart['Activite'], 0, '.', "'") ?> logements + <?= $repartChart['Activite'] ?> lots d'activités — État locatif 2026</p>
+            <p class="loyer-types-subtitle"><?= number_format($repartLogements, 0, '.', "'") ?> logements + <?= $repartLotsActivite ?> lots d'activités — État locatif 2026</p>
 
             <!-- Camembert global + Barres par projet -->
             <div class="loyer-charts-grid">
                 <div class="loyer-chart-donut">
                     <canvas id="chartLoyerDonut"></canvas>
-                    <p class="loyer-types-note"><abbr title="Logements d'utilité publique">LUP</abbr> (<abbr title="Loyer libre modéré">LLM</abbr> + <abbr title="Loyer libre abordable">LLA</abbr>) : <?= number_format($repartLUP, 0, '.', "'") ?> logements — <?= $repartLUPpct ?> % du parc</p>
+                    <p class="loyer-types-note"><abbr title="Logements d'utilité publique">LUP</abbr> (<abbr title="Loyer libre modéré">LLM</abbr> + <abbr title="Loyer libre abordable">LLA</abbr>) : <?= $repartLUPpct ?> % du loyer annuel net</p>
                 </div>
                 <div class="loyer-chart-bars">
                     <canvas id="chartLoyerProjets"></canvas>
@@ -214,7 +221,7 @@ function renderMarcheDatum($k, $haussePrefixKeys = []) {
             </div>
         </div>
 
-        <p class="marche-sources">Rapport de surveillance énergétique : Signa-Terre SA / PwC (ISAE 3000) — Données financières : RA 2025 — États locatifs 2026</p>
+        <p class="marche-sources">Rapport de surveillance énergétique : Signa-Terre SA / PwC (ISAE 3000) — Données financières : RA 2025 — États locatifs 2026<br>Répartition par type de loyer : proportion du loyer annuel net (conformément aux directives de calcul pour les fonds immobiliers suisses)</p>
     </div>
 </section>
 <?php endif; ?>
@@ -362,8 +369,8 @@ function initMarcheCharts() {
   var colorEtud = '#D8D8D8';      // gris clair — Étudiants
   var colorAct  = '#1A1A1A';      // noir — Activités
 
-  /* ── Camembert (donut) — répartition globale (données BDD) ── */
-  var donutData = <?= json_encode(array_values($repartChart)) ?>;
+  /* ── Camembert (donut) — répartition par loyer annuel net (directives fonds immo CH) ── */
+  var donutData = <?= json_encode(array_values($repartLoyer)) ?>;
   var donutTotal = <?= $repartTotal ?>;
   var donutCtx = document.getElementById('chartLoyerDonut');
   if (donutCtx) {
@@ -404,8 +411,8 @@ function initMarcheCharts() {
               label: function (ctx) {
                 var v = ctx.parsed;
                 var pct = ((v / donutTotal) * 100).toFixed(1);
-                var unit = (ctx.dataIndex === 4) ? ' lots' : ' logements';
-                return ctx.label + ' : ' + v + unit + ' (' + pct + ' %)';
+                var chf = (v / 1000).toFixed(0) + "'000 CHF";
+                return ctx.label + ' : ' + chf + ' (' + pct + ' %)';
               }
             }
           },

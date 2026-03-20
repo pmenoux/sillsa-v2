@@ -13,7 +13,13 @@
 ### Correction Dashboard KPI SILL SA.xlsx
 - Etudiants : 42 → 141 logements (Berne 309/311/313 comptés comme 1 lot au lieu de 38/37/27)
 - Fusion « activités » (6 lots) dans « Activité » (21 → 27 lots) — erreur de casse
-- Colonne « Part du loyer » recalculée en « Part (logements) » — base = nb logements
+- Proportions recalculées sur le **loyer annuel net** (directives fonds immobiliers suisses)
+- Wording : « logements » pour habitation, « lots » pour activités
+
+### Conformité directives fonds immobiliers CH
+- Graphique doughnut contexte.php : proportions sur loyer annuel net (pas nb objets)
+- Tooltips en CHF, note LUP en % du loyer annuel
+- Mention méthodologique dans les sources de la page contexte
 
 ## [2026-03-19] — Authentification Azure AD + fix backend URLs
 

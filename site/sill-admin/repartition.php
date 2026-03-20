@@ -277,7 +277,8 @@ foreach ($rows as $r) {
 </div>
 
 <p class="admin-info">
-    Répartition par type d'affectation — <?= count($rows) ?> catégories, <?= number_format($totalLogements, 0, '.', "'") ?> logements, <?= number_format($totalLoyer, 0, '.', "'") ?> CHF loyer annuel net.
+    Répartition par type d'affectation — <?= count($rows) ?> catégories, <?= number_format($totalLogements, 0, '.', "'") ?> logements, <?= number_format($totalLoyer, 0, '.', "'") ?> CHF loyer annuel net.<br>
+    <em>Proportions calculées sur le loyer annuel net (directives de calcul pour les fonds immobiliers suisses).</em>
 </p>
 
 <?php if (empty($rows)): ?>
@@ -290,10 +291,10 @@ foreach ($rows as $r) {
             <tr>
                 <th>Affectation</th>
                 <th style="text-align:right">Nb logements</th>
-                <th style="text-align:right">Part (logements)</th>
                 <th style="text-align:right">Surface m²</th>
                 <th style="text-align:right">Loyer annuel net</th>
                 <th style="text-align:right">Part (loyer)</th>
+                <th style="text-align:right">Part (logements)</th>
                 <th style="text-align:right">Loyer net /m²</th>
                 <th>Actions</th>
             </tr>
@@ -307,10 +308,10 @@ foreach ($rows as $r) {
             <tr>
                 <td><strong><?= e($r['affectation']) ?></strong></td>
                 <td style="text-align:right"><?= number_format((int) $r['nb_logements'], 0, '.', "'") ?></td>
-                <td style="text-align:right; font-weight:600; color:var(--admin-accent, #0047BB)"><?= number_format($partLog * 100, 1, '.', '') ?> %</td>
                 <td style="text-align:right"><?= number_format((float) $r['surface_m2'], 1, '.', "'") ?></td>
                 <td style="text-align:right"><?= number_format((float) $r['loyer_annuel_net'], 0, '.', "'") ?></td>
-                <td style="text-align:right; color:#666"><?= number_format($partLoy * 100, 1, '.', '') ?> %</td>
+                <td style="text-align:right; font-weight:600; color:var(--admin-accent, #0047BB)"><?= number_format($partLoy * 100, 1, '.', '') ?> %</td>
+                <td style="text-align:right; color:#666"><?= number_format($partLog * 100, 1, '.', '') ?> %</td>
                 <td style="text-align:right; color:#666"><?= number_format($loyerM2, 0, '.', "'") ?></td>
                 <td class="cell-actions" style="white-space:nowrap">
                     <a href="?page=repartition&action=edit&id=<?= (int) $r['id'] ?>" class="btn btn-sm btn-secondary">Modifier</a>
@@ -330,9 +331,9 @@ foreach ($rows as $r) {
             <tr style="font-weight:700; border-top:2px solid #000;">
                 <td>TOTAL</td>
                 <td style="text-align:right"><?= number_format($totalLogements, 0, '.', "'") ?></td>
-                <td style="text-align:right">100 %</td>
                 <td style="text-align:right"><?= number_format($totalSurface, 1, '.', "'") ?></td>
                 <td style="text-align:right"><?= number_format($totalLoyer, 0, '.', "'") ?></td>
+                <td style="text-align:right">100 %</td>
                 <td style="text-align:right">100 %</td>
                 <td style="text-align:right"><?= $totalSurface > 0 ? number_format($totalLoyer / $totalSurface, 0, '.', "'") : '—' ?></td>
                 <td></td>
