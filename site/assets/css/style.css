@@ -2821,6 +2821,17 @@ main {
   color: var(--color-accent);
 }
 
+.enbref-hero-unit {
+  font-size: 0.5em;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--color-muted);
+}
+
+.enbref-hero-kpi--accent .enbref-hero-unit {
+  color: var(--color-accent);
+}
+
 .enbref-hero-label {
   font-family: var(--font-heading);
   font-size: 11px;

@@ -95,18 +95,15 @@ function kvPublic($kpiMap, $key) {
                 <span class="enbref-hero-label">logements &amp; lots</span>
             </div>
             <div class="enbref-hero-kpi">
-                <span class="enbref-hero-value" data-count="<?= round($totalSurface) ?>"
-                      data-suffix="m&sup2;">0</span>
+                <span class="enbref-hero-value"><span data-count="<?= round($totalSurface) ?>">0</span> <span class="enbref-hero-unit">m&sup2;</span></span>
                 <span class="enbref-hero-label">surface locative</span>
             </div>
             <div class="enbref-hero-kpi enbref-hero-kpi--accent">
-                <span class="enbref-hero-value" data-count="<?= round($pctLUP, 1) ?>"
-                      data-decimals="1" data-suffix="%">0</span>
+                <span class="enbref-hero-value"><span data-count="<?= round($pctLUP, 1) ?>" data-decimals="1">0</span><span class="enbref-hero-unit">&nbsp;%</span></span>
                 <span class="enbref-hero-label">logements d'utilit&eacute; publique</span>
             </div>
             <div class="enbref-hero-kpi">
-                <span class="enbref-hero-value" data-count="<?= round($totalLoyer / 1e6, 1) ?>"
-                      data-decimals="1" data-suffix="M&nbsp;CHF">0</span>
+                <span class="enbref-hero-value"><span data-count="<?= round($totalLoyer / 1e6, 1) ?>" data-decimals="1">0</span> <span class="enbref-hero-unit">M&nbsp;CHF</span></span>
                 <span class="enbref-hero-label">&eacute;tat locatif net annuel</span>
             </div>
         </div>
@@ -450,14 +447,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ── Hero KPI count-up animation ──
-    const heroValues = document.querySelectorAll('.enbref-hero-value[data-count]');
+    const heroValues = document.querySelectorAll('[data-count]');
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (!entry.isIntersecting) return;
             const el = entry.target;
             const target = parseFloat(el.dataset.count);
             const decimals = parseInt(el.dataset.decimals || '0');
-            const suffix = el.dataset.suffix || '';
             const duration = 1200;
             const start = performance.now();
 
@@ -466,10 +462,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 const progress = Math.min(elapsed / duration, 1);
                 const eased = 1 - Math.pow(1 - progress, 3);
                 const current = target * eased;
-                const formatted = decimals > 0
+                el.textContent = decimals > 0
                     ? current.toFixed(decimals)
                     : swiss(Math.round(current));
-                el.innerHTML = formatted + (suffix ? '&nbsp;' + suffix : '');
                 if (progress < 1) requestAnimationFrame(animate);
             }
             requestAnimationFrame(animate);
