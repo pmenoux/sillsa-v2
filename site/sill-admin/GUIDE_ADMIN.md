@@ -124,6 +124,50 @@ Gestion des rubriques de la navigation principale du site :
 
 ---
 
+## Calcul de la densité d'occupation (page En bref)
+
+La note ESG affiche une densité d'occupation estimée à **24.7 m²/hab.** (vs 40 m²/hab. norme SIA 380/1).
+
+### Méthodologie
+
+1. **Source** : base FileMaker `SILL-DATAS-GLOBAL-PROD-220812`, layout `PRINT_EL` (842 lots)
+2. **Typologies** : champ `Qpieces` (nombre de pièces) × surface `SUP_SIA_416`
+3. **Personnes par logement** selon directive d'attribution VdL :
+
+| Typologie | PPM (personnes max) |
+|---|---|
+| 1.0 – 1.5 pièces | 1 |
+| 2.5 pièces | 2 |
+| 3.5 pièces | 4 |
+| 4.5 pièces | 4 |
+| 5.5 pièces | 8 |
+
+4. **Coefficients d'occupation réaliste** par affectation :
+
+| Affectation | Coefficient | Justification |
+|---|---|---|
+| Loyer modéré (LLM) | 90% | Attribution stricte, familles |
+| Loyer abordable (LLA) | 80% | Critères d'attribution, plus de flexibilité |
+| Loyer protégé | 85% | Petits logements (2.5–3.5p) |
+| Loyer marché (LML) | 80% | Moins contraint mais logements familiaux |
+| Logement étudiant | 98% | Pénurie absolue de logements étudiants |
+
+5. **Résultats** (804 logements, 59'063 m²) :
+   - Occupation max directive : **21.0 m²/hab.** (3'182 → 2'816 hab. avec PPM corrigé)
+   - Occupation pondérée : **24.7 m²/hab.** (2'389 hab. estimés)
+   - Référence SIA 380/1 : **40.0 m²/hab.**
+
+### Mise à jour
+
+Le chiffre 24.7 est actuellement hardcodé dans `templates/en-bref.php`. Pour recalculer :
+- Exporter les lots depuis FileMaker (API Data ou CSV)
+- Appliquer les PPM × coefficients ci-dessus
+- Mettre à jour la valeur dans le template
+
+Les données de référence (Samuel / Dashboard KPI Excel) font foi pour les loyers. FileMaker fait foi pour les typologies et surfaces physiques.
+
+---
+
 ## Notes techniques
 
 - Le back-office est accessible uniquement via `/sill-admin/`
