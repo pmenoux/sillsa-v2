@@ -65,6 +65,7 @@ if ($page === 'api' && ($segments[1] ?? '') === 'immeuble' && ($segments[2] ?? '
 $routes = [
     'accueil'                => 'templates/accueil.php',
     ''                       => 'templates/accueil.php',
+    'en-bref'                => 'templates/en-bref.php',
     'la-societe'             => 'templates/la-societe.php',
     'conseil-administration' => 'templates/ca.php',
     'organisation'           => 'templates/organisation.php',
@@ -85,9 +86,10 @@ if ($page === 'chronologie') {
     exit;
 }
 
-// En bref — fiche signalétique AMAS (sous-page contexte)
+// En bref — fiche signalétique AMAS (ancienne URL redirige)
 if ($page === 'contexte' && $slug === 'en-bref') {
-    $template = 'templates/en-bref.php';
+    header('Location: ' . SITE_URL . '/en-bref', true, 301);
+    exit;
 }
 // Portefeuille detail route
 elseif ($page === 'portefeuille' && $slug) {

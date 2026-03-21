@@ -53,6 +53,25 @@ foreach ($repart as $i => $r) {
     $doughnutValues[] = round($part, 1);
 }
 
+// ── Données ESG pour benchmarks ──
+$sillIDC   = isset($kpiMap['sill_idc']) ? (float)$kpiMap['sill_idc']['value_num'] : null;
+$sillCO2   = isset($kpiMap['sill_co2']) ? (float)$kpiMap['sill_co2']['value_num'] : null;
+$sillConso = isset($kpiMap['conso_energie_m2']) ? (float)$kpiMap['conso_energie_m2']['value_num'] : null;
+
+// Benchmarks (réf. KBOB / Signa-Terre / moy. CH)
+$benchIDC    = 351;   // Benchmark Signa-Terre portefeuille résidentiel
+$benchCO2    = 28.75; // Réf. KBOB scope 1+2+3
+$benchConso  = 130;   // Moy. résidentiel suisse (OFS)
+$benchConsoMinergie = 60; // Standard Minergie
+
+// Distribution étiquettes IDC
+$etiquettesIDC = ['A' => 1, 'B' => 16, 'C' => 2];
+
+// Écarts calculés
+$ecartIDC   = $sillIDC   ? round((1 - $sillIDC / $benchIDC) * 100) : null;
+$ecartCO2   = $sillCO2   ? round((1 - $sillCO2 / $benchCO2) * 100) : null;
+$ecartConso = $sillConso  ? round((1 - $sillConso / $benchConso) * 100) : null;
+
 // Helper : valeur KPI formatée ou tiret
 function kvPublic($kpiMap, $key) {
     if (!isset($kpiMap[$key]) || $kpiMap[$key]['value_num'] === null) return '—';
@@ -73,7 +92,7 @@ function kvPublic($kpiMap, $key) {
 <!-- Page header -->
 <section class="page-header">
     <div class="container">
-        <nav class="breadcrumb"><a href="<?= SITE_URL ?>/">Accueil</a> / <a href="<?= SITE_URL ?>/contexte">Contexte</a> / En bref</nav>
+        <nav class="breadcrumb"><a href="<?= SITE_URL ?>/">Accueil</a> / En bref</nav>
         <h1>En bref</h1>
         <p class="page-chapeau">Fiche signal&eacute;tique — Chiffres cl&eacute;s SILL SA</p>
         <p class="page-update">Donn&eacute;es au 31 d&eacute;cembre 2025 — Comptes annuels audit&eacute;s</p>
@@ -248,22 +267,72 @@ function kvPublic($kpiMap, $key) {
 <section class="section-enbref section-enbref--alt">
     <div class="container">
 
+        <!-- Bandeau highlight ESG -->
+        <?php if ($ecartConso !== null): ?>
+        <div class="enbref-esg-highlight">
+            <span class="enbref-esg-label">Performance &eacute;nerg&eacute;tique</span>
+            <span class="enbref-esg-pct">&minus;&nbsp;<?= abs($ecartConso) ?>&nbsp;%</span>
+            <span class="enbref-esg-sub">sous la moyenne suisse en consommation &eacute;nerg&eacute;tique</span>
+        </div>
+        <?php endif; ?>
+
         <div class="enbref-block">
             <h2 class="enbref-section-title">Performance &eacute;nerg&eacute;tique &amp; ESG</h2>
-            <table class="enbref-table">
+            <table class="enbref-table enbref-table--esg">
+                <thead>
+                    <tr>
+                        <th>Indicateur</th>
+                        <th>SILL&nbsp;SA</th>
+                        <th>Moy. suisse</th>
+                        <th>&Eacute;cart</th>
+                    </tr>
+                </thead>
                 <tbody>
-                    <tr><td class="enbref-label">Indice de d&eacute;pense de chaleur (IDC)</td><td class="enbref-value"><?= kvPublic($kpiMap, 'sill_idc') ?></td></tr>
-                    <tr><td class="enbref-label">&Eacute;missions CO&#8322; scope 1+2</td><td class="enbref-value"><?= kvPublic($kpiMap, 'sill_co2') ?></td></tr>
-                    <tr><td class="enbref-label">Consommation &eacute;nerg&eacute;tique moyenne</td><td class="enbref-value"><?= kvPublic($kpiMap, 'conso_energie_m2') ?></td></tr>
-                    <tr><td class="enbref-label">Rapport de surveillance</td><td class="enbref-value">Signa-Terre SA / PwC (ISAE 3000)</td></tr>
+                    <tr>
+                        <td class="enbref-label">Indice de d&eacute;pense de chaleur (IDC)</td>
+                        <td class="enbref-value enbref-value--accent"><?= $sillIDC !== null ? $sillIDC . ' MJ/m&sup2;' : '&mdash;' ?></td>
+                        <td class="enbref-value"><?= $benchIDC ?> MJ/m&sup2;</td>
+                        <td class="enbref-ecart"><?= $ecartIDC !== null ? '&minus;' . abs($ecartIDC) . '&nbsp;%' : '&mdash;' ?></td>
+                    </tr>
+                    <tr>
+                        <td class="enbref-label">&Eacute;missions CO&#8322; scope 1+2</td>
+                        <td class="enbref-value enbref-value--accent"><?= $sillCO2 !== null ? $sillCO2 . ' kg/m&sup2;' : '&mdash;' ?></td>
+                        <td class="enbref-value"><?= $benchCO2 ?> kg/m&sup2;</td>
+                        <td class="enbref-ecart"><?= $ecartCO2 !== null ? '&minus;' . abs($ecartCO2) . '&nbsp;%' : '&mdash;' ?></td>
+                    </tr>
+                    <tr>
+                        <td class="enbref-label">Consommation &eacute;nerg&eacute;tique moy.</td>
+                        <td class="enbref-value enbref-value--accent"><?= $sillConso !== null ? $sillConso . ' kWh/m&sup2;' : '&mdash;' ?></td>
+                        <td class="enbref-value"><?= $benchConso ?> kWh/m&sup2;</td>
+                        <td class="enbref-ecart"><?= $ecartConso !== null ? '&minus;' . abs($ecartConso) . '&nbsp;%' : '&mdash;' ?></td>
+                    </tr>
+                    <tr>
+                        <td class="enbref-label">Rapport de surveillance</td>
+                        <td class="enbref-value" colspan="3">Signa-Terre SA / PwC (ISAE 3000)</td>
+                    </tr>
                 </tbody>
             </table>
+        </div>
+
+        <!-- Graphiques ESG -->
+        <div class="enbref-charts-grid">
+            <div class="enbref-chart-block">
+                <h2 class="enbref-section-title">SILL&nbsp;SA vs R&eacute;f&eacute;rences suisses</h2>
+                <canvas id="chart-esg-benchmark" height="260"></canvas>
+                <p class="enbref-sources">Sources : Signa-Terre / Greene Value 2024 — R&eacute;f. KBOB — OFS</p>
+            </div>
+            <div class="enbref-chart-block">
+                <h2 class="enbref-section-title">&Eacute;tiquettes &eacute;nerg&eacute;tiques IDC</h2>
+                <canvas id="chart-esg-etiquettes" height="260"></canvas>
+                <p class="enbref-sources"><?= array_sum($etiquettesIDC) ?> immeubles — <?= round(($etiquettesIDC['A'] + $etiquettesIDC['B']) / array_sum($etiquettesIDC) * 100) ?>&nbsp;% en A ou B</p>
+            </div>
         </div>
 
         <!-- Sources -->
         <div class="enbref-sources-block">
             <strong>Sources et m&eacute;thodologie</strong><br>
             Rapport annuel 2025 — &Eacute;tats locatifs au 31.12.2025 — Rapport Signa-Terre / PwC 2024<br>
+            Table-Energie Signa-Terre / Greene Value 2024 — R&eacute;f&eacute;rences KBOB — OFS statistiques de la construction<br>
             R&eacute;partition par affectation : proportion du loyer annuel net (directives AMAS)<br>
             Benchmark march&eacute; : OFS, Comparis, OFLP Lausanne (donn&eacute;es 2025)
         </div>
@@ -439,6 +508,111 @@ document.addEventListener('DOMContentLoaded', function() {
                         backgroundColor: '#1A1A1A',
                         callbacks: {
                             label: (ctx) => ctx.label + ' : ' + ctx.raw + ' %'
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // ── Benchmark ESG — Barres horizontales ──
+    const ctxESG = document.getElementById('chart-esg-benchmark');
+    if (ctxESG) {
+        new Chart(ctxESG, {
+            type: 'bar',
+            data: {
+                labels: ['IDC\nMJ/m²', 'CO₂\nkg/m²', 'Conso.\nkWh/m²'],
+                datasets: [
+                    {
+                        label: 'SILL SA',
+                        data: [<?= $sillIDC ?? 0 ?>, <?= $sillCO2 ?? 0 ?>, <?= $sillConso ?? 0 ?>],
+                        backgroundColor: '#FF0000',
+                        borderWidth: 0,
+                        barPercentage: 0.6
+                    },
+                    {
+                        label: 'Référence suisse',
+                        data: [<?= $benchIDC ?>, <?= $benchCO2 ?>, <?= $benchConso ?>],
+                        backgroundColor: '#999999',
+                        borderWidth: 0,
+                        barPercentage: 0.6
+                    }
+                ]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { family: "'Helvetica Neue', Helvetica, Arial, sans-serif", size: 11 },
+                            usePointStyle: true,
+                            pointStyle: 'rect',
+                            padding: 16
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: '#1A1A1A',
+                        titleFont: { family: "'Helvetica Neue', Helvetica, Arial, sans-serif", size: 12 },
+                        bodyFont: { family: "'Helvetica Neue', Helvetica, Arial, sans-serif", size: 12 }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { color: 'rgba(0,0,0,0.06)', drawBorder: false },
+                        ticks: {
+                            font: { family: "'Helvetica Neue', Helvetica, Arial, sans-serif", size: 11 }
+                        }
+                    },
+                    y: {
+                        grid: { display: false },
+                        ticks: {
+                            font: { family: "'Helvetica Neue', Helvetica, Arial, sans-serif", size: 11 },
+                            autoSkip: false
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // ── Doughnut étiquettes IDC ──
+    const ctxEtiq = document.getElementById('chart-esg-etiquettes');
+    if (ctxEtiq) {
+        const etiqData = <?= json_encode(array_values($etiquettesIDC)) ?>;
+        const etiqLabels = <?= json_encode(array_map(function($k, $v) { return $v . ' immeuble' . ($v > 1 ? 's' : '') . ' ' . $k; }, array_keys($etiquettesIDC), array_values($etiquettesIDC))) ?>;
+
+        new Chart(ctxEtiq, {
+            type: 'doughnut',
+            data: {
+                labels: etiqLabels,
+                datasets: [{
+                    data: etiqData,
+                    backgroundColor: ['#22C55E', '#FFD700', '#F59E0B'],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '55%',
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { family: "'Helvetica Neue', Helvetica, Arial, sans-serif", size: 11 },
+                            usePointStyle: true,
+                            pointStyle: 'rect',
+                            padding: 12
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: '#1A1A1A',
+                        callbacks: {
+                            label: (ctx) => ctx.label + ' — ' + ctx.raw + ' sur ' + etiqData.reduce((a, b) => a + b, 0)
                         }
                     }
                 }

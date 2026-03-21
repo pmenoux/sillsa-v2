@@ -196,17 +196,59 @@ if ($kpiSurface && abs($kpiSurface - $totalSurface) > 100) {
 </div>
 
 <!-- ── 7. Performance énergétique & ESG ── -->
+<?php
+$sillIDC_a   = isset($kpiMap['sill_idc']) ? (float)$kpiMap['sill_idc']['value_num'] : null;
+$sillCO2_a   = isset($kpiMap['sill_co2']) ? (float)$kpiMap['sill_co2']['value_num'] : null;
+$sillConso_a = isset($kpiMap['conso_energie_m2']) ? (float)$kpiMap['conso_energie_m2']['value_num'] : null;
+$benchIDC_a    = 351;
+$benchCO2_a    = 28.75;
+$benchConso_a  = 130;
+$ecartIDC_a   = $sillIDC_a   ? round((1 - $sillIDC_a / $benchIDC_a) * 100) : null;
+$ecartCO2_a   = $sillCO2_a   ? round((1 - $sillCO2_a / $benchCO2_a) * 100) : null;
+$ecartConso_a = $sillConso_a ? round((1 - $sillConso_a / $benchConso_a) * 100) : null;
+?>
 <h2 class="form-section-title" style="margin-top:32px;">7. Performance énergétique et ESG</h2>
 <div class="table-wrapper">
     <table class="admin-table">
+        <thead>
+            <tr>
+                <th style="width:40%">Indicateur</th>
+                <th style="text-align:right">SILL SA</th>
+                <th style="text-align:right">Moy. suisse</th>
+                <th style="text-align:right">Écart</th>
+            </tr>
+        </thead>
         <tbody>
-            <tr><td style="width:50%; font-weight:600">Indice de dépense de chaleur (IDC)</td><td><?= kv($kpiMap, 'sill_idc') ?></td></tr>
-            <tr><td style="font-weight:600">Émissions CO₂ scope 1+2</td><td><?= kv($kpiMap, 'sill_co2') ?></td></tr>
-            <tr><td style="font-weight:600">Consommation énergétique moyenne</td><td><?= kv($kpiMap, 'conso_energie_m2') ?></td></tr>
-            <tr><td style="font-weight:600">Rapport de surveillance</td><td>Signa-Terre SA / PwC (ISAE 3000)</td></tr>
+            <tr>
+                <td style="font-weight:600">Indice de dépense de chaleur (IDC)</td>
+                <td style="text-align:right; font-weight:700; color:var(--admin-accent, #0047BB)"><?= $sillIDC_a !== null ? $sillIDC_a . ' MJ/m²' : kv($kpiMap, 'sill_idc') ?></td>
+                <td style="text-align:right; color:#666"><?= $benchIDC_a ?> MJ/m²</td>
+                <td style="text-align:right; font-weight:700; color:#22C55E"><?= $ecartIDC_a !== null ? '−' . abs($ecartIDC_a) . ' %' : '—' ?></td>
+            </tr>
+            <tr>
+                <td style="font-weight:600">Émissions CO₂ scope 1+2</td>
+                <td style="text-align:right; font-weight:700; color:var(--admin-accent, #0047BB)"><?= $sillCO2_a !== null ? $sillCO2_a . ' kg/m²' : kv($kpiMap, 'sill_co2') ?></td>
+                <td style="text-align:right; color:#666"><?= $benchCO2_a ?> kg/m²</td>
+                <td style="text-align:right; font-weight:700; color:#22C55E"><?= $ecartCO2_a !== null ? '−' . abs($ecartCO2_a) . ' %' : '—' ?></td>
+            </tr>
+            <tr>
+                <td style="font-weight:600">Consommation énergétique moyenne</td>
+                <td style="text-align:right; font-weight:700; color:var(--admin-accent, #0047BB)"><?= $sillConso_a !== null ? $sillConso_a . ' kWh/m²' : kv($kpiMap, 'conso_energie_m2') ?></td>
+                <td style="text-align:right; color:#666"><?= $benchConso_a ?> kWh/m²</td>
+                <td style="text-align:right; font-weight:700; color:#22C55E"><?= $ecartConso_a !== null ? '−' . abs($ecartConso_a) . ' %' : '—' ?></td>
+            </tr>
+            <tr>
+                <td style="font-weight:600">Étiquettes IDC portefeuille</td>
+                <td style="text-align:right" colspan="3">1× A, 16× B, 2× C — 89 % en A ou B</td>
+            </tr>
+            <tr>
+                <td style="font-weight:600">Rapport de surveillance</td>
+                <td style="text-align:right" colspan="3">Signa-Terre SA / PwC (ISAE 3000)</td>
+            </tr>
         </tbody>
     </table>
 </div>
+<p style="font-size:11px; color:#999; margin-top:8px;">Benchmarks : Signa-Terre (IDC résidentiel), KBOB (CO₂ scope 1+2+3), OFS (moy. résidentiel CH). Étiquettes IDC et benchmarks hardcodés — source Excel Signa-Terre 2024.</p>
 
 <!-- ── Sources ── -->
 <div style="margin-top:32px; padding:16px 20px; background:#F5F0EB; border-radius:4px; font-size:12px; color:#666;">

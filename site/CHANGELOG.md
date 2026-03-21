@@ -1,5 +1,29 @@
 # CHANGELOG — SILL SA Refonte 2026
 
+## [2026-03-21] — Section Performance énergétique & ESG enrichie + Navigation
+
+### Navigation — "En bref" promu au premier niveau
+- Route `/en-bref` ajoutée dans index.php (premier niveau, plus sous-page de contexte)
+- Redirect 301 `/contexte/en-bref` → `/en-bref` (rétrocompatibilité)
+- Script SQL `005_menu_enbref_toplevel.sql` : insert menu top-level entre Accueil et Contexte
+- Breadcrumb simplifié (Accueil / En bref)
+
+### Staging — Retour sur 26.sillsa.ch
+- `config.php` : SITE_URL remis à `https://26.sillsa.ch` pour validation avant production
+
+### Page publique En bref — Section ESG enrichie
+- **Bandeau highlight rouge** : −41 % sous la moyenne suisse (calculé dynamiquement)
+- **Table comparative 4 colonnes** : SILL SA / Moy. suisse / Écart pour IDC, CO₂, Consommation
+- **Graphique barres horizontales** : SILL SA (rouge) vs Références suisses (gris) — IDC, CO₂, Conso
+- **Graphique doughnut étiquettes IDC** : 1 A (vert), 16 B (jaune), 2 C (orange) — 89 % en A ou B
+- Benchmarks : Signa-Terre 351 MJ/m² (IDC), KBOB 28.75 kg/m² (CO₂), OFS 130 kWh/m² (conso)
+- CSS `.enbref-esg-*` : bandeau, table ESG, écarts verts, responsive mobile, print
+
+### Page admin En bref — Section 7 enrichie
+- Table 4 colonnes avec benchmarks et écarts (miroir de la page publique)
+- Étiquettes IDC et note méthodologique benchmarks
+- Sources : Table-Energie Signa-Terre / Greene Value 2024, Réf. KBOB, OFS
+
 ## [2026-03-20] — Page frontend « En bref » + bascule sillsa.ch
 
 ### Page publique En bref — Fiche signalétique AMAS
