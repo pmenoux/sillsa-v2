@@ -33,6 +33,14 @@ $pctLUP = $totalLoyer > 0 ? $loyerLUP / $totalLoyer * 100 : 0;
 $loyerMoyenSILL = $totalSurface > 0 ? $totalLoyer / $totalSurface : 0;
 $loyerMoyenMarche = isset($kpiMap['loyer_moyen_m2']) ? (float) $kpiMap['loyer_moyen_m2']['value_num'] : 320;
 
+// Loyer moyen par pièce/mois (état locatif 2026, hors PDL 51-53 — donnée à consolider)
+$loyerPieceSILL   = 513;  // CHF/pièce/mois — 2'396.5 pièces, 14.75 M CHF loyer net
+$loyerPieceMarche = 700;  // CHF/pièce/mois — Lausanne, OFS/Comparis 2025, 4 pièces ~2'800 CHF/mois
+
+// Taux d'endettement (pour benchmark AMAS)
+$tauxEndettementSILL   = isset($kpiMap['taux_avance_dcf']) ? round((float)$kpiMap['taux_avance_dcf']['value_num']) : 76;
+$tauxEndettementMarche = 25;  // Moy. fonds immobiliers suisses (AMAS 2023), limite réglementaire 33%
+
 // Données graphique évolution du portefeuille (cumul logements par année)
 $parcData = [];
 $cumul = 0;
@@ -208,6 +216,7 @@ function kvPublic($kpiMap, $key) {
                     <tr><td class="enbref-label">Valeur v&eacute;nale (DCF)</td><td class="enbref-value"><?= kvPublic($kpiMap, 'valeur_dcf') ?></td></tr>
                     <tr><td class="enbref-label">Dette hypoth&eacute;caire</td><td class="enbref-value"><?= kvPublic($kpiMap, 'dette_hypo') ?></td></tr>
                     <tr><td class="enbref-label">Taux d'endettement / DCF</td><td class="enbref-value"><?= kvPublic($kpiMap, 'taux_avance_dcf') ?></td></tr>
+                    <tr><td class="enbref-label">Taux hypoth&eacute;caire moyen pond&eacute;r&eacute;</td><td class="enbref-value">1.47&nbsp;%</td></tr>
                 </tbody>
             </table>
         </div>
@@ -371,20 +380,20 @@ document.addEventListener('DOMContentLoaded', function() {
             data: {
                 labels: [
                     'Loyer net\nCHF/m²/an',
-                    'Taux de\nvacance %',
+                    'Loyer moyen\nCHF/pièce/mois',
                     'Logements\nd\'utilité publique %'
                 ],
                 datasets: [
                     {
                         label: 'SILL SA',
-                        data: [<?= round($loyerMoyenSILL) ?>, 0.5, <?= round($pctLUP, 1) ?>],
+                        data: [<?= round($loyerMoyenSILL) ?>, <?= $loyerPieceSILL ?>, <?= round($pctLUP, 1) ?>],
                         backgroundColor: '#FF0000',
                         borderWidth: 0,
                         barPercentage: 0.6
                     },
                     {
                         label: 'Marché lausannois',
-                        data: [<?= round($loyerMoyenMarche) ?>, 0.4, 25],
+                        data: [<?= round($loyerMoyenMarche) ?>, <?= $loyerPieceMarche ?>, 25],
                         backgroundColor: '#E0E0E0',
                         borderWidth: 0,
                         barPercentage: 0.6
