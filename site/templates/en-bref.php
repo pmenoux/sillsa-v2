@@ -324,7 +324,31 @@ function kvPublic($kpiMap, $key) {
                     </tr>
                 </tbody>
             </table>
-            <p class="enbref-sia-note">Les indicateurs &eacute;nerg&eacute;tiques sont exprim&eacute;s par m&sup2; de surface. Les normes en vigueur (SIA&nbsp;380/1, MoPEC) sont calibr&eacute;es pour une occupation standard d'environ 40&nbsp;m&sup2; par habitant. Selon les directives d'attribution de la Ville de Lausanne, le portefeuille SILL&nbsp;SA pr&eacute;sente une densit&eacute; d'occupation estim&eacute;e &agrave; <strong>24.7&nbsp;m&sup2; par habitant</strong>&nbsp;&mdash; soit 40&nbsp;% inf&eacute;rieure &agrave; la r&eacute;f&eacute;rence normative. La consommation &eacute;nerg&eacute;tique par m&sup2; augmente m&eacute;caniquement, mais la consommation par habitant diminue d'autant. Les r&eacute;f&eacute;rentiels actuels ne tiennent pas compte de cette r&eacute;alit&eacute;.</p>
+            <div class="enbref-sia-note">
+                <table class="enbref-table enbref-table--densite">
+                    <thead>
+                        <tr>
+                            <th>R&eacute;f&eacute;rentiel</th>
+                            <th>m&sup2; / hab.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Norme SIA&nbsp;380/1 &mdash; occupation standard</td>
+                            <td class="enbref-value">40.0</td>
+                        </tr>
+                        <tr>
+                            <td>SILL&nbsp;SA &mdash; occupation estim&eacute;e pond&eacute;r&eacute;e</td>
+                            <td class="enbref-value enbref-value--accent"><strong>24.7</strong></td>
+                        </tr>
+                        <tr>
+                            <td>SILL&nbsp;SA &mdash; directive d'attribution VdL (100&nbsp;%)</td>
+                            <td class="enbref-value enbref-value--accent"><strong>21.0</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top:12px;">Les indicateurs &eacute;nerg&eacute;tiques sont exprim&eacute;s par m&sup2; de surface. Les normes en vigueur (SIA&nbsp;380/1, MoPEC) sont calibr&eacute;es pour une occupation standard d'environ 40&nbsp;m&sup2;/hab. Le portefeuille SILL&nbsp;SA pr&eacute;sente une densit&eacute; d'occupation 40&nbsp;% sup&eacute;rieure &agrave; cette r&eacute;f&eacute;rence. La consommation &eacute;nerg&eacute;tique par m&sup2; augmente m&eacute;caniquement, mais la consommation par habitant diminue d'autant. Les r&eacute;f&eacute;rentiels actuels ne tiennent pas compte de cette r&eacute;alit&eacute;.</p>
+            </div>
         </div>
 
         <!-- Graphiques ESG -->

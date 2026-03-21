@@ -3071,6 +3071,18 @@ main {
   line-height: var(--lh-base);
   color: var(--color-body);
 }
+.enbref-table--densite { width: auto; margin-bottom: 0; }
+.enbref-table--densite th,
+.enbref-table--densite td { padding: 6px 16px; }
+.enbref-table--densite th:nth-child(2),
+.enbref-table--densite td:nth-child(2) { text-align: right; }
+.enbref-table--densite th {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  border-bottom: 2px solid #000;
+}
 
 @media (max-width: 767px) {
   .enbref-table--esg { font-size: 13px; }
