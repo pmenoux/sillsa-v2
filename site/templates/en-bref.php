@@ -279,6 +279,9 @@ function kvPublic($kpiMap, $key) {
         <div class="enbref-block">
             <h2 class="enbref-section-title">Performance &eacute;nerg&eacute;tique &amp; ESG</h2>
             <table class="enbref-table enbref-table--esg">
+                <colgroup>
+                    <col><col><col><col>
+                </colgroup>
                 <thead>
                     <tr>
                         <th>Indicateur</th>

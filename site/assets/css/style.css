@@ -3035,6 +3035,11 @@ main {
 }
 
 /* Table ESG 4 colonnes */
+.enbref-table--esg { table-layout: fixed; width: 100%; }
+.enbref-table--esg col:nth-child(1) { width: 45%; }
+.enbref-table--esg col:nth-child(2) { width: 20%; }
+.enbref-table--esg col:nth-child(3) { width: 20%; }
+.enbref-table--esg col:nth-child(4) { width: 15%; }
 .enbref-table--esg th {
   font-family: var(--font-heading);
   text-transform: uppercase;
@@ -3044,9 +3049,15 @@ main {
   border-bottom: 2px solid #000;
   text-align: left;
 }
+.enbref-table--esg th:nth-child(2),
+.enbref-table--esg th:nth-child(3),
+.enbref-table--esg th:nth-child(4) { text-align: right; }
 .enbref-table--esg td {
   padding: 8px 12px;
 }
+.enbref-table--esg td:nth-child(2),
+.enbref-table--esg td:nth-child(3),
+.enbref-table--esg td:nth-child(4) { text-align: right; }
 .enbref-ecart {
   font-weight: 700;
   color: #22C55E;
