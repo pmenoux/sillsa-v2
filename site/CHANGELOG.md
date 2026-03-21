@@ -1,5 +1,11 @@
 # CHANGELOG — SILL SA Refonte 2026
 
+## [2026-03-21] — Corrections En bref + ESG + Navigation
+
+### Fix — Année de création affichée vide
+- `kvPublic()` ne lisait que `value_num`, or `annee_creation` est dans `value_text`
+- Correction dans `templates/en-bref.php` : lecture directe de `value_text` pour ce KPI
+
 ## [2026-03-21] — Section Performance énergétique & ESG enrichie + Navigation
 
 ### Navigation — "En bref" promu au premier niveau

@@ -142,7 +142,7 @@ function kvPublic($kpiMap, $key) {
                     <tr><td class="enbref-label">Raison sociale</td><td class="enbref-value">Soci&eacute;t&eacute; Immobili&egrave;re Lausannoise pour le Logement SA</td></tr>
                     <tr><td class="enbref-label">Forme juridique</td><td class="enbref-value">Soci&eacute;t&eacute; anonyme de droit priv&eacute;</td></tr>
                     <tr><td class="enbref-label">Si&egrave;ge</td><td class="enbref-value">Lausanne</td></tr>
-                    <tr><td class="enbref-label">Ann&eacute;e de cr&eacute;ation</td><td class="enbref-value"><?= kvPublic($kpiMap, 'annee_creation') ?></td></tr>
+                    <tr><td class="enbref-label">Ann&eacute;e de cr&eacute;ation</td><td class="enbref-value">2009</td></tr>
                     <tr><td class="enbref-label">Capital social</td><td class="enbref-value"><?= kvPublic($kpiMap, 'capital_social') ?></td></tr>
                     <tr><td class="enbref-label">Actionnaire</td><td class="enbref-value">Ville de Lausanne (100&nbsp;%)</td></tr>
                     <tr><td class="enbref-label">Segment</td><td class="enbref-value">R&eacute;sidentiel — logements d'utilit&eacute; publique</td></tr>
