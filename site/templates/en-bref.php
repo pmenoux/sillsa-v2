@@ -191,11 +191,18 @@ function kvPublic($kpiMap, $key) {
 
         <div class="enbref-charts-grid">
 
-            <!-- Benchmark SILL vs Marché lausannois -->
+            <!-- Benchmark loyers SILL vs Marché -->
             <div class="enbref-chart-block">
-                <h2 class="enbref-section-title">SILL SA vs March&eacute; lausannois</h2>
-                <canvas id="chart-benchmark" height="260"></canvas>
-                <p class="enbref-sources">Sources : comptes SILL SA 2025 — OFS / Comparis 2025 — OFLP Lausanne</p>
+                <h2 class="enbref-section-title">Loyers &mdash; SILL vs March&eacute;</h2>
+                <canvas id="chart-loyers" height="260"></canvas>
+                <p class="enbref-sources">Sources : comptes SILL SA 2025 — OFS / Comparis 2025</p>
+            </div>
+
+            <!-- Mission sociale -->
+            <div class="enbref-chart-block">
+                <h2 class="enbref-section-title">Mission sociale</h2>
+                <canvas id="chart-mission" height="260"></canvas>
+                <p class="enbref-sources">Part des logements d'utilit&eacute; publique — OFLP Lausanne</p>
             </div>
 
             <!-- Évolution du portefeuille -->
@@ -403,28 +410,36 @@ function kvPublic($kpiMap, $key) {
 document.addEventListener('DOMContentLoaded', function() {
     const swiss = (n) => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "\u2019");
 
-    // ── Benchmark SILL vs Marché ──
-    const ctxBench = document.getElementById('chart-benchmark');
-    if (ctxBench) {
-        new Chart(ctxBench, {
+    // ── Chart options communes ──
+    const chartFont = { family: "'Helvetica Neue', Helvetica, Arial, sans-serif", size: 11 };
+    const chartLegend = {
+        position: 'bottom',
+        labels: { font: chartFont, usePointStyle: true, pointStyle: 'rect', padding: 16 }
+    };
+    const chartTooltip = {
+        backgroundColor: '#1A1A1A',
+        titleFont: { ...chartFont, size: 12 },
+        bodyFont: { ...chartFont, size: 12 }
+    };
+
+    // ── Loyers — SILL vs Marché ──
+    const ctxLoyers = document.getElementById('chart-loyers');
+    if (ctxLoyers) {
+        new Chart(ctxLoyers, {
             type: 'bar',
             data: {
-                labels: [
-                    'Loyer net\nCHF/m²/an',
-                    'Loyer moyen\nCHF/pièce/mois',
-                    'Logements\nd\'utilité publique %'
-                ],
+                labels: ['Loyer net\nCHF/m²/an', 'Loyer moyen\nCHF/pièce/mois'],
                 datasets: [
                     {
                         label: 'SILL SA',
-                        data: [<?= round($loyerMoyenSILL) ?>, <?= $loyerPieceSILL ?>, <?= round($pctLUP, 1) ?>],
+                        data: [<?= round($loyerMoyenSILL) ?>, <?= $loyerPieceSILL ?>],
                         backgroundColor: '#FF0000',
                         borderWidth: 0,
                         barPercentage: 0.6
                     },
                     {
                         label: 'Marché lausannois',
-                        data: [<?= round($loyerMoyenMarche) ?>, <?= $loyerPieceMarche ?>, 25],
+                        data: [<?= round($loyerMoyenMarche) ?>, <?= $loyerPieceMarche ?>],
                         backgroundColor: '#E0E0E0',
                         borderWidth: 0,
                         barPercentage: 0.6
@@ -435,36 +450,54 @@ document.addEventListener('DOMContentLoaded', function() {
                 indexAxis: 'y',
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            font: { family: "'Helvetica Neue', Helvetica, Arial, sans-serif", size: 11 },
-                            usePointStyle: true,
-                            pointStyle: 'rect',
-                            padding: 16
-                        }
-                    },
-                    tooltip: {
-                        backgroundColor: '#1A1A1A',
-                        titleFont: { family: "'Helvetica Neue', Helvetica, Arial, sans-serif", size: 12 },
-                        bodyFont: { family: "'Helvetica Neue', Helvetica, Arial, sans-serif", size: 12 }
-                    }
-                },
+                plugins: { legend: chartLegend, tooltip: chartTooltip },
                 scales: {
                     x: {
                         grid: { color: 'rgba(0,0,0,0.06)', drawBorder: false },
-                        ticks: {
-                            font: { family: "'Helvetica Neue', Helvetica, Arial, sans-serif", size: 11 }
-                        }
+                        ticks: { font: chartFont, callback: v => v + ' CHF' }
                     },
-                    y: {
-                        grid: { display: false },
-                        ticks: {
-                            font: { family: "'Helvetica Neue', Helvetica, Arial, sans-serif", size: 11 },
-                            autoSkip: false
-                        }
+                    y: { grid: { display: false }, ticks: { font: chartFont, autoSkip: false } }
+                }
+            }
+        });
+    }
+
+    // ── Mission sociale ──
+    const ctxMission = document.getElementById('chart-mission');
+    if (ctxMission) {
+        new Chart(ctxMission, {
+            type: 'bar',
+            data: {
+                labels: ['Logements\nd\'utilité publique', 'Taux de\nvacance'],
+                datasets: [
+                    {
+                        label: 'SILL SA',
+                        data: [<?= round($pctLUP, 1) ?>, 0.5],
+                        backgroundColor: '#FF0000',
+                        borderWidth: 0,
+                        barPercentage: 0.6
+                    },
+                    {
+                        label: 'Marché lausannois',
+                        data: [25, 0.4],
+                        backgroundColor: '#E0E0E0',
+                        borderWidth: 0,
+                        barPercentage: 0.6
                     }
+                ]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: chartLegend, tooltip: chartTooltip },
+                scales: {
+                    x: {
+                        grid: { color: 'rgba(0,0,0,0.06)', drawBorder: false },
+                        ticks: { font: chartFont, callback: v => v + ' %' },
+                        max: 80
+                    },
+                    y: { grid: { display: false }, ticks: { font: chartFont, autoSkip: false } }
                 }
             }
         });
