@@ -3115,11 +3115,24 @@ main {
 }
 
 @media (max-width: 767px) {
-  .enbref-table--esg { font-size: 13px; }
+  .enbref-table--esg { font-size: 12px; }
   .enbref-table--esg th,
-  .enbref-table--esg td { padding: 6px 8px; }
+  .enbref-table--esg td { padding: 6px 6px; }
+  .enbref-table--esg col:nth-child(1) { width: 38%; }
+  .enbref-table--esg col:nth-child(2) { width: 22%; }
+  .enbref-table--esg col:nth-child(3) { width: 22%; }
+  .enbref-table--esg col:nth-child(4) { width: 18%; }
   .enbref-esg-highlight { padding: 24px 16px; }
   .enbref-esg-pct { font-size: var(--fs-h2); }
+  .enbref-section-title { font-size: var(--fs-h4); }
+  .enbref-table--densite { width: 100%; font-size: 13px; }
+  .enbref-table--densite th,
+  .enbref-table--densite td { padding: 6px 8px; }
+  .enbref-sia-note { padding: 12px 14px; font-size: 13px; }
+  .enbref-sia-note p { font-size: 13px; line-height: 1.5; }
+  .enbref-anchors { gap: 6px; }
+  .enbref-anchors a { padding: 5px 10px; font-size: 10px; }
+  .enbref-charts-grid { grid-template-columns: 1fr; }
 }
 
 @media print {
