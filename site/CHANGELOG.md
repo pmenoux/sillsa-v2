@@ -8,7 +8,7 @@
 - Template `templates/en-bref.php` avec données BDD (KPIs + répartition locative)
 - **Benchmark fonds résidentiels suisses** : layout inspiré FIR, La Foncière, Patrimonium
 - Hero KPI strip : 5 gros chiffres animés en bandeau (développements, logements, surface, LUP %, état locatif)
-- 3 graphiques Chart.js : benchmark SILL vs marché lausannois (horizontal bar), évolution du parc (bar cumulé), doughnut répartition par affectation
+- 3 graphiques Chart.js : benchmark SILL vs marché lausannois (horizontal bar), évolution du portefeuille (bar cumulé), doughnut répartition par affectation
 - Sections alternées (fond blanc / gris perlé) pour rythme visuel
 - Disclaimer déplacé en bas de page (pattern standard fonds cotés)
 - Choix éditorial : pas de rendements bruts/nets (SA non cotée), segment "Résidentiel"
@@ -153,7 +153,7 @@
 ### Page /marche — Répartition des types de loyers
 - Barre empilée CSS : LLM 303 lots (36%), LLA 305 lots (37%), LM 58 lots (7%), Étudiants 42 lots (5%)
 - Légende chiffrée 4 colonnes avec dots colorés, nombre de lots et pourcentage
-- Note LUP (LLM + LLA) : 608 lots — 73% du parc
+- Note LUP (LLM + LLA) : 608 lots — 73% du portefeuille
 - Source : Dashboard KPI SILL SA.xlsx → États locatifs agrégés 2026
 
 ### Page /marche — Graphiques d'évolution

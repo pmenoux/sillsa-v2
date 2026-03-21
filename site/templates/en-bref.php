@@ -33,7 +33,7 @@ $pctLUP = $totalLoyer > 0 ? $loyerLUP / $totalLoyer * 100 : 0;
 $loyerMoyenSILL = $totalSurface > 0 ? $totalLoyer / $totalSurface : 0;
 $loyerMoyenMarche = isset($kpiMap['loyer_moyen_m2']) ? (float) $kpiMap['loyer_moyen_m2']['value_num'] : 320;
 
-// Données graphique évolution du parc (cumul logements par année)
+// Données graphique évolution du portefeuille (cumul logements par année)
 $parcData = [];
 $cumul = 0;
 foreach ($immeubles as $im) {
@@ -164,9 +164,9 @@ function kvPublic($kpiMap, $key) {
                 <p class="enbref-sources">Sources : comptes SILL SA 2025 — OFS / Comparis 2025 — OFLP Lausanne</p>
             </div>
 
-            <!-- Évolution du parc -->
+            <!-- Évolution du portefeuille -->
             <div class="enbref-chart-block">
-                <h2 class="enbref-section-title">&Eacute;volution du parc</h2>
+                <h2 class="enbref-section-title">&Eacute;volution du portefeuille</h2>
                 <canvas id="chart-evolution" height="260"></canvas>
                 <p class="enbref-sources">Nombre cumul&eacute; de logements &amp; lots livr&eacute;s</p>
             </div>
@@ -357,7 +357,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ── Évolution du parc (bar chart cumulé) ──
+    // ── Évolution du portefeuille (bar chart cumulé) ──
     const ctxEvol = document.getElementById('chart-evolution');
     if (ctxEvol) {
         const parcData = <?= json_encode($parcData, JSON_NUMERIC_CHECK) ?>;
