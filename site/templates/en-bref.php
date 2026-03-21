@@ -324,7 +324,7 @@ function kvPublic($kpiMap, $key) {
                     </tr>
                 </tbody>
             </table>
-            <p class="enbref-sia-note">Les indicateurs &eacute;nerg&eacute;tiques sont exprim&eacute;s par m&sup2; de surface. Les normes en vigueur (SIA&nbsp;380/1, MoPEC) sont calibr&eacute;es pour une occupation standard. En logement d'utilit&eacute; publique, la densit&eacute; d'occupation est structurellement plus &eacute;lev&eacute;e&nbsp;: la consommation par m&sup2; augmente, mais la consommation par habitant diminue. Les r&eacute;f&eacute;rentiels actuels ne tiennent pas compte de cette r&eacute;alit&eacute;.</p>
+            <p class="enbref-sia-note">Les indicateurs &eacute;nerg&eacute;tiques sont exprim&eacute;s par m&sup2; de surface. Les normes en vigueur (SIA&nbsp;380/1, MoPEC) sont calibr&eacute;es pour une occupation standard d'environ 40&nbsp;m&sup2; par habitant. Selon les directives d'attribution de la Ville de Lausanne, le portefeuille SILL&nbsp;SA pr&eacute;sente une densit&eacute; d'occupation de <strong>18.6&nbsp;m&sup2; par habitant</strong>&nbsp;&mdash; soit plus de deux fois sup&eacute;rieure &agrave; la r&eacute;f&eacute;rence normative. La consommation &eacute;nerg&eacute;tique par m&sup2; augmente m&eacute;caniquement, mais la consommation par habitant diminue d'autant. Les r&eacute;f&eacute;rentiels actuels ne tiennent pas compte de cette r&eacute;alit&eacute;.</p>
         </div>
 
         <!-- Graphiques ESG -->
