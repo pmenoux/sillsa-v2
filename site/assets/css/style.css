@@ -3062,6 +3062,15 @@ main {
   font-weight: 700;
   color: #22C55E;
 }
+.enbref-sia-note {
+  margin-top: 16px;
+  padding: 16px 20px;
+  background: #FFFBEB;
+  border-left: 3px solid #FFD700;
+  font-size: var(--fs-base);
+  line-height: var(--lh-base);
+  color: var(--color-body);
+}
 
 @media (max-width: 767px) {
   .enbref-table--esg { font-size: 13px; }

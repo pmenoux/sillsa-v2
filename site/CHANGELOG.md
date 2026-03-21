@@ -2,6 +2,11 @@
 
 ## [2026-03-21] — Corrections En bref + ESG + Navigation
 
+### ESG — Note densité d'occupation sous le tableau énergétique
+- Ajout d'une note factuelle sous le tableau performance énergétique
+- Pointe le biais des normes SIA 380/1 et MoPEC calibrées pour occupation standard
+- Consommation par m² vs par habitant — les référentiels ignorent la densité du logement social
+
 ### Fix — Année de création affichée vide
 - `kvPublic()` ne lisait que `value_num`, or `annee_creation` est dans `value_text`
 - Correction dans `templates/en-bref.php` : lecture directe de `value_text` pour ce KPI

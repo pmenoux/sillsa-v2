@@ -315,6 +315,7 @@ function kvPublic($kpiMap, $key) {
                     </tr>
                 </tbody>
             </table>
+            <p class="enbref-sia-note">Les indicateurs &eacute;nerg&eacute;tiques sont exprim&eacute;s par m&sup2; de surface. Les normes en vigueur (SIA&nbsp;380/1, MoPEC) sont calibr&eacute;es pour une occupation standard. En logement d'utilit&eacute; publique, la densit&eacute; d'occupation est structurellement plus &eacute;lev&eacute;e&nbsp;: la consommation par m&sup2; augmente, mais la consommation par habitant diminue. Les r&eacute;f&eacute;rentiels actuels ne tiennent pas compte de cette r&eacute;alit&eacute;.</p>
         </div>
 
         <!-- Graphiques ESG -->
