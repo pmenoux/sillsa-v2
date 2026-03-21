@@ -104,6 +104,13 @@ function kvPublic($kpiMap, $key) {
         <h1>En bref</h1>
         <p class="page-chapeau">Fiche signal&eacute;tique — Chiffres cl&eacute;s SILL SA</p>
         <p class="page-update">Donn&eacute;es au 31 d&eacute;cembre 2025 — Comptes annuels audit&eacute;s</p>
+        <nav class="enbref-anchors">
+            <a href="#portefeuille">Portefeuille</a>
+            <a href="#benchmark">Benchmark</a>
+            <a href="#finances">Finances</a>
+            <a href="#repartition">R&eacute;partition</a>
+            <a href="#esg">ESG</a>
+        </nav>
     </div>
 </section>
 
@@ -140,7 +147,7 @@ function kvPublic($kpiMap, $key) {
 <!-- ═══════════════════════════════════════════════════════════════
      SECTION 1 : Informations générales + Portefeuille
      ═══════════════════════════════════════════════════════════════ -->
-<section class="section-enbref">
+<section id="portefeuille" class="section-enbref">
     <div class="container">
 
         <div class="enbref-block">
@@ -179,7 +186,7 @@ function kvPublic($kpiMap, $key) {
 <!-- ═══════════════════════════════════════════════════════════════
      SECTION 2 : Graphiques — Benchmark + Évolution (fond alterné)
      ═══════════════════════════════════════════════════════════════ -->
-<section class="section-enbref section-enbref--alt">
+<section id="benchmark" class="section-enbref section-enbref--alt">
     <div class="container">
 
         <div class="enbref-charts-grid">
@@ -206,7 +213,7 @@ function kvPublic($kpiMap, $key) {
 <!-- ═══════════════════════════════════════════════════════════════
      SECTION 3 : Structure financière + Répartition
      ═══════════════════════════════════════════════════════════════ -->
-<section class="section-enbref">
+<section id="finances" class="section-enbref">
     <div class="container">
 
         <div class="enbref-block">
@@ -221,7 +228,7 @@ function kvPublic($kpiMap, $key) {
             </table>
         </div>
 
-        <div class="enbref-block">
+        <div id="repartition" class="enbref-block">
             <h2 class="enbref-section-title">R&eacute;partition par affectation</h2>
             <p class="enbref-sources" style="margin-bottom:12px;">Part du loyer annuel net — directives AMAS</p>
 
@@ -273,7 +280,7 @@ function kvPublic($kpiMap, $key) {
 <!-- ═══════════════════════════════════════════════════════════════
      SECTION 4 : ESG + Sources + Disclaimer (fond alterné)
      ═══════════════════════════════════════════════════════════════ -->
-<section class="section-enbref section-enbref--alt">
+<section id="esg" class="section-enbref section-enbref--alt">
     <div class="container">
 
         <!-- Bandeau highlight ESG -->

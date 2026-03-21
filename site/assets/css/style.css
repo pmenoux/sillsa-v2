@@ -2842,6 +2842,34 @@ main {
 }
 
 /* ── Sections ── */
+.enbref-anchors {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.enbref-anchors a {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 6px 14px;
+  border: 1px solid #000;
+  color: #000;
+  text-decoration: none;
+  transition: var(--transition);
+}
+.enbref-anchors a:hover {
+  background: #000;
+  color: #fff;
+}
+[id="portefeuille"],
+[id="benchmark"],
+[id="finances"],
+[id="repartition"],
+[id="esg"] {
+  scroll-margin-top: 110px;
+}
 .section-enbref {
   padding: 64px 0 72px;
 }
