@@ -2843,7 +2843,7 @@ main {
 
 /* ── Sections ── */
 .section-enbref {
-  padding: 48px 0 56px;
+  padding: 64px 0 72px;
 }
 
 .section-enbref--alt {
@@ -2919,7 +2919,7 @@ main {
 
 /* ── Blocks ── */
 .enbref-block {
-  margin-bottom: 40px;
+  margin-bottom: 56px;
   page-break-inside: avoid;
 }
 
