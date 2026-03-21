@@ -3036,7 +3036,8 @@ main {
 
 /* Bandeau highlight ESG */
 .enbref-esg-highlight {
-  background: #4ADE80;
+  background: #FFFFFF;
+  border: 2px solid #4ADE80;
   color: #1A1A1A;
   padding: 32px;
   text-align: center;
@@ -3047,6 +3048,7 @@ main {
   font-weight: 700;
   display: block;
   line-height: 1.1;
+  color: #22C55E;
 }
 .enbref-esg-label {
   font-family: var(--font-heading);
