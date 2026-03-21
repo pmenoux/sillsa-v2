@@ -147,7 +147,7 @@ function kvPublic($kpiMap, $key) {
 <!-- ═══════════════════════════════════════════════════════════════
      SECTION 1 : Informations générales + Portefeuille
      ═══════════════════════════════════════════════════════════════ -->
-<section id="portefeuille" class="section-enbref">
+<section class="section-enbref">
     <div class="container">
 
         <div class="enbref-block">
@@ -166,7 +166,7 @@ function kvPublic($kpiMap, $key) {
         </div>
 
         <div class="enbref-block">
-            <h2 class="enbref-section-title">Portefeuille immobilier</h2>
+            <h2 id="portefeuille" class="enbref-section-title">Portefeuille immobilier</h2>
             <table class="enbref-table">
                 <tbody>
                     <tr><td class="enbref-label">Nombre de d&eacute;veloppements</td><td class="enbref-value"><?= $nbImmeubles ?></td></tr>
@@ -186,14 +186,14 @@ function kvPublic($kpiMap, $key) {
 <!-- ═══════════════════════════════════════════════════════════════
      SECTION 2 : Graphiques — Benchmark + Évolution (fond alterné)
      ═══════════════════════════════════════════════════════════════ -->
-<section id="benchmark" class="section-enbref section-enbref--alt">
+<section class="section-enbref section-enbref--alt">
     <div class="container">
 
         <div class="enbref-charts-grid">
 
             <!-- Benchmark loyers SILL vs Marché -->
             <div class="enbref-chart-block">
-                <h2 class="enbref-section-title">Loyers &mdash; SILL vs March&eacute;</h2>
+                <h2 id="benchmark" class="enbref-section-title">Loyers &mdash; SILL vs March&eacute;</h2>
                 <canvas id="chart-loyers" height="260"></canvas>
                 <p class="enbref-sources">Sources : comptes SILL SA 2025 — OFS / Comparis 2025</p>
             </div>
@@ -220,11 +220,11 @@ function kvPublic($kpiMap, $key) {
 <!-- ═══════════════════════════════════════════════════════════════
      SECTION 3 : Structure financière + Répartition
      ═══════════════════════════════════════════════════════════════ -->
-<section id="finances" class="section-enbref">
+<section class="section-enbref">
     <div class="container">
 
         <div class="enbref-block">
-            <h2 class="enbref-section-title">Structure financi&egrave;re</h2>
+            <h2 id="finances" class="enbref-section-title">Structure financi&egrave;re</h2>
             <table class="enbref-table">
                 <tbody>
                     <tr><td class="enbref-label">Valeur v&eacute;nale (DCF)</td><td class="enbref-value"><?= kvPublic($kpiMap, 'valeur_dcf') ?></td></tr>
@@ -287,7 +287,7 @@ function kvPublic($kpiMap, $key) {
 <!-- ═══════════════════════════════════════════════════════════════
      SECTION 4 : ESG + Sources + Disclaimer (fond alterné)
      ═══════════════════════════════════════════════════════════════ -->
-<section id="esg" class="section-enbref section-enbref--alt">
+<section class="section-enbref section-enbref--alt">
     <div class="container">
 
         <!-- Bandeau highlight ESG -->
@@ -300,7 +300,7 @@ function kvPublic($kpiMap, $key) {
         <?php endif; ?>
 
         <div class="enbref-block">
-            <h2 class="enbref-section-title">Performance &eacute;nerg&eacute;tique &amp; ESG</h2>
+            <h2 id="esg" class="enbref-section-title">Performance &eacute;nerg&eacute;tique &amp; ESG</h2>
             <table class="enbref-table enbref-table--esg">
                 <colgroup>
                     <col><col><col><col>
