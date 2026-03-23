@@ -24,4 +24,4 @@ INSERT INTO sill_kpi (kpi_key, label, value_num, value_text, unit, category, sor
 INSERT INTO sill_kpi (kpi_key, label, value_num, value_text, unit, category, sort_order, is_public) VALUES
 ('elec_sil',          'Électricité SiL — prix énergie',         9.88,  '−13,1 % vs 2025', 'ct/kWh',   'energie', 170, 1),
 ('cad_sil',           'Chauffage à distance (CAD)',              16.09, 'Stable',           'ct/kWh',   'energie', 180, 1),
-('gaz_sil',           'Gaz naturel SiL',                        NULL,  '+6,7 % dès oct. 2025', NULL,   'energie', 190, 1);
+('pellet_ch',         'Pellets bois — prix moyen CH',            10.4,  '+6,4 % vs 2025',   'ct/kWh',  'energie', 190, 1);
