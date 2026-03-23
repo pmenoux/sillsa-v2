@@ -34,7 +34,7 @@ INSERT INTO sill_kpi (kpi_key, label, value_num, value_text, unit, icon, categor
 -- FINANCEMENT (catégorie finance)
 -- ────────────────────────────────────────────────────────────────
 ('dette_hypo',         'Dette hypothécaire',         222.2,    NULL,              'M CHF',   'bank',        'finance',     20, 0),
-('taux_avance_dcf',    'Taux d''avance moy. / DCF',  76.0,    NULL,              '%',       'percent',     'finance',     21, 0),
+('taux_avance_dcf',    'Taux d''avance moy. / DCF',  68.0,    NULL,              '%',       'percent',     'finance',     21, 0),
 ('cedules_total',      'Cédules totales',            254.6,    NULL,              'M CHF',   'document',    'finance',     22, 0),
 
 -- ────────────────────────────────────────────────────────────────

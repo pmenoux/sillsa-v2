@@ -38,7 +38,7 @@ $loyerPieceSILL   = 513;  // CHF/pièce/mois — 2'396.5 pièces, 14.75 M CHF lo
 $loyerPieceMarche = 700;  // CHF/pièce/mois — Lausanne, OFS/Comparis 2025, 4 pièces ~2'800 CHF/mois
 
 // Taux d'endettement (pour benchmark AMAS)
-$tauxEndettementSILL   = isset($kpiMap['taux_avance_dcf']) ? round((float)$kpiMap['taux_avance_dcf']['value_num']) : 76;
+$tauxEndettementSILL   = isset($kpiMap['taux_avance_dcf']) ? round((float)$kpiMap['taux_avance_dcf']['value_num']) : 68;
 $tauxEndettementMarche = 25;  // Moy. fonds immobiliers suisses (AMAS 2023), limite réglementaire 33%
 
 // Données graphique évolution du portefeuille (cumul logements par année)
