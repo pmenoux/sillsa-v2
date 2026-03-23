@@ -1,5 +1,16 @@
 # CHANGELOG — SILL SA Refonte 2026
 
+## [2026-03-23] — Correction densité SIA 380/1 : SUP → SRE
+
+### Fix — Calcul de densité d'occupation corrigé (SRE au lieu de SUP)
+- L'ancien calcul comparait des m² SUP (SIA 416) à la norme SIA 380/1 qui utilise la SRE
+- SRE totale portefeuille = 75'640 m² (source : Signa-Terre / Benchmark.xlsx)
+- Densité pondérée corrigée : 24.7 → **31.7 m²/hab.** (SRE)
+- Densité directive VdL : 21.0 → **23.8 m²/hab.** (SRE)
+- Écart vs norme corrigé : 40% → **~20%** supérieur
+- Note explicative précise désormais la surface de référence (SRE, source Signa-Terre)
+- GUIDE_ADMIN.md mis à jour avec la méthodologie SRE
+
 ## [2026-03-21] — Corrections En bref + ESG + Navigation
 
 ### ESG — Note densité d'occupation sous le tableau énergétique

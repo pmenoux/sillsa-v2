@@ -353,15 +353,15 @@ function kvPublic($kpiMap, $key) {
                         </tr>
                         <tr>
                             <td>SILL&nbsp;SA &mdash; occupation estim&eacute;e pond&eacute;r&eacute;e</td>
-                            <td class="enbref-value enbref-value--accent"><strong>24.7</strong></td>
+                            <td class="enbref-value enbref-value--accent"><strong>31.7</strong></td>
                         </tr>
                         <tr>
                             <td>SILL&nbsp;SA &mdash; directive d'attribution VdL (100&nbsp;%)</td>
-                            <td class="enbref-value enbref-value--accent"><strong>21.0</strong></td>
+                            <td class="enbref-value enbref-value--accent"><strong>23.8</strong></td>
                         </tr>
                     </tbody>
                 </table>
-                <p style="margin-top:12px;">Les indicateurs &eacute;nerg&eacute;tiques sont exprim&eacute;s par m&sup2; de surface. Les normes en vigueur (SIA&nbsp;380/1, MoPEC) sont calibr&eacute;es pour une occupation standard d'environ 40&nbsp;m&sup2;/hab. Le portefeuille SILL&nbsp;SA pr&eacute;sente une densit&eacute; d'occupation 40&nbsp;% sup&eacute;rieure &agrave; cette r&eacute;f&eacute;rence. La consommation &eacute;nerg&eacute;tique par m&sup2; augmente m&eacute;caniquement, mais la consommation par habitant diminue d'autant. Les r&eacute;f&eacute;rentiels actuels ne tiennent pas compte de cette r&eacute;alit&eacute;.</p>
+                <p style="margin-top:12px;">Les indicateurs &eacute;nerg&eacute;tiques sont exprim&eacute;s par m&sup2; de SRE (surface de r&eacute;f&eacute;rence &eacute;nerg&eacute;tique, 75&rsquo;640&nbsp;m&sup2; &mdash; source Signa-Terre). Les normes en vigueur (SIA&nbsp;380/1, MoPEC) sont calibr&eacute;es pour une occupation standard d'environ 40&nbsp;m&sup2;&nbsp;SRE/hab. Le portefeuille SILL&nbsp;SA pr&eacute;sente une densit&eacute; d'occupation environ 20&nbsp;% sup&eacute;rieure &agrave; cette r&eacute;f&eacute;rence. La consommation &eacute;nerg&eacute;tique par m&sup2; augmente m&eacute;caniquement, mais la consommation par habitant diminue d'autant. Les r&eacute;f&eacute;rentiels actuels ne tiennent pas compte de cette r&eacute;alit&eacute;.</p>
             </div>
         </div>
 

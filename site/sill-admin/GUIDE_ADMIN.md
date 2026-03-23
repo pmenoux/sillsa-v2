@@ -126,7 +126,7 @@ Gestion des rubriques de la navigation principale du site :
 
 ## Calcul de la densité d'occupation (page En bref)
 
-La note ESG affiche une densité d'occupation estimée à **24.7 m²/hab.** (vs 40 m²/hab. norme SIA 380/1).
+La note ESG affiche une densité d'occupation estimée à **31.7 m²/hab.** en SRE (vs 40 m²/hab. norme SIA 380/1).
 
 ### Méthodologie
 
@@ -152,17 +152,20 @@ La note ESG affiche une densité d'occupation estimée à **24.7 m²/hab.** (vs 
 | Loyer marché (LML) | 80% | Moins contraint mais logements familiaux |
 | Logement étudiant | 98% | Pénurie absolue de logements étudiants |
 
-5. **Résultats** (804 logements, 59'063 m²) :
-   - Occupation max directive : **21.0 m²/hab.** (3'182 → 2'816 hab. avec PPM corrigé)
-   - Occupation pondérée : **24.7 m²/hab.** (2'389 hab. estimés)
+5. **Résultats** (804 logements, SRE 75'640 m² — source Signa-Terre / Benchmark.xlsx) :
+   - Occupation directive VdL (100%) : **23.8 m²/hab.** (3'182 hab.)
+   - Occupation pondérée : **31.7 m²/hab.** (2'389 hab. estimés)
    - Référence SIA 380/1 : **40.0 m²/hab.**
+
+   ⚠️ **Surface de référence** : les calculs utilisent la SRE (surface de référence énergétique), conformément à la norme SIA 380/1. La SUP (SIA 416) = 59'063 m² ; le ratio SRE/SUP = 1.28.
 
 ### Mise à jour
 
-Le chiffre 24.7 est actuellement hardcodé dans `templates/en-bref.php`. Pour recalculer :
+Les chiffres de densité sont hardcodés dans `templates/en-bref.php`. Pour recalculer :
 - Exporter les lots depuis FileMaker (API Data ou CSV)
 - Appliquer les PPM × coefficients ci-dessus
-- Mettre à jour la valeur dans le template
+- Diviser la SRE totale (Signa-Terre) par le nombre d'habitants estimé
+- Mettre à jour les valeurs dans le template
 
 Les données de référence (Samuel / Dashboard KPI Excel) font foi pour les loyers. FileMaker fait foi pour les typologies et surfaces physiques.
 
