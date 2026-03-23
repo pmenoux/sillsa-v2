@@ -67,15 +67,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $is_active   = isset($_POST['is_active']) ? 1 : 0;
 
     $slug = $slug_raw !== '' ? $slug_raw : make_slug($title);
-    $event_year = $event_date ? date('Y', strtotime($event_date)) : null;
 
     // --- CREATE ---
     if ($action === 'create') {
         $stmt = db()->prepare(
-            "INSERT INTO sill_timeline (slug, title, event_date, event_year, category, description, link_url, sort_order, is_active)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            "INSERT INTO sill_timeline (slug, title, event_date, category, description, link_url, sort_order, is_active)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
         );
-        $stmt->execute([$slug, $title, $event_date, $event_year, $category, $description, $link_url, $sort_order, $is_active]);
+        $stmt->execute([$slug, $title, $event_date, $category, $description, $link_url, $sort_order, $is_active]);
         flash('success', 'Événement créé.');
         header('Location: ?page=timeline');
         exit;
@@ -86,10 +85,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $item_id = (int) ($_POST['id'] ?? $id);
         $stmt = db()->prepare(
             "UPDATE sill_timeline
-             SET slug = ?, title = ?, event_date = ?, event_year = ?, category = ?, description = ?, link_url = ?, sort_order = ?, is_active = ?
+             SET slug = ?, title = ?, event_date = ?, category = ?, description = ?, link_url = ?, sort_order = ?, is_active = ?
              WHERE id = ?"
         );
-        $stmt->execute([$slug, $title, $event_date, $event_year, $category, $description, $link_url, $sort_order, $is_active, $item_id]);
+        $stmt->execute([$slug, $title, $event_date, $category, $description, $link_url, $sort_order, $is_active, $item_id]);
         flash('success', 'Événement mis à jour.');
         header('Location: ?page=timeline');
         exit;
