@@ -8,6 +8,8 @@ require_once __DIR__ . '/config.php';
 
 header('Content-Type: text/plain; charset=utf-8');
 
+$pdo = db();
+
 $converted_pngs = [
     "Capture-d'écran-2018-05-18-à-09.11.43-1024x879.png",
     "Capture-d'écran-2018-05-18-à-09.11.43-1038x576.png",

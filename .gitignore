@@ -13,9 +13,18 @@ download (2)/
 Thumbs.db
 desktop.ini
 
-# IDE
+# IDE / tools
 .vscode/
 .idea/
+.claude/
+.playwright-mcp/
+
+# Local data & backups (not deployed)
+_archive/
+_originals_backup/
+IllustrationsExports/
+docs/superpowers/
+*.xlsx
 
 # Zip archives
 *.zip
