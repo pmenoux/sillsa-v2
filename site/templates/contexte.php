@@ -58,7 +58,7 @@ $sillEnergieKeys = ['sill_idc', 'sill_co2'];
 $sillPatriKeys   = ['sill_surface'];
 
 // KPIs avec préfixe "+"
-$haussePrefixKeys = ['hausse_loyers', 'pellet_ch', 'inflation_ch'];
+$haussePrefixKeys = ['hausse_loyers', 'inflation_ch'];
 
 // Helper: render a marche datum
 function renderMarcheDatum($k, $haussePrefixKeys = []) {
