@@ -2464,9 +2464,20 @@ main {
 
   /* Timeline — still left-aligned on tablet */
 
-  /* Portefeuille */
+  /* Portefeuille — tablette : quartiers sur 2 colonnes */
   .portefeuille-grid-mobile {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .quartier-group {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--gutter);
+  }
+
+  .quartier-label {
+    grid-column: span 2;
   }
 
   .immeuble-card img {
