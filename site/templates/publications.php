@@ -40,18 +40,17 @@ $types = array_unique(array_filter(array_column($publications, 'type')));
           // Resolve PDF URL
           $pdf_url = '';
           if (!empty($pub['pdf_path'])) {
-              if (str_starts_with($pub['pdf_path'], '/wp-content/')) {
-                  // Legacy WP path → redirect to uploads/
-                  $pdf_url = SITE_URL . str_replace('/wp-content/uploads/', '/uploads/', $pub['pdf_path']);
-              } else {
-                  $pdf_url = SITE_URL . '/uploads/' . $pub['pdf_path'];
-              }
+              $path = str_replace('/wp-content/uploads/', '/uploads/', $pub['pdf_path']);
+              if (!str_starts_with($path, '/')) $path = '/uploads/' . $path;
+              $pdf_url = SITE_URL . $path;
           }
 
           // Resolve cover image
           $cover_url = '';
           if (!empty($pub['cover_path'])) {
-              $cover_url = SITE_URL . '/uploads/' . $pub['cover_path'];
+              $path = str_replace('/wp-content/uploads/', '/uploads/', $pub['cover_path']);
+              if (!str_starts_with($path, '/')) $path = '/uploads/' . $path;
+              $cover_url = SITE_URL . $path;
           }
       ?>
         <a href="<?= e($pdf_url) ?>"
