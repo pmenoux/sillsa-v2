@@ -307,10 +307,13 @@ function azureCallback(): void
     }
     // Determine role from groups
     $role = null;
-    if (in_array(AZURE_GROUP_ADMIN, $groupIds, true)) {
+    if (AZURE_GROUP_ADMIN && in_array(AZURE_GROUP_ADMIN, $groupIds, true)) {
         $role = 'admin';
-    } elseif (in_array(AZURE_GROUP_EDITOR, $groupIds, true)) {
+    } elseif (AZURE_GROUP_EDITOR && in_array(AZURE_GROUP_EDITOR, $groupIds, true)) {
         $role = 'editor';
+    } elseif (!AZURE_GROUP_ADMIN && !AZURE_GROUP_EDITOR) {
+        // No groups configured — all tenant users get admin access
+        $role = 'admin';
     }
 
     if ($role === null) {
