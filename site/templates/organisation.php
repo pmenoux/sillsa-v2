@@ -75,8 +75,8 @@ $navItems = [
           <h2 class="org-section-title">Gouvernance</h2>
           <div class="org-governance">
             <div class="org-gov-block">
-              <span class="org-gov-label">Conseil municipal de Lausanne</span>
-              <span class="org-gov-sub">Actionnaire unique</span>
+              <span class="org-gov-label">Assemblée Générale</span>
+              <span class="org-gov-sub">Ville de Lausanne, actionnaire unique</span>
             </div>
             <div class="org-gov-arrow"></div>
             <div class="org-gov-block">
