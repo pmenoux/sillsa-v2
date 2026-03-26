@@ -86,7 +86,7 @@ $navItems = [
             <div class="org-gov-arrow"></div>
             <div class="org-gov-block org-gov-block--active">
               <span class="org-gov-label">Direction</span>
-              <span class="org-gov-sub">Codirection Traimond / Menoux</span>
+              <span class="org-gov-sub">Codirection Sylvie Traimond / Pierre Menoux</span>
             </div>
           </div>
         </div>
