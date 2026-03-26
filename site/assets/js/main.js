@@ -411,4 +411,58 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     })();
 
+  /* =================================================================
+     Samsung Fold — Device Posture & Flex Mode Detection
+     Detects half-folded ("flex") posture via Device Posture API
+     and Screen Fold API, adds body classes for CSS hooks.
+     ================================================================= */
+  (function initFoldDetection() {
+    // Feature: Viewport Segments (spanning detection)
+    var mqlSpanning = window.matchMedia('(horizontal-viewport-segments: 2)');
+    function onSpanningChange(e) {
+      document.body.classList.toggle('fold-spanning', e.matches);
+    }
+    onSpanningChange(mqlSpanning);
+    mqlSpanning.addEventListener('change', onSpanningChange);
+
+    // Feature: Device Posture API (W3C)
+    if ('DevicePosture' in window || navigator.devicePosture) {
+      var posture = navigator.devicePosture;
+      function onPostureChange() {
+        var type = posture.type; // "continuous" or "folded"
+        document.body.classList.toggle('fold-flat', type === 'continuous');
+        document.body.classList.toggle('fold-folded', type === 'folded');
+      }
+      onPostureChange();
+      posture.addEventListener('change', onPostureChange);
+    }
+
+    // Feature: Screen Fold Angle API (Samsung Internet)
+    if ('screen' in window && 'fold' in screen) {
+      function onFoldAngle() {
+        var angle = screen.fold.angle || 180;
+        var isFlexMode = angle >= 90 && angle <= 150;
+        document.body.classList.toggle('fold-flex-mode', isFlexMode);
+      }
+      screen.fold.addEventListener('change', onFoldAngle);
+      onFoldAngle();
+    }
+
+    // Fallback: detect fold-like viewport via resize heuristic
+    var lastWidth = window.innerWidth;
+    window.addEventListener('resize', function () {
+      var w = window.innerWidth;
+      // Detect cover→main or main→cover transition (>2x width change)
+      if (Math.abs(w - lastWidth) > lastWidth * 0.5) {
+        document.body.classList.toggle('fold-cover', w < 450);
+        document.body.classList.toggle('fold-main', w >= 450 && w <= 920);
+      }
+      lastWidth = w;
+    });
+
+    // Initial state
+    document.body.classList.toggle('fold-cover', window.innerWidth < 450);
+    document.body.classList.toggle('fold-main', window.innerWidth >= 450 && window.innerWidth <= 920);
+  })();
+
 });

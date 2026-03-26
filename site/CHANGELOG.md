@@ -1,5 +1,17 @@
 # CHANGELOG — SILL SA Refonte 2026
 
+## [2026-03-26] — Thème personnalisé Samsung Galaxy Z Fold 7
+
+### Feature — Support appareils pliables (Samsung Fold)
+- Ajout `viewport-fit=cover` dans le meta viewport (header.php)
+- Media query écran de couverture (< 412px) : typographie compacte, grilles 1 colonne, carte SVG scrollable
+- Media query écran intérieur déplié (750–920px) : layouts tablette optimisés
+- Media query `horizontal-viewport-segments: 2` : layouts bi-panneau natifs utilisant la charnière comme séparateur naturel (portefeuille carte/info, about sidebar/body, immeuble sidebar/body, publications 2×2 par panneau)
+- Support CSS Device Posture API (`device-posture: folded/continuous`)
+- Support mode Flex (demi-plié, posture "laptop") via classes CSS `.fold-flex-mode`
+- Détection JavaScript : Device Posture API, Screen Fold Angle API, viewport segments, heuristique resize
+- Classes body dynamiques : `fold-spanning`, `fold-flat`, `fold-folded`, `fold-flex-mode`, `fold-cover`, `fold-main`
+
 ## [2026-03-23] — Correction densité SIA 380/1 : SUP → SRE
 
 ### Fix — Calcul de densité d'occupation corrigé (SRE au lieu de SUP)
