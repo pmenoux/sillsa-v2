@@ -45,7 +45,7 @@ if (!empty($pageData['slug']) && ($pageData['route'] ?? '') === 'portefeuille') 
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title><?= $metaTitle ?></title>
     <meta name="description" content="<?= $metaDesc ?>">
     <meta name="robots" content="index, follow">

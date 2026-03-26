@@ -3564,3 +3564,438 @@ main {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================================
+   Samsung Galaxy Z Fold 7 — Custom Foldable Theme
+   Cover screen: ~375px | Inner screen: ~884px | Hinge: ~32px
+   Uses: horizontal-viewport-segments, env(viewport-segment-*)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Fold: Safe area insets for notch/hinge/rounded corners
+   -------------------------------------------------------------------------- */
+body {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* --------------------------------------------------------------------------
+   Fold: Cover screen — compact single-column (< 412px)
+   Samsung Fold 7 cover display is ~375px wide
+   -------------------------------------------------------------------------- */
+@media (max-width: 411px) {
+  :root {
+    --margin-mobile: 16px;
+    --fs-h1: clamp(32px, 9vw, 42px);
+    --fs-h2: clamp(22px, 6vw, 30px);
+    --fs-h3: 22px;
+    --header-h: 72px;
+  }
+
+  .site-header .logo img {
+    height: 48px;
+  }
+
+  .hero {
+    min-height: 60vh;
+  }
+
+  .hero-content {
+    padding: 24px var(--margin-mobile) 32px;
+  }
+
+  .hero-content h1 {
+    font-size: var(--fs-h1);
+  }
+
+  .kpi-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+  }
+
+  .kpi-card {
+    padding: var(--space-sm);
+  }
+
+  .kpi-number {
+    font-size: 28px;
+  }
+
+  .timeline-card {
+    padding: var(--space-sm);
+  }
+
+  .publications-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .ca-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Boutons — zones touch agrandies, padding réduit pour tenir sur 375px */
+  .btn-marche {
+    padding: 10px 16px;
+    font-size: 12px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .btn-print {
+    padding: 10px 16px;
+    font-size: 11px;
+    width: 100%;
+    text-align: center;
+    margin-top: var(--space-sm);
+  }
+
+  .btn-link {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Filtres — scroll touch fluide, boutons compacts */
+  .timeline-filters {
+    gap: 8px;
+    padding-bottom: 8px;
+  }
+
+  .filter-btn {
+    padding: 8px 14px;
+    font-size: 12px;
+    min-height: 44px;
+  }
+
+  /* Carousel — boutons empilés ou réduits */
+  .carousel-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .carousel-nav {
+    gap: 6px;
+  }
+
+  /* Icônes bonnes pratiques — réduites */
+  .bp-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .bp-card-header {
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  /* Hamburger — zone touch 44×44 minimum */
+  .nav-toggle {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Points carte interactive — agrandis pour doigt sur petit écran */
+  .point-circle {
+    width: 32px;
+    height: 32px;
+  }
+
+  .point-inner {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Dropdown — pleine largeur sur cover screen */
+  .dropdown {
+    position: static;
+    width: 100%;
+  }
+
+  /* Carte SVG: scroll horizontal sur écran cover */
+  .carte-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .carte-container svg {
+    min-width: 600px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Fold: Inner screen — tablet-like layout (~884px unfolded)
+   Targets the unfolded main display specifically
+   -------------------------------------------------------------------------- */
+@media (min-width: 750px) and (max-width: 920px) {
+  :root {
+    --margin-tablet: 32px;
+  }
+
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .publications-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .portefeuille-layout {
+    flex-direction: column;
+  }
+
+  .map-info-panel {
+    width: 100%;
+  }
+
+  .about-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .about-sidebar {
+    position: static;
+  }
+
+  .about-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .location-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .location-sidebar {
+    position: static;
+  }
+
+  .immeuble-content {
+    grid-template-columns: 1fr;
+  }
+
+  .ca-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Boutons — taille confortable pour écran intérieur tactile */
+  .btn-marche {
+    padding: 12px 20px;
+  }
+
+  .filter-btn {
+    min-height: 44px;
+  }
+
+  .btn-link {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Carousel — espacement confortable */
+  .carousel-btn {
+    width: 48px;
+    height: 48px;
+  }
+
+  /* Bonnes pratiques — 2 colonnes sur inner screen */
+  .bp-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Fold: Dual-screen / Spanning mode (unfolded with hinge visible)
+   Splits content across two panes separated by the physical hinge
+   Uses CSS Viewport Segments API (W3C spec)
+   -------------------------------------------------------------------------- */
+@media (horizontal-viewport-segments: 2) {
+  /* Two-pane layout: nav on left segment, content on right */
+  .site-header .container {
+    display: grid;
+    grid-template-columns:
+      env(viewport-segment-width 0 0)
+      env(viewport-segment-width 1 0);
+    column-gap: calc(
+      env(viewport-segment-left 1 0) - env(viewport-segment-right 0 0)
+    );
+    align-items: center;
+  }
+
+  /* Hero: image spans both, text on right pane */
+  .hero-content {
+    margin-left: env(viewport-segment-left 1 0);
+    max-width: env(viewport-segment-width 1 0);
+    padding-inline: var(--margin-mobile);
+  }
+
+  /* KPI grid: use both panes */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns:
+      env(viewport-segment-width 0 0)
+      env(viewport-segment-width 1 0);
+    column-gap: calc(
+      env(viewport-segment-left 1 0) - env(viewport-segment-right 0 0)
+    );
+  }
+
+  /* Portfolio: map left pane, info panel right pane */
+  .portefeuille-layout {
+    display: grid;
+    grid-template-columns:
+      env(viewport-segment-width 0 0)
+      env(viewport-segment-width 1 0);
+    column-gap: calc(
+      env(viewport-segment-left 1 0) - env(viewport-segment-right 0 0)
+    );
+  }
+
+  .carte-container {
+    grid-column: 1;
+  }
+
+  .map-info-panel {
+    grid-column: 2;
+    width: auto;
+  }
+
+  /* About / Location: sidebar on left pane, body on right pane */
+  .about-layout,
+  .location-layout {
+    display: grid;
+    grid-template-columns:
+      env(viewport-segment-width 0 0)
+      env(viewport-segment-width 1 0);
+    column-gap: calc(
+      env(viewport-segment-left 1 0) - env(viewport-segment-right 0 0)
+    );
+  }
+
+  .about-sidebar,
+  .location-sidebar {
+    grid-column: 1;
+    position: static;
+  }
+
+  .about-body,
+  .location-body {
+    grid-column: 2;
+  }
+
+  /* Immeuble detail: sidebar left, content right */
+  .immeuble-content {
+    display: grid;
+    grid-template-columns:
+      env(viewport-segment-width 0 0)
+      env(viewport-segment-width 1 0);
+    column-gap: calc(
+      env(viewport-segment-left 1 0) - env(viewport-segment-right 0 0)
+    );
+  }
+
+  .immeuble-sidebar {
+    grid-column: 1;
+  }
+
+  .immeuble-body {
+    grid-column: 2;
+  }
+
+  /* Timeline: expand to full width across both panes */
+  .timeline {
+    max-width: none;
+  }
+
+  /* Publications: 2 per pane = 4 total */
+  .publications-grid {
+    display: grid;
+    grid-template-columns:
+      repeat(2, calc(env(viewport-segment-width 0 0) / 2 - var(--gutter)))
+      repeat(2, calc(env(viewport-segment-width 1 0) / 2 - var(--gutter)));
+    column-gap: var(--gutter);
+  }
+
+  /* Footer: span both panes with gap for hinge */
+  .site-footer .container {
+    display: grid;
+    grid-template-columns:
+      env(viewport-segment-width 0 0)
+      env(viewport-segment-width 1 0);
+    column-gap: calc(
+      env(viewport-segment-left 1 0) - env(viewport-segment-right 0 0)
+    );
+  }
+
+  .footer-grid {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Fold: Flex Mode (half-folded like a laptop — "tabletop" posture)
+   Body class `.fold-flex-mode` added by JavaScript when device angle
+   is between 90° and 150° (Device Posture API)
+   -------------------------------------------------------------------------- */
+.fold-flex-mode .hero {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  height: 100vh;
+}
+
+.fold-flex-mode .hero-media {
+  grid-row: 1;
+  overflow: hidden;
+}
+
+.fold-flex-mode .hero-content {
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: none;
+  margin-left: 0;
+  padding: var(--space-md);
+}
+
+/* Flex mode: controls and interactive elements on bottom half */
+.fold-flex-mode .filter-bar {
+  position: sticky;
+  bottom: 0;
+  background: var(--color-bg);
+  padding: var(--space-sm);
+  border-top: 1px solid var(--color-border);
+  z-index: 10;
+}
+
+/* --------------------------------------------------------------------------
+   Fold: Device Posture API — flat vs folded
+   -------------------------------------------------------------------------- */
+@media (device-posture: folded) {
+  /* When folded (cover screen), tighten spacing */
+  .container {
+    padding-inline: var(--margin-mobile);
+  }
+}
+
+@media (device-posture: continuous) {
+  /* When fully flat/open, use generous spacing */
+  .container {
+    padding-inline: var(--margin-tablet);
+  }
+}
