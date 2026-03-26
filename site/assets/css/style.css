@@ -3640,6 +3640,87 @@ body {
     grid-template-columns: 1fr;
   }
 
+  /* Boutons — zones touch agrandies, padding réduit pour tenir sur 375px */
+  .btn-marche {
+    padding: 10px 16px;
+    font-size: 12px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .btn-print {
+    padding: 10px 16px;
+    font-size: 11px;
+    width: 100%;
+    text-align: center;
+    margin-top: var(--space-sm);
+  }
+
+  .btn-link {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Filtres — scroll touch fluide, boutons compacts */
+  .timeline-filters {
+    gap: 8px;
+    padding-bottom: 8px;
+  }
+
+  .filter-btn {
+    padding: 8px 14px;
+    font-size: 12px;
+    min-height: 44px;
+  }
+
+  /* Carousel — boutons empilés ou réduits */
+  .carousel-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .carousel-nav {
+    gap: 6px;
+  }
+
+  /* Icônes bonnes pratiques — réduites */
+  .bp-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .bp-card-header {
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  /* Hamburger — zone touch 44×44 minimum */
+  .nav-toggle {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Points carte interactive — agrandis pour doigt sur petit écran */
+  .point-circle {
+    width: 32px;
+    height: 32px;
+  }
+
+  .point-inner {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Dropdown — pleine largeur sur cover screen */
+  .dropdown {
+    position: static;
+    width: 100%;
+  }
+
   /* Carte SVG: scroll horizontal sur écran cover */
   .carte-container {
     overflow-x: auto;
@@ -3707,6 +3788,32 @@ body {
   }
 
   .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Boutons — taille confortable pour écran intérieur tactile */
+  .btn-marche {
+    padding: 12px 20px;
+  }
+
+  .filter-btn {
+    min-height: 44px;
+  }
+
+  .btn-link {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Carousel — espacement confortable */
+  .carousel-btn {
+    width: 48px;
+    height: 48px;
+  }
+
+  /* Bonnes pratiques — 2 colonnes sur inner screen */
+  .bp-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
