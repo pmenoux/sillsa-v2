@@ -3564,3 +3564,367 @@ main {
     grid-template-columns: 1fr;
   }
 }
+
+/* ════════════════════════════════════════════════════════════════
+   PAGE QUARTIERS — Swiss Design
+   ════════════════════════════════════════════════════════════════ */
+
+/* Mixité — cadre 4 quarts + 3 tiers */
+.section-mixite {
+  padding: 64px 0 72px;
+}
+.section-mixite .container { max-width: var(--grid-max); }
+.mixite-intro { margin-bottom: 48px; }
+.mixite-intro h2 {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: var(--fs-h2);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.mixite-intro p {
+  font-size: var(--fs-base);
+  line-height: var(--lh-base);
+  color: var(--color-body);
+  max-width: var(--narrow-max);
+}
+.mixite-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+.mixite-card {
+  border-top: 2px solid var(--color-heading);
+  padding-top: 24px;
+}
+.mixite-label {
+  display: block;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: 8px;
+}
+.mixite-title {
+  display: block;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: var(--fs-h3);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  margin-bottom: 24px;
+}
+
+/* 4 quarts */
+.mixite-quarts { display: flex; flex-direction: column; gap: 12px; }
+.quart {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.quart:last-child { border-bottom: none; }
+.quart-pct {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: var(--fs-h4);
+  font-weight: 200;
+  color: var(--color-accent);
+  min-width: 56px;
+}
+.quart-text {
+  font-size: var(--fs-base);
+  line-height: var(--lh-base);
+  color: var(--color-body);
+}
+
+/* 3 tiers — layout vertical aligné sur les 4 quarts */
+.mixite-tiers { margin-top: 8px; }
+.tiers-list { display: flex; flex-direction: column; gap: 12px; }
+.tiers-item {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.tiers-item:last-child { border-bottom: none; }
+.tiers-pct {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: var(--fs-h4);
+  font-weight: 200;
+  min-width: 56px;
+}
+.tiers-pct-sub { color: var(--color-accent); }
+.tiers-pct-ctrl { color: var(--color-heading); }
+.tiers-pct-libre { color: var(--color-muted); }
+.tiers-text {
+  font-size: var(--fs-base);
+  line-height: var(--lh-base);
+  color: var(--color-body);
+}
+.tiers-bar-compact {
+  display: flex;
+  height: 6px;
+  margin-top: 20px;
+  gap: 2px;
+}
+.tiers-bar-compact span { display: block; }
+.tiers-bar-compact .bar-sub { flex: 30; background: var(--color-accent); }
+.tiers-bar-compact .bar-ctrl { flex: 40; background: var(--color-heading); }
+.tiers-bar-compact .bar-libre { flex: 30; background: var(--color-border); }
+
+.mixite-note {
+  margin-top: 32px;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--color-muted);
+  max-width: var(--narrow-max);
+}
+
+/* Bouton statuts La Société */
+.btn-statuts {
+  display: inline-block;
+  margin-top: 32px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-heading);
+  border: 1px solid var(--color-heading);
+  padding: 10px 24px;
+  text-decoration: none;
+  transition: all var(--transition);
+}
+.btn-statuts:hover {
+  background: var(--color-heading);
+  color: var(--color-white);
+}
+
+/* Mini-carte quartiers */
+.quartiers-minicarte {
+  max-width: 680px;
+  margin: 40px 0 0;
+}
+.quartiers-minicarte svg {
+  width: 100%;
+  height: auto;
+}
+
+/* Hero image quartier */
+.quartier-hero {
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+}
+.quartier-hero img {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 21 / 9;
+  object-fit: cover;
+}
+.quartier-hero-credit {
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.7);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Sections quartier */
+.section-quartier { padding: 72px 0; }
+.section-quartier.section-alt { background: var(--color-bg-warm); }
+
+.quartier-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.quartier-numero {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: var(--fs-h1);
+  font-weight: 200;
+  color: var(--color-accent);
+  line-height: 1;
+}
+.quartier-header h2 {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: var(--fs-h2);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0;
+}
+.quartier-etape {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  border: 1px solid var(--color-border);
+  padding: 4px 12px;
+}
+
+/* Intro + KPI */
+.quartier-intro { margin-bottom: 48px; }
+.quartier-texte {
+  font-size: var(--fs-base);
+  line-height: 1.8;
+  color: var(--color-body);
+  max-width: var(--narrow-max);
+  margin-bottom: 32px;
+}
+.quartier-kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  border-top: 2px solid var(--color-heading);
+  padding-top: 24px;
+}
+.quartier-kpi { text-align: left; }
+.quartier-kpi-value {
+  display: block;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 200;
+  line-height: 1.1;
+  color: var(--color-heading);
+}
+.quartier-kpi-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-top: 4px;
+}
+
+/* Detail grid — investisseurs + architectes */
+.quartier-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 48px;
+}
+.quartier-col h3 {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-border);
+}
+.quartier-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.quartier-table th {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  text-align: left;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.quartier-table td {
+  padding: 8px 12px 8px 0;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-body);
+  vertical-align: top;
+}
+.quartier-table tr:last-child td { border-bottom: none; }
+.quartier-table .row-sill td {
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+/* SILL en rouge dans les textes de la page quartiers */
+.section-quartier .quartier-texte strong,
+.page-header .page-chapeau strong { color: var(--color-accent); }
+
+/* Cards immeubles */
+.quartier-immeubles h3 {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: 16px;
+}
+.quartier-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+.quartier-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--color-border);
+  transition: border-color var(--transition);
+}
+.quartier-card:hover { border-color: var(--color-accent); }
+.quartier-card-img {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+.quartier-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition);
+}
+.quartier-card:hover .quartier-card-img img { transform: scale(1.03); }
+.quartier-card-body { padding: 12px 16px; }
+.quartier-card-nom {
+  display: block;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--color-heading);
+}
+.quartier-card-meta {
+  display: block;
+  font-size: 12px;
+  color: var(--color-muted);
+  margin-top: 2px;
+}
+
+/* Sources */
+.section-sources { padding: 32px 0 48px; }
+
+/* Responsive tablette */
+@media (max-width: 1023px) {
+  .mixite-grid { grid-template-columns: 1fr; }
+  .quartier-detail-grid { grid-template-columns: 1fr; }
+  .quartier-kpi-strip { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Responsive mobile */
+@media (max-width: 767px) {
+  .section-quartier { padding: 48px 0; }
+  .quartier-header { flex-direction: column; gap: 8px; }
+  .quartier-numero { font-size: var(--fs-h2); }
+  .quartier-kpi-strip { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .quartier-cards { grid-template-columns: 1fr; }
+  .tiers-legend { flex-direction: column; gap: 8px; }
+  .quartier-table { font-size: 12px; }
+}

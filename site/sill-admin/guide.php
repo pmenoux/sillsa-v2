@@ -32,6 +32,7 @@ $role = $_SESSION['admin_role'] ?? 'editor';
             <li><a href="#guide-kpi">KPIs — Chiffres clés</a></li>
             <li><a href="#guide-pages">Pages — Contenu éditorial</a></li>
             <li><a href="#guide-immeubles">Immeubles — Portefeuille</a></li>
+            <li><a href="#guide-quartiers">Quartiers — Page dédiée</a></li>
             <li><a href="#guide-timeline">Actualités — Chronologie</a></li>
             <li><a href="#guide-publications">Publications — Rapports PDF</a></li>
             <li><a href="#guide-menu">Menu — Navigation</a></li>
@@ -294,6 +295,66 @@ $role = $_SESSION['admin_role'] ?? 'editor';
             <div class="guide-card guide-card--highlight">
                 <h3>Activer / désactiver un immeuble</h3>
                 <p>Le toggle <strong>Actif</strong> contrôle si l'immeuble est visible sur le site public. Un immeuble inactif (<code>is_active = 0</code>) n'apparaît ni sur la carte, ni dans la grille, ni dans les KPIs. Utile pour préparer un immeuble avant son annonce officielle.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         5b. QUARTIERS
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="guide-section" id="guide-quartiers">
+        <div class="guide-section-header">
+            <span class="guide-section-number">05b</span>
+            <h2>Quartiers — Page dédiée</h2>
+        </div>
+        <div class="guide-section-body">
+            <p>La page <strong><a href="<?= SITE_URL ?>/quartiers" target="_blank">/quartiers</a></strong> présente les 4 quartiers de développement de la SILL SA avec les investisseurs, architectes et chiffres clés de chaque quartier.</p>
+
+            <div class="guide-card guide-card--highlight">
+                <h3>Page actuellement en données statiques</h3>
+                <p>Contrairement aux autres pages, le contenu des quartiers est <strong>codé en dur</strong> dans le fichier <code>templates/quartiers.php</code>. Il n'y a pas d'interface d'édition dans le backend pour cette page.</p>
+                <p>Pour modifier le contenu (textes, investisseurs, architectes), il faut éditer directement le fichier PHP ou demander à l'équipe technique.</p>
+            </div>
+
+            <h3>Structure du contenu</h3>
+            <p>Chaque quartier contient :</p>
+            <ul>
+                <li><strong>Image hero</strong> — photo aérienne/drone extraite du RA 2024, stockée dans <code>/media/quartiers/{id}.jpg</code></li>
+                <li><strong>Texte introductif</strong> — description du quartier (~3-4 phrases)</li>
+                <li><strong>4 KPI</strong> — logements SILL, logements total quartier, nb investisseurs, nb architectes</li>
+                <li><strong>Tableau investisseurs</strong> — entité + catégorie (4 quarts)</li>
+                <li><strong>Tableau architectes</strong> — bureau + projet</li>
+                <li><strong>Cards immeubles SILL</strong> — générées automatiquement depuis la BDD (table <code>sill_immeubles</code>, filtre par quartier)</li>
+            </ul>
+
+            <h3>Les 4 quartiers</h3>
+            <table>
+                <thead><tr><th>Quartier</th><th>Logements SILL</th><th>Logements total</th><th>Investisseurs</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Les Plaines-du-Loup</strong></td><td>198</td><td>~1'100 (PA1)</td><td>18</td></tr>
+                    <tr><td><strong>Les Fiches-Nord</strong></td><td>316</td><td>~670</td><td>7</td></tr>
+                    <tr><td><strong>Les Falaises</strong></td><td>94</td><td>194</td><td>2</td></tr>
+                    <tr><td><strong>En Cojonnex</strong></td><td>102</td><td>~200</td><td>3</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Cadre éditorial — Mixité lausannoise</h3>
+            <p>La page présente en introduction le cadre de mixité de la Ville de Lausanne :</p>
+            <ul>
+                <li><strong>Les 4 quarts</strong> — diversité d'investisseurs (société de la Ville / coopératives classiques / coopératives d'habitants / institutionnels privés)</li>
+                <li><strong>Les 3 tiers</strong> — diversité de loyers (~30% subventionnés / ~40% contrôlés / ~30% marché libre)</li>
+            </ul>
+            <p>Source : Ville de Lausanne, programme Métamorphose, préavis 2007/19 et 2013/61.</p>
+
+            <h3>Remplacer une image de quartier</h3>
+            <ol>
+                <li>Préparer une image JPG, ratio 21:9 (ex. 2400×1028px), 200-400 KB</li>
+                <li>Nommer le fichier : <code>plaines-du-loup.jpg</code>, <code>fiches-nord.jpg</code>, <code>falaises.jpg</code> ou <code>en-cojonnex.jpg</code></li>
+                <li>Déposer dans <code>/media/quartiers/</code> sur le serveur (remplace l'existant)</li>
+            </ol>
+
+            <div class="guide-tip">
+                <strong>Lien caché :</strong> Cette page n'est actuellement pas dans le menu de navigation. Pour l'activer, ajouter une entrée dans la section <strong>Menu</strong> du backend pointant vers <code>/quartiers</code>.
             </div>
         </div>
     </section>

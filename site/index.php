@@ -78,6 +78,7 @@ $routes = [
     'location'               => 'templates/location.php',
     'bonnes-pratiques'       => 'templates/bonnes-pratiques.php',
     'publications'           => 'templates/publications.php',
+    'quartiers'              => 'templates/quartiers.php',
 ];
 
 // 301 redirect: /chronologie -> /#chronologie (timeline is on homepage)

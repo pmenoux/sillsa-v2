@@ -49,7 +49,7 @@ foreach ($kpiMarche as $k) {
 }
 
 // Sous-groupes marché
-$locatifKeys = ['vacance_lausanne', 'loyer_moyen_m2', 'hausse_loyers'];
+$locatifKeys = ['vacance_lausanne', 'loyer_moyen_m2', 'loyer_propose_m2', 'hausse_loyers'];
 $tauxKeys    = ['taux_reference', 'taux_directeur', 'inflation_ch'];
 
 // Sous-groupes SILL
@@ -89,7 +89,7 @@ function renderMarcheDatum($k, $haussePrefixKeys = []) {
         <nav class="breadcrumb"><a href="/">Accueil</a> / Contexte économique</nav>
         <h1>Contexte économique</h1>
         <p class="page-chapeau">Indicateurs clés du marché immobilier — Suisse romande</p>
-        <p class="page-update">Données au 31 décembre 2025 — Mise à jour mars 2026</p>
+        <p class="page-update">Données au 31 décembre 2025 — Mise à jour 30 mars 2026</p>
     </div>
 </section>
 

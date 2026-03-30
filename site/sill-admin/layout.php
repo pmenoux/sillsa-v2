@@ -76,6 +76,7 @@ $flash = getFlash();
         <a href="?page=en-bref"<?= $page === 'en-bref' ? ' class="active"' : '' ?>>En bref</a>
         <a href="?page=pages"<?= $page === 'pages' ? ' class="active"' : '' ?>>Pages</a>
         <a href="?page=immeubles"<?= $page === 'immeubles' ? ' class="active"' : '' ?>>Immeubles</a>
+        <a href="<?= SITE_URL ?>/quartiers" target="_blank" title="Page publique (contenu statique)">Quartiers ↗</a>
         <a href="?page=timeline"<?= $page === 'timeline' ? ' class="active"' : '' ?>>Actualités</a>
         <a href="?page=publications"<?= $page === 'publications' ? ' class="active"' : '' ?>>Publications</a>
         <a href="?page=settings"<?= $page === 'settings' ? ' class="active"' : '' ?>>Paramètres</a>

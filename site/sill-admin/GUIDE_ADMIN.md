@@ -21,6 +21,7 @@ La barre horizontale en haut donne accès à toutes les sections :
 | **Publications** | Gestion des publications PDF (rapports annuels, etc.) |
 | **Paramètres** | Réglages du site (tagline, coordonnées, meta, etc.) |
 | **Menu** | Gestion des rubriques de navigation et leur ordre d'affichage |
+| **Quartiers** | Page publique `/quartiers` — contenu statique (investisseurs, architectes, images RA 2024). Édition via fichier `templates/quartiers.php`. Images dans `/media/quartiers/` |
 
 Le nom d'utilisateur connecté apparaît en haut à droite, avec le bouton **Déconnexion**.
 

@@ -111,6 +111,7 @@ $immeubles = query('SELECT nom, slug FROM sill_immeubles WHERE is_active = 1 ORD
           <div class="societe-ops-content rich-text">
             <?= $listText ?>
           </div>
+          <a href="<?= SITE_URL ?>/uploads/2025/10/statuts-sill-sa-2025.pdf" target="_blank" rel="noopener" class="btn-statuts">Statuts SILL SA — 16 juin 2025 →</a>
         </div>
         <?php endif; ?>
 
