@@ -42,7 +42,7 @@ $quartiers = [
             ['bureau' => 'Richter Dahl Rocha (RDR)',    'projet' => 'CPCL — Lot 7 Sud + CA Indosuez — Lot 3'],
             ['bureau' => 'Bütikofer de Oliveira Vernay','projet' => 'CPCL — Lot 7 Nord'],
             ['bureau' => 'Züst Gübeli Gambetti',        'projet' => 'Vaudoise — Lot 4'],
-            ['bureau' => 'Giovanoli Mozer',             'projet' => 'FLCL — Lot 6'],
+            ['bureau' => 'ON Architecture',              'projet' => 'FLCL — Lot 6'],
         ],
     ],
     // 02 — En Cojonnex (2018–2020)
@@ -117,16 +117,16 @@ $quartiers = [
         ],
         'architectes' => [
             // PU A
-            ['bureau' => 'Bunq architectes + J.-J. Borgeaud', 'projet' => 'PU A — Cité Derrière / SILL / Swiss Life (148 log.)'],
+            ['bureau' => 'Bunq architectes',                  'projet' => 'PU A — Cité Derrière / SILL / Swiss Life (148 log.)'],
             // PU B
-            ['bureau' => 'Pont12 + Oxalis',                    'projet' => 'PU B — forme urbaine + lot Swiss Life'],
+            ['bureau' => 'Pont12 architectes',                  'projet' => 'PU B — forme urbaine + lot Swiss Life'],
             ['bureau' => 'Meier + associés',                   'projet' => 'PU B — lots SILL, CODHA, Retraites Pop. (Rte PDL 51a-53)'],
             // PU C
             ['bureau' => 'Nicolas de Courten',                 'projet' => 'PU C — FLCL / SCHL / FPHL (155 log.)'],
             // PU D
             ['bureau' => 'Bütikofer de Oliveira Vernay',       'projet' => 'PU D — SILL subventionnés (Rte PDL 47a-47b)'],
-            ['bureau' => 'Costea Missonnier Fioroni',          'projet' => 'PU D — SILL PPE (Ch. des Bossons 44)'],
-            ['bureau' => 'Aeby Perneger + Hüsler',            'projet' => 'PU D — école + EMS + concept d\'ensemble'],
+            ['bureau' => 'Costea Missonnier',                   'projet' => 'PU D — SILL PPE (Ch. des Bossons 44)'],
+            ['bureau' => 'Aeby Perneger & Associés',           'projet' => 'PU D — école + EMS + concept d\'ensemble'],
             ['bureau' => 'atba architectes',                   'projet' => 'PU D — Coopérative Ecopolis'],
             ['bureau' => 'O. Rochat architectes',              'projet' => 'PU D — C-Arts-Ouches'],
             // PU E

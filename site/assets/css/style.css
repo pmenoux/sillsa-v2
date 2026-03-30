@@ -3807,30 +3807,35 @@ main {
   margin-top: 4px;
 }
 
-/* Detail grid — investisseurs + architectes */
+/* Detail grid — investisseurs + architectes (empilés) */
 .quartier-detail-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
+  grid-template-columns: 1fr;
+  gap: 48px;
   margin-bottom: 48px;
 }
 .quartier-col h3 {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  font-size: var(--fs-h4);
+  font-weight: 300;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-muted);
+  color: var(--color-heading);
   margin-bottom: 16px;
   padding-bottom: 8px;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 2px solid var(--color-heading);
 }
 .quartier-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 13px;
   line-height: 1.6;
+  table-layout: fixed;
 }
+.quartier-table td:first-child,
+.quartier-table th:first-child { width: 45%; }
+.quartier-table td:last-child,
+.quartier-table th:last-child { width: 55%; }
 .quartier-table th {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 11px;
@@ -3914,7 +3919,6 @@ main {
 /* Responsive tablette */
 @media (max-width: 1023px) {
   .mixite-grid { grid-template-columns: 1fr; }
-  .quartier-detail-grid { grid-template-columns: 1fr; }
   .quartier-kpi-strip { grid-template-columns: repeat(2, 1fr); }
 }
 
