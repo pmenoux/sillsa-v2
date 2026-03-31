@@ -81,6 +81,48 @@ $routes = [
     'quartiers'              => 'templates/quartiers.php',
 ];
 
+// ── 301 Redirects: anciennes URLs WordPress indexées par Google ──
+$legacyRedirects = [
+    'a-propos'                          => '/la-societe',
+    'a-propos-2'                        => '/conseil-administration',
+    'nomination'                        => '/la-societe',
+    'projets'                           => '/portefeuille',
+    'le-portefeuille'                   => '/portefeuille',
+    'contact'                           => '/location',
+    'rapport-annuel'                    => '/publications',
+    'rapports-annuels'                  => '/publications',
+    'actualites'                        => '/#chronologie',
+    'category'                          => '/portefeuille',
+];
+// Immeubles : anciennes URLs racine → /portefeuille/{slug}
+$legacyImmeubles = [
+    'place-de-la-sallaz-4-et-5', 'chemin-de-la-prairie-5a-et-5c',
+    'bonne-esperance-32', 'falaises', 'fiches-nord-lots-8-9',
+    'fiches-nord-lot-11', 'en-cojonnex',
+    'route-des-plaines-du-loup-51a-51b-et-53',
+    'route-des-plaines-du-loup-47a-47b',
+    'rue-elisabeth-jeanne-de-cerjat-2-4',
+];
+if (isset($legacyRedirects[$page])) {
+    header('Location: ' . SITE_URL . $legacyRedirects[$page], true, 301);
+    exit;
+}
+if (in_array($page, $legacyImmeubles, true)) {
+    header('Location: ' . SITE_URL . '/portefeuille/' . $page, true, 301);
+    exit;
+}
+// WordPress ?page_id= legacy
+if (isset($_GET['page_id'])) {
+    header('Location: ' . SITE_URL . '/', true, 301);
+    exit;
+}
+// /site/* legacy prefix
+if ($page === 'site') {
+    $target = $slug ?: '';
+    header('Location: ' . SITE_URL . '/' . $target, true, 301);
+    exit;
+}
+
 // 301 redirect: /chronologie -> /#chronologie (timeline is on homepage)
 if ($page === 'chronologie') {
     header('Location: ' . SITE_URL . '/#chronologie', true, 301);
