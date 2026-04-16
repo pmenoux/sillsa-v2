@@ -1,5 +1,19 @@
 # CHANGELOG — SILL SA Refonte 2026
 
+## [2026-04-16] — Module Newsletter Infomaniak
+
+### Feat — Gestion Newsletter intégrée dans l'admin SILL
+- Nouvelle section "Newsletter" dans l'admin (`/sill-admin/?page=newsletter`)
+- Wrapper API Infomaniak Newsletter v1 (`newsletter-api.php`) — 78 endpoints couverts
+- **Tableau de bord** : abonnés actifs/bounced/désinscrits, emails envoyés, dernières campagnes
+- **Abonnés** : liste paginée, recherche, filtre par groupe, ajout/édition/suppression
+- **Groupes** : liste, création, renommage, suppression, vue des membres
+- **Campagnes** : création avec TinyMCE, choix destinataires (tous / groupes), envoi test, envoi/programmation, duplication, suppression
+- **Statistiques** : ouvertures, clics, bounces, désinscriptions, taux calculés, liens cliqués
+- Config API dans `newsletter-config.php` (gitignored)
+- CSS spécifique : onglets, badges statut, filtres, pagination
+- Lien "Newsletter" ajouté dans la topbar admin
+
 ## [2026-03-23] — Correction densité SIA 380/1 : SUP → SRE
 
 ### Fix — Calcul de densité d'occupation corrigé (SRE au lieu de SUP)

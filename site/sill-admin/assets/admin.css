@@ -1192,3 +1192,207 @@ body {
   .guide-grid-2,
   .guide-architecture-map { grid-template-columns: 1fr; }
 }
+
+/* ============================================================
+   NEWSLETTER — Infomaniak Newsletter Management
+   ============================================================ */
+
+/* Tab navigation */
+.nl-tabs {
+  display: flex;
+  gap: 2px;
+  border-bottom: 2px solid #1A1A1A;
+  margin-bottom: 0;
+}
+
+.nl-tab {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #666;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  transition: background 0.15s, color 0.15s;
+  position: relative;
+  top: 2px;
+}
+
+.nl-tab:hover {
+  background: #F0F0F0;
+  color: #333;
+}
+
+.nl-tab--active {
+  background: var(--admin-card-bg);
+  color: var(--admin-accent);
+  font-weight: 600;
+  border-color: #1A1A1A;
+  border-bottom: 2px solid var(--admin-card-bg);
+}
+
+/* Status badges */
+.nl-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.nl-badge--success {
+  background: #E8F5E9;
+  color: var(--admin-success);
+}
+
+.nl-badge--warning {
+  background: #FFF8E1;
+  color: #E65100;
+}
+
+.nl-badge--danger {
+  background: #FFEBEE;
+  color: var(--admin-danger);
+}
+
+.nl-badge--info {
+  background: #E3F2FD;
+  color: #1565C0;
+}
+
+.nl-badge--muted {
+  background: #F0F0F0;
+  color: #999;
+}
+
+/* Search & filter bar */
+.nl-filters {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.nl-search-input {
+  padding: 8px 12px;
+  border: 1px solid var(--admin-border);
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+  width: 280px;
+  max-width: 100%;
+}
+
+.nl-search-input:focus {
+  outline: none;
+  border-color: var(--admin-accent);
+  box-shadow: 0 0 0 3px rgba(0, 71, 187, 0.12);
+}
+
+.nl-filter-select {
+  padding: 8px 12px;
+  border: 1px solid var(--admin-border);
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+  background: #FFF;
+  min-width: 180px;
+}
+
+.nl-filter-select:focus {
+  outline: none;
+  border-color: var(--admin-accent);
+  box-shadow: 0 0 0 3px rgba(0, 71, 187, 0.12);
+}
+
+/* Pagination */
+.nl-pagination {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  justify-content: center;
+}
+
+.nl-pagination-info {
+  font-size: 13px;
+  color: #666;
+}
+
+/* Checkbox grid for groups */
+.nl-checkbox-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding: 8px 0;
+}
+
+.nl-checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 400 !important;
+  color: #444;
+  cursor: pointer;
+}
+
+.nl-checkbox-label input[type="checkbox"] {
+  width: auto;
+}
+
+/* Test email inline form */
+.nl-test-form {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 4px;
+}
+
+.nl-test-input {
+  padding: 3px 8px;
+  border: 1px solid var(--admin-border);
+  border-radius: 3px;
+  font-size: 12px;
+  width: 140px;
+  font-family: inherit;
+}
+
+.nl-test-input:focus {
+  outline: none;
+  border-color: var(--admin-accent);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nl-tabs {
+    flex-wrap: wrap;
+    gap: 0;
+  }
+
+  .nl-tab {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .nl-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .nl-search-input,
+  .nl-filter-select {
+    width: 100%;
+  }
+
+  .nl-test-form {
+    display: flex !important;
+    margin-top: 4px;
+  }
+}

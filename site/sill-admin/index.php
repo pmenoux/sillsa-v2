@@ -15,7 +15,7 @@ $action = preg_replace('/[^a-z_-]/', '', strtolower($_GET['action'] ?? 'list'));
 $id     = isset($_GET['id']) ? (int) $_GET['id'] : null;
 
 $publicPages = ['login', 'auth-callback', 'azure-login'];
-$validPages  = ['login', 'auth-callback', 'azure-login', 'logout', 'dashboard', 'stats', 'kpi', 'repartition', 'en-bref', 'pages', 'immeubles', 'timeline', 'publications', 'settings', 'menu', 'guide'];
+$validPages  = ['login', 'auth-callback', 'azure-login', 'logout', 'dashboard', 'stats', 'kpi', 'repartition', 'en-bref', 'pages', 'immeubles', 'timeline', 'publications', 'newsletter', 'settings', 'menu', 'guide'];
 
 // Reject unknown pages
 if (!in_array($page, $validPages, true)) {

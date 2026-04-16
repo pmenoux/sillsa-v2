@@ -11,6 +11,7 @@ $pageTitles = [
     'immeubles'    => 'Immeubles',
     'timeline'     => 'Actualités',
     'publications' => 'Publications',
+    'newsletter'   => 'Newsletter',
     'settings'     => 'Paramètres',
     'menu'         => 'Menu',
     'stats'        => 'Statistiques',

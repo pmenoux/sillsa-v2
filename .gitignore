@@ -1,6 +1,7 @@
 # Credentials
 site/config.php
 site/sill-admin/azure-config.php
+site/sill-admin/newsletter-config.php
 
 # Uploads (large media files)
 site/uploads/
