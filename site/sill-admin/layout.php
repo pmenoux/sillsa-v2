@@ -80,6 +80,7 @@ $flash = getFlash();
         <a href="<?= SITE_URL ?>/quartiers" target="_blank" title="Page publique (contenu statique)">Quartiers ↗</a>
         <a href="?page=timeline"<?= $page === 'timeline' ? ' class="active"' : '' ?>>Actualités</a>
         <a href="?page=publications"<?= $page === 'publications' ? ' class="active"' : '' ?>>Publications</a>
+        <a href="?page=newsletter"<?= $page === 'newsletter' ? ' class="active"' : '' ?>>Newsletter</a>
         <a href="?page=settings"<?= $page === 'settings' ? ' class="active"' : '' ?>>Paramètres</a>
         <a href="?page=menu"<?= $page === 'menu' ? ' class="active"' : '' ?>>Menu</a>
         <a href="?page=stats"<?= $page === 'stats' ? ' class="active"' : '' ?>>Stats</a>
